@@ -1,0 +1,299 @@
+---
+title: 'Do not mirror your props as a state in React'
+publishedAt: '2024-10-21'
+summary: 'Sometimes, we misunderstand the true meaning of props and state, which can lead to unexpected bugs that are difficult to track down as the application grows.'
+Tags: 'blogs, javascript, nodejs, react, typescript'
+---
+
+**Contents**
+
+When you first start working with React, you might wonder: what are **props** and **state**, and how do they work? How do you decide when to use props versus state in your component? Sometimes, we misunderstand the true meaning of props and state, which can lead to unexpected bugs that are difficult to track down as the application grows. In this article, I will discuss an issue that many people, including myself, have faced: mixing props and state, specifically **“mirroring props as state.”**
+
+But before diving into this issue, let’s first introduce what props and state are in React.
+
+## Props in React.
+
+Simply put, Props are short for “Properties” for a component. It is used to pass data from a parent component to a child component. Props is read-only and immutable. That mean, a child component can not change the props it receives form its parent.
+
+The purpose of props is provide a way for components to communicate with each other and share data.
+
+## State in react.
+
+State is data that managed and maintained within a component. It does not look like Props. It can be modified by the component itself. Allowing it to change over time and trigger re-renders when the state changes.
+
+State is used to track data that may change based on user integrations or other events.
+
+## Props and State, what is the key differences:
+
+| Props                                                   | State                                                 |
+| ------------------------------------------------------- | ----------------------------------------------------- |
+| Passed from parent to child                             | Managed within the component                          |
+| Immutable (cannot be modified)                          | Mutable (can be updated by the component)             |
+| Does not trigger re-renders directly                    | Triggers re-renders when state changes                |
+| Used to pass data and behavior down to child components | Used to manage dynamic changing data in the component |
+| Read-only                                               | Can be updated using setState or useState             |
+
+Okay, that covers the introduction of **props** and **state**. However, the issue we’re discussing is closely related to how rendering works in React. So, I think we should take a closer look at how React’s render process works.
+
+## The render process in React
+
+The render process or initial render in React. That is the first phase of rendering in React and it is so complex more than we think about it. So now we will go to the break down into specific steps:
+
+1. Component creation or setup: when React encounters a component (function or class component). It needs to “instantiate” it and prepare it for rendering.
+
+```jsx
+export default function App() {
+  console.log('Application rendered');
+  const time = useTime();
+	// Component initialize the state.
+  const [bgColor, setBgColor] = useState<string>('black');
+  // Prepare for rendering.
+  return (
+		  ...
+  );
+}
+```
+
+1. Render phase: React calls the component function (in functional components) or render() method (in class components) to process JSX and create a Virtual DOM.
+
+```jsx
+// React call the component for process JSX or TSX and create Vitural DOM.
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
+```
+
+1. **Reconciliation (Diffing):** After generating the Virtual DOM. React compares it with the current Virtual DOM (for initial render, there’s nothing to compare against).
+
+```jsx
+// App component calls for first time render. So there is nothing for comparing.
+<App />
+```
+
+1. Commit Phase (DOM updates): React applies the Virtual DOM to the real DOM by creating the necessary elements and inserting them into the document.
+
+```jsx
+export default function App() {
+  ...
+  useEffect(() => {
+    console.log('App component added and ready in real DOM');
+  }, []);
+  ...
+}
+```
+
+1. Browser Painting: After React updates the real DOM. The browser takes over and visually renders (paints) the updated DOM on the screen. This step is outside React’s control.
+
+## So what is happening if the state or props updates or changes?
+
+Re-renders occur when a component’s **state** or **props** change. React’s re-render process is optimized to update only what is necessary, following similar steps to the initial render but with some key differences.
+
+## How re-renders work in React?
+
+When a component re-renders. React does not go though the full initialization process again (setting up the initial state). Instead, React only re-renders the component if:
+
+1. State: The component’s state has changed.
+2. Props: The component receives new props from its parent component.
+3. Context: The component uses context, and the context values have changed.
+
+Re-renders are triggered when React detects any of these changes. During a re-render, React efficiently updates the UI by applying the minimal set of changes needed, using **reconciliation** and **diffing** of the virtual DOM.
+
+There is what happens during a re-render process:
+
+1. Trigger: State or Props, Context changes.
+
+```jsx
+export default function App() {
+  // When state `bgColor` changes. App component trigger re-render process.
+  const [bgColor, setBgColor] = useState < string > 'black';
+  return (
+    <div className='App'>
+      <select
+        onChange={(e) => setBgColor(e.currentTarget.value)}
+        value={bgColor}
+      >
+        ...
+      </select>
+    </div>
+  );
+}
+```
+
+1. Render phase (Re-execution of Component Function).
+
+```jsx
+export default function App() {
+	console.log('App component re-rendered');
+	const [bgColor, setBgColor] = useState<string>('black');
+	// The bgColor change to the value which changed from step 1.
+	...
+}
+```
+
+1. Reconciliation (Diffing): React compares the new Virtual DOM with the previous virtual DOM. If only one element has changed (such as the background color). React will only update that element in the real DOM.
+2. Commit Phase (Updating the Real DOM): The `useEffect` hooks (with dependencies) will run again if the state or props that they depend on have changed. With the code above. The log message `App component added and ready in real DOM` will never log in the console because there is not depend. It is only for first time component render as initialization stage.
+
+```jsx
+export default function App() {
+  ...
+  useEffect(() => {
+    console.log('App component added and ready in real DOM');
+  }, []);
+  ...
+}
+```
+
+1. Browser Painting (Rendering Updates to the Screen): Once React updates the DOM, the browser paints the changes on the screen.
+
+So at the end, React re-renders are triggered by changes in state or props and context. React efficiently handles re-renders by regenerating the virtual DOM, comparing it with the previous one, and only applying the minimal changes to real DOM. This optimization allows React to maintain hight performance, even in complex applications.
+
+Okay, we were deep down to understand what is render and how does it work in React. Now back to the title of article. So why do not we mirror props as a state in React? Let take a look section above.
+
+## The problem of duplicating (or mirroring) data between props and state.
+
+Let take a look the example below. I have a small clock application by display the time of clock in each second and the select HTML element for changing the color of the clock.
+
+```jsx
+import { useEffect, useState } from 'react';
+import './styles.css';
+
+const useTime = () => {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, []);
+
+  return time;
+};
+
+const colors = [
+  {
+    id: 1,
+    value: 'black',
+    title: 'Black',
+  },
+  {
+    id: 2,
+    value: 'yellow',
+    title: 'Yellow',
+  },
+  {
+    id: 3,
+    value: 'green',
+    title: 'Green',
+  },
+];
+
+export default function App() {
+  const [bgColor, setBgColor] = useState < string > 'black';
+  return (
+    <div className='App'>
+      <select
+        onChange={(e) => setBgColor(e.currentTarget.value)}
+        value={bgColor}
+      >
+        <option value=''>Select color</option>
+        {colors.map((color) => (
+          <option
+            key={color.id}
+            value={color.value}
+          >
+            {color.title}
+          </option>
+        ))}
+      </select>
+      <h1>Hello Clock!</h1>
+      <Clock
+        bgColor={bgColor}
+        time={time}
+      />
+    </div>
+  );
+}
+
+interface ClockProps {
+  bgColor: string;
+  time: Date;
+}
+
+const Clock: React.FC<ClockProps> = ({ bgColor, time }) => {
+  const [color, setColor] = useState(bgColor);
+  return (
+    <div
+      style={{
+        backgroundColor: color,
+        color: 'white',
+      }}
+    >
+      {time.toLocaleTimeString()}
+    </div>
+  );
+};
+```
+
+In this code, the Clock component receives `bgColor` as a prop from its parent component (App). However, instead of directly using the `bgColor` prop in the component’s style. We are copying it into the state using `useState(bgColor)` . This code lead to synchronization issues between the props and state.
+
+## So what is the problems with Mirroring Props into State?
+
+1. Duplication of Data Sources: When you copy `bgColor` from props into local state (`color`), you have two data sources: The original prop (`bgColor`) and The copied state (`color`). If the user changes the background color from the dropdown in App component. The Clock component will not update to the new color because `useState(bgColor)` only sets the state during the first render.
+
+```jsx
+const Clock: React.FC<ClockProps> = ({ bgColor, time }) => {
+  const [color, setColor] = useState(bgColor);
+  return (
+    <div
+      style={{
+        backgroundColor: color,
+        color: 'white',
+      }}
+    >
+      {time.toLocaleTimeString()}
+    </div>
+  );
+};
+```
+
+1. Synchronization Issues: Once the `bgColor` is copied into state (`color`). If the `bgColor` changes in the parent (App), the state in the Clock component will not automatically update to reflect changes. This can lead to bugs where UI does not stay in sync with the data passed from the parent.
+2. Unnecessary Complexity: Using both `props` and `state` to manage the same data (e.g. `bgColor` and `color`) makes the code harder to maintain. Even thought we can use `useEffect` to resolve the problem. But it is suck. I do not like it.
+
+## **Solution**: Keep it simple.
+
+Instead of copying the `bgColor` prop into state and make the component tangled. We just keep everything is simply. By directly using the `bgColor` prop into the style attribute. This ensures that whenever the parent App changes `bgColor`. The Clock component will automatically re-render with the updated background color.
+
+**Revised code (without mirroring props in state)**
+
+```jsx
+const Clock: React.FC<ClockProps> = ({ bgColor, time }) => {
+  return (
+    <div
+      style={{
+        backgroundColor: bgColor, // Use prop directly
+        color: 'white',
+      }}
+    >
+      {time.toLocaleTimeString()}
+    </div>
+  );
+};
+```
+
+So with the code above. It make the component better in three things:
+
+1. Single source of Truth: By using `bgColor` directly, there is only one source of truth (the `bgColor` prop).
+2. Simpler code: The component no longer needs to manage unnecessary state, making it easier to read and maintain. This also aligns with the true meaning of a **stateless component**.
+3. No synchronization issues: There is no need to write additional code to keep the state and props synchronized, which reduces complexity and potential bugs.
+
+## Conclusion.
+
+Mirroring props into state is generally considered an anti-pattern in React. It can lead to synchronization issues, redundancy, and unnecessary complexity. Instead, React components should directly use props when possible, allowing React’s re-render mechanism to keep the component in sync with the parent. By avoiding mirroring, you can write cleaner, more efficient React components.
+
+References:
+
+Codesandbox: [https://codesandbox.io/p/sandbox/do-not-mirror-props-state-rw752k](https://codesandbox.io/p/sandbox/do-not-mirror-props-state-rw752k)

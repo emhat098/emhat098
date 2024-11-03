@@ -1,0 +1,156 @@
+---
+title: 'Integrating Google Tag Manager in Next.js with @next/third-parties/google'
+publishedAt: '2024-09-10'
+summary: 'Integrating Google Tag Manager into a Next.js application is straightforward, and it allows you to manage tags dynamically and efficiently.'
+Tags: 'google-tag-manager, next.js, node.js'
+---
+
+Google Tag Manager (GTM) is a powerful tool that simplifies the management of third-party tags, such as Google Analytics, Google Ads, or custom scripts, without needing to modify your codebase directly. It provides a centralized platform for managing tags, tracking scripts, and monitoring website events.
+
+Integrating Google Tag Manager into a Next.js application is straightforward, and it allows you to manage tags dynamically and efficiently.
+
+In this guide, we will walk through the steps required to integrate Google Tag Manager into a Next.js project.
+
+### **What is Google Tag Manager?**
+
+Google Tag Manager is a tag management system that enables you to add and update snippets of JavaScript code and HTML tags on your website or app without having to write or deploy new code. GTM works by injecting tags onto your site through a container, which you manage from your Google Tag Manager account. This is particularly useful for adding services like **Google Analytics**, **Google Ads**, **conversion tracking**, and more.
+
+## **Prerequisites**
+
+1. **Next.js 14+** installed in your project.
+2. A **Google Tag Manager account**.
+3. Your **GTM Container ID** (looks like GTM-XXXXXXX).
+
+### **Step 1: Install @next/third-parties/google**
+
+To get started, install the @next/third-parties/google package by running the following command in your Next.js project:
+
+```bash
+npm install @next/third-parties/google
+```
+
+This package is designed to integrate third-party tools like Google Analytics more easily into a Next.js app. Refer to: [https://nextjs.org/docs/app/building-your-application/optimizing/third-party-libraries#google-analytics](https://nextjs.org/docs/app/building-your-application/optimizing/third-party-libraries#google-analytics)
+
+### **Step 2: Set Up a Google Tag Manager Account**
+
+Before configuring Google Analytics, ensure you have your **Tracking ID** (also known as a Measurement ID in **GA4**). You can get it from the **Google Analytics Dashboard** under Admin > Property Settings.
+
+Your Tracking ID will look something like this: **G-XXXXXXXXXX.**
+
+1. Go to the [Google Tag Manager website](https://tagmanager.google.com/).
+2. Create a new **GTM account** if you don’t have one already.
+3. Once your account is set up, create a new **container** for your website, and Google will provide you with a **GTM Container ID** (e.g., GTM-XXXXXXX).
+4. Copy this ID, as you will need it for the Next.js integration.
+
+### **Step 3: Create a Google Analytics Component:**
+
+To streamline the integration, create a reusable Google Tag Mangager component.
+
+1. Create a folder called `components/google-tag-manager`.
+2. Inside that folder, create a file called `GoogleTagManager.tsx`.
+
+Here’s the code for the component:
+
+```jsx
+import { GoogleTagManager } from '@next/third-parties/google';
+
+export default GoogleTagManager;
+```
+
+### **Step 4: Add Your Google Tag Manager Key to Environment Variables:**
+
+Add your Google Tag Manager Container ID to your Next.js environment variables.
+
+1. Create or update your `.env.local` file at the root of your project.
+2. Add your Google Tag Manager Container ID:
+
+```jsx
+NEXT_PUBLIC_GTM_ID=<key>
+```
+
+This ensures the Container ID is securely accessed within your application and can be change in the future.
+
+### Step 5: **Integrate Google Tag Manager into Your Next.js Application**
+
+Now, integrate Google Tag Manager into your application by adding the `GoogleTagManager` component to your layout file.
+
+In the `app/layout.tsx` file, add the following code:
+
+```java
+...
+<body>
+{process.env.NEXT_PUBLIC_GTM_ID && (
+  <GoogleTagManager gaId={process.env.NEXT_PUBLIC_GTM_ID} />
+)}
+</body>
+...
+```
+
+This will initialize Google Tag Manager whenever the layout is rendered.
+
+In this file:
+
+- We check if the **GTM ID** is available via an environment variable (NEXT_PUBLIC_GTM_ID), and if so, we include the GoogleTagManager component in the layout.
+- This ensures that GTM is loaded globally across all pages in your application.
+
+### Step 6: **Tracking Custom Events:**
+
+You can track custom events, such as button clicks, with Google Tag Manager. For example, to track when a user clicks the “View product” button, you can use the sendGAEvent function from the @next/third-parties/google package.
+
+Here’s how to set it up:
+
+```java
+'use client';
+
+import { sendGTMEvent } from '@next/third-parties/google';
+
+export function ViewProduct({ seoURL }) {
+  return (
+    <div>
+      <button
+        onClick={() => {
+          // Perform your application-specific logic here.
+
+          // Send the click event to Google Analytics.
+          sendGTMEvent('event', 'buttonClicked', { value: seoURL });
+        }}
+      >
+        {'View product'}
+      </button>
+    </div>
+  );
+}
+```
+
+In this example, the `sendGTMEvent` function logs the button `ViewProduct` click to Google Tag Manager.
+
+### **Step 7: Testing Your GTM Setup:**
+
+Once you’ve set up GTM in your Next.js app, it’s crucial to test it to ensure everything is working correctly.
+
+**Testing Steps:**
+
+**Preview Mode in GTM**:
+
+1. In your Google Tag Manager dashboard, click the **Preview** button.
+2. This will open a new window with a debug view, allowing you to see which tags are firing and when.
+3. Navigate through your site to see which tags are triggered based on your settings.
+
+**Google Tag Assistant**:
+
+1. Use the **Google Tag Assistant** Chrome extension to verify if GTM and tags like Google Analytics are properly installed on your site.
+2. It will help you confirm that tags are firing as expected and troubleshoot any issues.
+
+### **Conclusion**
+
+Integrating Google Tag Manager (GTM) with your Next.js application streamlines the management of analytics and marketing tags, allowing you to easily add and modify tracking scripts without redeploying code. GTM enhances your ability to track user interactions, manage multiple tags, and set up custom events for conversion tracking or advanced analytics.
+
+By following this guide, you can quickly set up GTM and start gathering valuable insights on user behavior to optimize your Next.js application.
+
+References:
+
+https://developers.google.com/tag-platform/tag-manager/datalayer
+
+https://nextjs.org/docs/app/building-your-application/optimizing/third-party-libraries#google-tag-manager
+
+https://www.npmjs.com/package/@next/third-parties

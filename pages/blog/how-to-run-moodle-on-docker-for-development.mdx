@@ -1,0 +1,140 @@
+---
+title: 'How to Run Moodle on Docker for Development'
+publishedAt: '2024-04-20'
+summary: 'Moodle is a popular open-source learning management system (LMS) used worldwide. When developing Moodle applications, developers often face challenges such as setting up consistent development environments, managing dependencies, and ensuring seamless integration with databases like PostgreSQL.'
+Tags: 'docker, moodle, php, postgres'
+---
+
+Moodle is a popular open-source learning management system (LMS) used worldwide. When developing Moodle applications, developers often face challenges such as setting up consistent development environments, managing dependencies, and ensuring seamless integration with databases like PostgreSQL.
+
+**1. Technical Tools Used in This Article**
+
+In this guide, we’ll use Docker to create a portable and reproducible environment for developing Moodle. Docker allows us to encapsulate Moodle, its dependencies, and PostgreSQL in isolated containers, ensuring consistency across different development machines.
+
+**2. Setting Up Environments for Moodle Development**
+
+**2.1. Directory Work Tree**
+
+Ensure your project directory structure looks like this:
+
+```jsx
+.
+├── moodle
+└── moodle-docker-developing
+    ├── Dockerfile
+    ├── LICENSE
+    └── docker-compose.yml
+```
+
+**2.2. Dockerfile Setup**
+
+Create a Dockerfile in the `moodle-docker-developing` directory to define your Moodle environment:
+
+```yaml
+# Use an official PHP runtime with Apache as a parent image
+FROM php:8.2-apache
+
+# Update and install necessary packages
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libonig-dev \
+    libcurl4-openssl-dev \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions using a script
+ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+# Set the working directory in the container
+WORKDIR /var/www/html
+
+# Install PHP extensions required by Moodle
+RUN install-php-extensions gd pdo_pgsql pgsql opcache iconv mbstring curl openssl ctype zip zlib simplexml spl pcre dom xml xmlreader intl json hash fileinfo xsl soap exif yaml
+
+# Enable Apache modules required by Moodle
+RUN a2enmod rewrite
+
+# Edit the config of php.ini of the container.
+RUN echo "max_input_vars = 5000" >> /usr/local/etc/php/conf.d/moodle.ini
+
+# Set permissions for Moodle directories
+RUN chown -R www-data:www-data /var/www/html \
+    && mkdir /var/www/moodledata \
+    && chown -R www-data:www-data /var/www/moodledata
+
+# Expose Apache HTTP port
+EXPOSE 80
+
+# Start Apache web server
+CMD ["apache2-foreground"]
+```
+
+**2.3 Docker Compose Setup**
+
+Create a `docker-compose.yml` file in the `moodle-docker-developing` to define your Docker services:
+
+```yaml
+services:
+  moodle:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moodle
+    ports:
+      - '80:80'
+    volumes:
+      - ./../moodle:/var/www/html # Mount the entire project root
+      - moodledata:/var/www/moodledata
+    environment:
+      - MOODLE_DATABASE_TYPE=pgsql
+      - MOODLE_DATABASE_HOST=moodledb
+      - MOODLE_DATABASE_USER=moodleuser
+      - MOODLE_DATABASE_PASSWORD=123456
+      - MOODLE_DATABASE_NAME=localdb
+    depends_on:
+      - moodledb
+
+  moodledb:
+    image: postgres:16
+    container_name: moodle-db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: localdb
+      POSTGRES_USER: moodleuser
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./db_backups/:/var/www/db_backups # Mount the db backup project to container.
+
+volumes:
+  moodledata:
+  dbdata:
+```
+
+**3. Edit Files Locally and Affect Docker Container**
+
+With the setup above, any changes made locally in the `moodle` directory will automatically reflect in the Docker container due to volume mounts defined in `docker-compose.yml`. This setup facilitates seamless development without needing to rebuild the Docker image repeatedly.
+
+**4. Testing Development Environments**
+
+After setting up Docker and running `docker-compose up -d`, access your Moodle instance at `http://localhost:80`. Ensure everything functions correctly and make necessary adjustments to your Moodle application.
+
+**5. Connect to PostgreSQL in Docker Container**
+
+To interact with PostgreSQL running in the Docker container:
+
+- Use tools like `psql` or connect directly from your application code.
+- Ensure your Moodle settings (config.php) are configured to use PostgreSQL as per the environment variables set in `docker-compose.yml`.
+
+**GitHub Reference:**
+
+For more details, visit [https://github.com/emhat098/moodle-docker-developing](https://github.com/emhat098/moodle-docker-developing).
+
+**Summary**
+
+Running Moodle on Docker simplifies development by providing a consistent and isolated environment. With Docker Compose, you can easily manage dependencies like PHP, Apache, and PostgreSQL, ensuring your development workflow remains efficient and productive.
+
+Thank you for following along with this guide on setting up Moodle on Docker for development. We hope this article has helped streamline your Moodle development process. Happy coding!
+
+This guide covers the essential steps to get you started with Moodle development using Docker. Adjust configurations and permissions as per your specific requirements to optimize your development environment further.

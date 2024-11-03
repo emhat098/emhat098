@@ -1,0 +1,218 @@
+---
+title: 'You do not know about Render Props In React.'
+publishedAt: '2024-04-07'
+summary: 'When you\'re working with React, you either already know or will soon learn about props. Props are one of the basic fundamentals of React, something every React newbie encounters.'
+Tags: 'design pattern, javascript, jsx, nodejs, react, typescript'
+---
+
+When you're working with React, you either already know or will soon learn about **props**. Props are one of the basic fundamentals of React, something every React newbie encounters. At first, they seem simple, right? Just pass a parameter as a prop and render it in the component. It sounds like it should be as straightforward as a pure function: the same input always results in the same output.
+
+But it’s not quite that simple. When I dug deeper into React while building real-world applications, I discovered something more advanced about props: the **render props** pattern. And trust me, it’s more than just passing data. Let’s dive in!
+
+## Stateless component.
+
+Let’s start with the basics. When a component only renders props, it should be a stateless component. In other words, it doesn’t manage any internal state or have side effects. A stateless component, also known as a function component, does two things:
+
+- Receives data through props.
+- Renders the data.
+
+Take a look at this simple example:
+
+```jsx
+const Image: FC<{ src: string }> = ({ src }) => {
+  return <img src={src} />;
+};
+```
+
+In this example, the Image component does exactly two things:
+
+1. Takes a src prop.
+2. Renders the src prop inside an `<img />` element.
+
+That’s it. This is the pure, straightforward mission of a stateless component.
+
+### Dependency components
+
+However, a React application rarely consists of just a few simple components. As your application grows, components become more complex and interconnected. Managing these dependencies efficiently is where patterns like render props start to shine.
+
+Let’s take a look at a **stateful component** that manages internal state and re-renders when the state changes:
+
+```jsx
+const ConvertCurrency: FC = () => {
+  const [currency, setCurrency] = useState < number > 0;
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    if (newValue >= 0) {
+      setCurrency(newValue);
+    }
+  };
+
+  return (
+    <div>
+      <input
+        type='number'
+        value={currency}
+        onChange={onChange}
+      />
+      <VietnamDong value={currency} />
+      <KoreanWon value={currency} />
+    </div>
+  );
+};
+```
+
+In this example, the component converts USD to VND and WON using two simple components:
+
+```jsx
+interface CurrencyProps {
+  value: number;
+}
+
+const VietnamDong: FC<CurrencyProps> = ({ value }) => {
+  return <div>VND: {value * 25002}</div>;
+};
+
+const KoreanWon: FC<CurrencyProps> = ({ value }) => {
+  return <div>WON: {value * 1363}</div>;
+};
+```
+
+Whenever the user types in the input, the state of ConvertCurrency updates, and both VietnamDong and KoreanWon components receive the updated currency value via props. So yes, these two components depend on the input element for their data.
+
+### **Components with Render Method**
+
+Now, how could we make the `ConvertCurrency` component more flexible and decouple its dependencies from specific components like VietnamDong and KoreanWon? You might think of using higher-order components (HOCs), but there’s an easier way: **render props**.
+
+Let’s modify the `ConvertCurrency` component using render props:
+
+```jsx
+const ConvertCurrency: FC = () => {
+  return (
+    <div>
+      <InputCurrency
+        render={(value) => (
+          <div>
+            <VietnamDong value={value} />
+            <KoreanWon value={value} />
+          </div>
+        )}
+      />
+    </div>
+  );
+};
+
+interface InputCurrencyProps {
+  render: (value: number) => JSX.Element;
+}
+
+const InputCurrency: FC<InputCurrencyProps> = ({ render }) => {
+  const [currency, setCurrency] = useState < number > 0;
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    if (newValue >= 0) {
+      setCurrency(newValue);
+    }
+  };
+
+  return (
+    <div>
+      <span>USD:</span>
+      <input
+        onChange={onChange}
+        value={currency}
+        type='number'
+        placeholder='0'
+      />
+      {render(currency)}
+    </div>
+  );
+};
+```
+
+Here’s what’s happening:
+
+1. The input element is moved into the InputCurrency component, which manages its internal state (currency).
+2. A render method is added as a prop to InputCurrency, allowing flexible rendering of components based on the currency value.
+3. ConvertCurrency no longer directly depends on VietnamDong and KoreanWon. Instead, it uses the render prop to determine how currency is displayed.
+
+### Children as a function
+
+In addition to using render props, you can also use **children as a function** in React. It’s a similar concept, but instead of passing a render prop, you use the children prop to render JSX based on the value.
+
+```jsx
+import { FC, useState } from 'react';
+
+const ConvertCurrency: FC = () => {
+  return (
+    <div>
+      <InputCurrency>
+        {(value) => (
+          <div>
+            <VietnamDong value={value} />
+            <KoreanWon value={value} />
+          </div>
+        )}
+      </InputCurrency>
+    </div>
+  );
+};
+
+interface InputCurrencyProps {
+  children: (value: number) => JSX.Element;
+}
+
+const InputCurrency: FC<InputCurrencyProps> = ({ children }) => {
+  const [currency, setCurrency] = useState < number > 0;
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    if (newValue >= 0) {
+      setCurrency(newValue);
+    }
+  };
+
+  return (
+    <div>
+      <span>USD:</span>
+      <input
+        onChange={onChange}
+        value={currency}
+        type='number'
+        placeholder='0'
+      />
+      {children(currency)}
+    </div>
+  );
+};
+
+interface CurrencyProps {
+  value: number;
+}
+
+const VietnamDong: FC<CurrencyProps> = ({ value }) => {
+  return <div>VND: {value * 25002}</div>;
+};
+
+const KoreanWon: FC<CurrencyProps> = ({ value }) => {
+  return <div>WON: {value * 1363}</div>;
+};
+
+export default ConvertCurrency;
+```
+
+Here, the InputCurrency component uses its children prop as a function to render components depending on the currency value. It’s another flexible way to manage how components are rendered based on state.
+
+## **Conclusion**
+
+With the **render props pattern**, you gain several benefits:
+
+- It allows you to share logic and data among multiple components.
+- Components become highly reusable by using a render method or children as a function to manage rendering.
+
+However, there are also some drawbacks. As we saw in the examples, if the state of the parent component changes, every component in the render or children function will re-render, which can lead to performance issues in large applications.
+
+What about HOCs? Sure, we could use them, but render props offer a cleaner approach without some of the potential downsides of HOCs, like naming collisions or implicit prop dependencies.
+
+In short, render props give you a powerful tool to manage complex components while maintaining flexibility. But as with any tool, it’s important to use it wisely to avoid performance and complexity issues.

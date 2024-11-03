@@ -1,0 +1,135 @@
+---
+title: 'How to Deploy Express.js to Vercel'
+publishedAt: '2024-08-24'
+summary: 'Deploying an Express.js application to Vercel is a straightforward process that allows you to get your application live quickly. In this article, we’ll walk through the steps required to deploy a simple Express.js application to Vercel.'
+Tags: 'expressjs, javascript, nodejs, vercel'
+---
+
+Deploying an Express.js application to Vercel is a straightforward process that allows you to get your application live quickly. In this article, we’ll walk through the steps required to deploy a simple Express.js application to Vercel.
+
+### **1. Create a New GitHub Project**
+
+First, create a new repository on GitHub. This will serve as the version control for your project and allow Vercel to pull your code directly.
+
+1. Go to [GitHub](https://github.com/) and log in to your account.
+
+2. Click on the “New repository” button.
+
+3. Name your repository and optionally add a description.
+
+4. Click “Create repository.”
+
+### **2. Clone the Project to Your Local Machine**
+
+Now, clone the GitHub repository you just created to your local machine so you can start working on the project.
+
+```bash
+git clone git@github.com:emhat098/vercel-express.git
+cd vercel-express
+```
+
+### **3. Initialize a Node.js Project**
+
+Next, initialize a new Node.js project using npm init. This will create a package.json file, which is essential for managing dependencies.
+
+```bash
+npm init -y
+```
+
+The -y flag automatically accepts the default configuration, so you don’t need to go through the interactive prompts.
+
+### **4. Modify the package.json File**
+
+Edit the package.json file to define a start script that Vercel will use to run your application.
+
+```json
+"scripts": {
+  "start": "node index.js"
+}
+```
+
+This tells Vercel to start your application by running node index.js.
+
+### **5. Install the express Package**
+
+Install Express.js, which will be the framework we use for this application.
+
+```bash
+npm install express
+```
+
+This will add Express to your node_modules and update your package.json file.
+
+### **6. Create a Simple Express.js Application**
+
+Now, create a simple Express.js application. Open the index.js file and add the following code:
+
+```jsx
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello! I am in vercel.com);
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+```
+
+This code sets up a basic Express server that responds with “Hello! I am in [vercel.com](http://vercel.com/)” when you visit the root URL.
+
+### **7. Create a New Project in Vercel**
+
+Now that your Express.js application is ready, it’s time to deploy it to Vercel.
+
+1. Go to the [Vercel dashboard](https://vercel.com/dashboard).
+
+2. Click “New Project.”
+
+3. Select “Import Git Repository” and choose the repository you just created on GitHub.
+
+4. Vercel will automatically detect your project and set it up for deployment.
+
+### **8. Deploy the Application**
+
+Once the project is imported, Vercel will automatically build and deploy your application. You can monitor the deployment process in the Vercel dashboard.
+
+### **9. Add vercel.json to Resolve Plain Text Issue**
+
+If your server is showing plain text instead of executing code, add a vercel.json file to configure Vercel properly. This file should be placed in the root of your project.
+
+```bash
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
+  ]
+}
+```
+
+This configuration ensures that Vercel handles your Express.js application correctly.
+
+### **10. Summary**
+
+In this article, we’ve walked through the process of deploying an Express.js application to Vercel. Starting from creating a GitHub repository, cloning it to your local machine, setting up a Node.js project, writing a basic Express.js server, and finally deploying it to Vercel. With these steps, your Express.js application should be live and accessible via the URL provided by Vercel.
+
+**Reference:**
+
+Github: [https://github.com/emhat098/vercel-express](https://github.com/emhat098/vercel-express)
+
+Express.js: [https://expressjs.com/](https://expressjs.com/)
+
+Vercel: [https://vercel.com/](https://vercel.com/)
+
+Thank you for following this guide! We hope it was helpful in getting your Express.js application deployed to Vercel. See you in the next tutorial!

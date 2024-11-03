@@ -1,0 +1,135 @@
+---
+title: 'DIntegrating Google Analytics in Next.js with @next/third-parties/google'
+publishedAt: '2024-09-10'
+summary: 'Integrating Google Analytics into your Next.js application with the @next/third-parties/google package makes it easy to track page views and custom events.'
+Tags: 'google-anlytics, next.js, node.js'
+---
+
+Google Analytics is a powerful tool that provides insights into your website’s traffic, user behavior, and performance. Integrating Google Analytics into a Next.js application allows you to track page views, user interactions, and other critical metrics to optimize your site.
+
+With Next.js 14, there’s an easier way to integrate Google Analytics via the @next/third-parties/google package, streamlining the setup process.
+
+In this guide, we will walk through how to set up Google Analytics in a Next.js application using the `@next/third-parties/google` package.
+
+## **Prerequisites**
+
+1. **Next.js 14+** installed in your project.
+2. A **Google Analytics account**.
+3. Your **Google Analytics Tracking ID** (for example, G-XXXXXXXXXX).
+
+### **Step 1: Install @next/third-parties/google**
+
+To get started, install the @next/third-parties/google package by running the following command in your Next.js project:
+
+```bash
+npm install @next/third-parties/google
+```
+
+This package is designed to integrate third-party tools like Google Analytics more easily into a Next.js app.
+
+### **Step 2: Get Your Google Analytics Tracking ID**
+
+Before configuring Google Analytics, ensure you have your **Tracking ID** (also known as a Measurement ID in **GA4**). You can get it from the **Google Analytics Dashboard** under Admin > Property Settings.
+
+Your Tracking ID will look something like this: **G-XXXXXXXXXX.**
+
+### **Step 3: Create a Google Analytics Component:**
+
+To streamline the integration, create a reusable Google Analytics component.
+
+1. Create a folder called `components/google-analytics`.
+2. Inside that folder, create a file called `GoogleAnalytics.tsx`.
+
+Here’s the code for the component:
+
+```jsx
+import { GoogleAnalytics } from '@next/third-parties/google';
+
+export default GoogleAnalytics;
+```
+
+### **Step4: Add Your Google Analytics Key to Environment Variables:**
+
+Add your Google Analytics Tracking ID to your Next.js environment variables.
+
+1. Create or update your `.env.local` file at the root of your project.
+2. Add your Google Analytics Tracking ID:
+
+```jsx
+NEXT_PUBLIC_GA_ID=<key>
+```
+
+This ensures the Tracking ID is securely accessed within your application and can be change in the future.
+
+### Step 5: **Integrate Google Analytics into Your Next.js Application**
+
+Now, integrate Google Analytics into your application by adding the GoogleAnalytics component to your layout file.
+
+In the app/layout.tsx file, add the following code:
+
+```java
+...
+<body>
+{process.env.NEXT_PUBLIC_GA_ID && (
+  <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+)}
+</body>
+...
+```
+
+This will initialize Google Analytics whenever the layout is rendered.
+
+### Step 6: **Tracking Custom Events:**
+
+You can track custom events, such as button clicks, with Google Analytics. For example, to track when a user clicks the “Add to Cart” button, you can use the sendGAEvent function from the @next/third-parties/google package.
+
+Here’s how to set it up:
+
+```java
+'use client';
+
+import { sendGAEvent } from '@next/third-parties/google';
+
+export function AddToCartButton({ seoURL }) {
+  return (
+    <div>
+      <button
+        onClick={() => {
+          // Perform your application-specific logic here.
+
+          // Send the click event to Google Analytics.
+          sendGAEvent('event', 'buttonClicked', { value: seoURL });
+        }}
+      >
+        Add to cart
+      </button>
+    </div>
+  );
+}
+```
+
+In this example, the sendGAEvent function logs the button click to Google Analytics.
+
+### **Step 7: Testing Google Analytics**
+
+To make sure Google Analytics is set up correctly:
+
+1. **Deploy your Next.js app** or run it locally with npm run dev.
+2. Open your site and navigate through various pages.
+3. In the **Google Analytics Real-Time dashboard**, you should see your own activity reflected in real-time.
+
+This confirms that Google Analytics is properly tracking your site’s traffic and interactions.
+
+### **Conclusion**
+
+Integrating Google Analytics into your **Next.js** application with the `@next/third-parties/google` package makes it easy to track page views and custom events. This powerful integration gives you the data you need to improve your site’s performance and user experience.
+
+By following the steps outlined in this guide, you can quickly set up Google Analytics to monitor user activity and track important interactions on your Next.js application.
+
+References:
+
+https://nextjs.org/docs/app/building-your-application/optimizing/third-party-libraries#google-analytics
+
+https://developers.google.com/analytics/devguides/collection/ga4
+
+https://www.npmjs.com/package/@next/third-parties

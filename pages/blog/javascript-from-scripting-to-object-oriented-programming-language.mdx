@@ -1,0 +1,722 @@
+---
+title: 'JavaScript - from Scripting to Object-oriented Programming Language.'
+publishedAt: '2024-08-21'
+summary: 'A scripting language is a type of programming language that is often interpreted and executed at runtime rather than being compiled into machine code before runtime.'
+Tags: 'blogs, javascript, nodejs, react, typescript'
+---
+
+### What is scripting programming language?
+
+A scripting language is a type of programming language that is often interpreted and executed at runtime rather than being compiled into machine code before runtime. Scripting languages are generally designed to be lightweight, flexible, and easy to use. They are often used for automating tasks, creating dynamic web pages, and other scenarios where rapid development and flexibility are important.
+
+### Is Javascript the scripting programming language?
+
+Yes, JavaScript is indeed a scripting language. It was originally created to enable client-side scripting in web browsers, allowing developers to enhance the interactivity and dynamism of web pages. JavaScript is primarily known for its use in web development, where it runs in web browsers and interacts with the Document Object Model (DOM) to manipulate the content and behavior of web pages dynamically.
+
+Let's examine a simple code snippet written in JavaScript, which is often used as a scripting language:
+
+```html
+<!-- A simple HTML element to display the greeting -->
+<p id="greeting"></p>
+
+<!-- JavaScript code -->
+<script>
+  // Get the current hour of the day
+  const currentHour = new Date().getHours();
+
+  // Define a function to determine the appropriate greeting based on the time
+  function getGreeting(hour) {
+    if (hour >= 5 && hour < 12) {
+      return 'Good morning!';
+    } else if (hour >= 12 && hour < 18) {
+      return 'Good afternoon!';
+    } else {
+      return 'Good evening!';
+    }
+  }
+
+  // Get the greeting message based on the current hour
+  const greetingMessage = getGreeting(currentHour);
+
+  // Display the greeting message in the HTML element with id "greeting"
+  document.getElementById('greeting').innerText = greetingMessage;
+</script>
+```
+
+This HTML file includes a simple JavaScript script that does the following:
+
+1. Gets the current hour using **`new Date().getHours()`**.
+2. Uses a function **`getGreeting`** to determine the appropriate greeting based on the time of day.
+3. Displays the greeting message in an HTML element with the id "greeting" using **`document.getElementById()`**.
+
+You can save this code in an HTML file and open it in a web browser to see the greeting message change based on the time of day.
+
+### What is Object-oriented Programming?
+
+Object-oriented is a programming paradigm based on the concept of **objects*.*** This concept can contain **data** and **code** which data is form of field (attributes or properties) and code is the form of procedures ( methods or functions).
+
+A common feature of objects is that methods are attached to them and can access and modify the object’s data fields (code can access or modify data).
+
+In OOP, we usually see the specific name or syntax that is `this` or `self` used to refer to the current object and usually following the concepts: **Encapsulation, Abstraction, Inheritance and Polymorphism.**
+
+Now, let's explore how JavaScript works as a Object oriented programming language.
+
+### Javascript is loosely Typed Language.
+
+Loosely-typed the data type from the data that is assigned to it. That mean when we use the let keyword and create a new variable like `let name = 'John Wick';` The name variable is become the `string` data type. If we change the name value like this `name = 200` the data type of name variable is become the `number` . Javascript is very to do that if we can do the unit testing with the code like that we are not find the bug until they hit to production.
+
+Furthermore, Javascript does not do any sort of parameter type checking. It allow you pass any value what you want until you get the weird bug on production.
+
+Data Type, actually in Javascript you don’t create a data type. All the data in Javascript is `object` data type. But you see you are really create the Person classes. In Javascript, even thought the `class` exist on JS but actually it is `object` data type.
+
+### JavaScript is Prototype-based Language.
+
+JavaScript is often described as a prototype-based programming language. This means that objects can be serve as prototypes for each objects.
+
+### What is prototype?
+
+In Javascript, each object has an associated prototype, which is accessed through the internal property **`[[Prototype]]`**. This prototype is the object from which the current object inherits properties - inheritance is achieved through a mechanism called prototype chaining. You can access the prototype of an object using the **`Object.getPrototypeOf()`** method or the **`__proto__`** property (deprecated).
+
+### So, what is prototype chaining?
+
+Prototype chaining in JavaScript refers to the mechanism by which objects are linked to other objects through their prototypes, forming a chain-like structure. This chaining allows objects to inherit properties and methods from their prototypes, creating a hierarchical structure known as the "prototype chain” and how prototype chaining works?
+
+1. **Object Creation:** Each object in JavaScript, when created, is linked to a prototype object - **`Object.prototype`**. This prototype object is referred to by the internal property **`[[Prototype]]`**.
+2. **Property and Method Lookup:**
+
+   - When you access a property or method on an object, JavaScript first looks for that property in the object itself.
+
+   ```jsx
+   const Person = {
+     firstName: '',
+     lastName: '',
+     fullName: function () {
+       console.log(this.firstName + ' ' + this.lastName);
+     },
+   };
+   const john = {};
+   Object.setPrototypeOf(john, Person);
+   john.firstName = 'John';
+   john.lastName = 'Wick';
+   console.log(john.fullName()); // John Wick.
+   // JavaScript first checks if that property or method exists directly within the object.
+   ```
+
+   - If the property is not found in the object, JavaScript looks in the object's prototype.
+
+   ```jsx
+   john ---> Person.prototype ---> Object.prototype ---> underfined
+   ```
+
+   - This process continues up the prototype chain until the property is found or until the end of the chain is reached.
+
+3. **Inheritance:** Objects inherit properties and methods from their prototypes. If an object doesn't have a particular property, JavaScript looks in its prototype, and so on, until it finds the property or reaches the end of the prototype chain.
+
+```jsx
+const Person = {
+  sayHello: function () {
+    console.log('Hello! Give me a pencil.');
+  },
+};
+
+const john = Object.create(Person);
+john.sayHello(); // Outputs 'Hello! Give me a pencil.'
+```
+
+In this example, `john` doesn't have its own `sayHello` method, so it looks in its prototype (`Person`) and finds the `sayHello` method there.
+
+Now, let's delve into the main context of this post.
+
+### Instance Properties and Prototype Properties
+
+When we work with constructor functions and create instance of objects, there are two types of properties associated with these instances: Instance Properties and Prototype Properties. First, let take a look about Instance Properties:
+
+What is Instance Properties?
+
+There are unique to each instance of an object created using a constructor functions. These properties are assigned directly to the object when it is instantiated.
+
+The instance properties are typically set inside the constructor function using `this` keyword. Each instance has its own copy of instance properties which consume more memory when there are many instances.
+
+Example:
+
+```jsx
+function Person(name, age) {
+  this.name = name; // Instance property
+  this.age = age; // Instance property
+}
+
+const person1 = new Person('Alice', 30);
+const person2 = new Person('Bob', 25);
+```
+
+So now, what is Prototype Properties?
+
+The Prototype Properties are shared among all of constructor function, typically after the constructor is defined. Prototype properties are added outside the constructor function. Since prototype properties are shared, they are more memory efficient when dealing with many instances.
+
+Example:
+
+```jsx
+function Person(name, age) {
+  this.name = name; // Instance property
+  this.age = age; // Instance property
+}
+
+Person.prototype.gender = 'Unknown'; // Prototype property
+
+const person1 = new Person('Someone', 20);
+console.log(person1.gender); // Outputs 'Unknown'.
+```
+
+Now, let summary all the things about Instance Property and Prototype Properties with the example below:
+
+```jsx
+function Car(make, model) {
+  this.make = make; // Instance property
+  this.model = model; // Instance property
+}
+
+Car.prototype.year = 2023; // Prototype property
+
+const car1 = new Car('Toyota', 'Camry');
+const car2 = new Car('Honda', 'Civic');
+
+console.log(car1.year); // Outputs 2023
+console.log(car2.year); // Outputs 2023
+```
+
+In this example, `year` is a prototype property shared among all instance of the `Car` constructor. The `make` and `model` properties are instance properties unique to each `Car` instance.
+
+So now, the question is what is the constructor functions? Actually, I can create an object or inherit or do a lot things without it. But, why do we need it and follow as a standard when developing an application in Javascript. Here is the answer.
+
+### Constructor functions
+
+Why do we have the constructor, we thinking about the application contains a lot of object. And we have a few problems if we do not use the constructor function.
+
+1. Every time, we create or inherit an object. We need to use or remember the syntax `Object.setPrototypeOf` . This is easy to forget this syntax and it’s make the object which inheritance worry about the detail of its object.
+
+2. If we use this approach doesn’t allow us to execute any consistent logic each time a new object is created.
+
+3. Sometime an object is readable objects and it is potentially be used or modified and making issues for all objects that inherit from them.
+
+Now, with the `constructor` functions it is going to be fixed all the issues and problem.
+
+1. It looks like a regular function in Javascript. We can forget about this.
+2. With constructor function, it makes the consistent logic and syntax for all the object in large project.
+3. We can easy to use OO concepts with constructor function and prevent the exception bug.
+
+Firstly, understanding the new Keywords.
+
+So now, what is happening with the `new` keywords? Take a look at the code below:
+
+```jsx
+function Student(firstName, lastName, age, address) {
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.age = age;
+	this.address = address;
+  this.fullName = () => {
+		return ...;
+	}
+}
+let em = new Student('Ha', 'Em', 20, 'Ho Chi Minh City');
+```
+
+1. We define the `Student` object with constructor function.
+2. We use `this` keywords to point some object in memory.
+3. We create a new object - `em` with `new` keywords.
+4. The `new` keywords will bind `this` to the new object `em`.
+5. The `new` keywords will call the function that follow the `new` keyword.
+6. The `new` keyword will return a newly created object.
+
+We can see the key make all this code work is the `new` keyword.
+
+As I said when we use the constructor functions. It is make the Object Oriented concept is easy to process in Javascript. Now, we are going to the set and get with setter and getter on constructor functions.
+
+### Getter and setter
+
+We have a few ways to make setter and getter work on Javascript object.
+
+1. Use `Object.defineProperty` for define a property on object function. This is complex way for creating a property with set and get on Javascript object. We will figure out the easy way later.
+
+```jsx
+function Fruit(name, color, price, salePrice, stock) {
+  this.name = name;
+  this.color = color;
+  this.price = price;
+  this.salePrice = salePrice;
+  this.stock = stock;
+  this.allowOutOfStock = false;
+
+  Object.defineProperty(this, 'isSaled', {
+    get: () => {
+      return this.salePrice && this.salePrice < this.price;
+    },
+  });
+
+  Object.defineProperty(this, 'setStock', {
+    set: function (value) {
+      this.allowOutOfStock = value;
+    },
+  });
+}
+
+const apple = new Fruit('Apple', 'red', 20, 10, 10);
+apple.setStock = true;
+
+console.log({ apple });
+// Outputs:
+// {
+//     apple: Fruit {
+//         name: 'Apple',
+//         color: 'red',
+//         price: 20,
+//         salePrice: 10,
+//         stock: 10,
+//         allowOutOfStock: true
+//     }
+// }
+console.log({ isSaled: apple.isSaled });
+// Outputs: { isSaled: true }
+```
+
+1. Use Function `Prototype` this is easy way for define a get and set on Javascript with less syntax. Take a look at the example below:
+
+```jsx
+function Fruit(name, color, price, salePrice, stock) {
+  this.name = name;
+  this.color = color;
+  this.price = price;
+  this.salePrice = salePrice;
+  this.stock = stock;
+  this.allowOutOfStock = false;
+}
+
+Fruit.prototype = {
+  get fullTitle() {
+    return this.name + ' - ' + this.color;
+  },
+  set fullTitle(value) {
+    const titles = value.split(' ');
+    this.name = titles[0];
+    this.color = titles[1];
+  },
+};
+
+const lemon = new Fruit('Lemon', 'green', 2000, 1000, 10);
+console.log(lemon.fullTitle);
+// Lemon - green
+
+lemon.fullTitle = 'Lemon yellow';
+console.log(lemon.fullTitle);
+// Lemon - yellow
+```
+
+### Static properties and Static method
+
+Static properties are properties that belong to the class itself rather than to instances of the class. These properties are shared among all instances of the class and can be accessed without creating an instance. Unlike instance properties, which are specific to each object created from a class, static properties are associated with the class definition.
+
+In Javascript we can create a static property by assign new variable to Object, like this:
+
+```jsx
+Fruit.maxPrice = 100000;
+Fruit.getDate = () => new Date();
+
+console.log({ maxPrice: Fruit.maxPrice });
+// Outputs: { maxPrice: 100000 }
+console.log(Fruit.getDate());
+// Outputs: 2023-12-13T14:19:46.931Z
+```
+
+But, with this way. There are some limited. The problem refer to instance property. Please take look at the code below:
+
+```jsx
+Fruit.getTitle = () => {
+  return this.name + ' - ' + this.color;
+};
+```
+
+I define the static method - `getTitle` and we can access this property by `Fruit.getTitle()` but also, we get the result is `undefined - undefined` .
+
+Why we have the result like that? Because, when we define a static property in a class or a constructor function, it is related with constructor function itself, not with instances of that constructor. Therefore, the `this` does not make sense within the context of static properties or methods. Take a look the example bellow:
+
+```jsx
+function Fruit(name, color, price, salePrice, stock) {
+  this.name = name;
+  this.color = color;
+  this.price = price;
+  this.salePrice = salePrice;
+  this.stock = stock;
+  this.allowOutOfStock = false;
+}
+
+Fruit.totalPrice = this;
+
+const watermelon = new Fruit('watermelon', 'red', 2000, 0, 10);
+
+console.log(watermelon.name);
+// Outputs: watermelon
+console.log(Fruit.totalPrice);
+// Outputs: {}
+```
+
+As we can see the result, `this` is `{}` - empty object. That mean we can not access to instance properties of constructor function.
+
+### Private properties and methods with Closures
+
+Actually, Javascript does not have native support for private properties and methods in the same way that some other programming languages do. However, there are conventions and patterns in Javascript that can be used to archive a form of **encapsulation** and create the illusion of privacy. One of them that is Closure and ES6 Classes with Symbols (we will figure out on later). Let talk about Closure.
+
+What is Closure? A closure in Javascript is a feature that allows a function to retain access to variables from its outer (enclosing) scope, even after the outer function has finished executing. In simpler terms, a closure “closes over” the variables from its surrounding environment, preserving them event when the enclosing function is no longer in scope.
+
+Let’s make the private properties and method to understand the closure:
+
+```jsx
+function Fruit(name, color, price) {
+  let tax = '10%';
+  this.name = name;
+  this.color = color;
+  this.price = price;
+
+  this.getTax = function () {
+    return tax;
+  };
+
+  this.getPrice = () => {
+    if (isFree()) return 'The fruit is free';
+    return this.price;
+  };
+
+  let isFree = () => {
+    return this.price === 0;
+  };
+}
+
+const watermelon = new Fruit('watermelon', 'red', 0);
+
+console.log(watermelon.getTax());
+// Outputs: 10%.
+console.log(watermelon.getPrice());
+// Outputs: The fruit is free.
+```
+
+Now, we try to access the `tax` and `isFree` properties. We will get the value like this:
+
+```jsx
+console.log(watermelon.tax);
+// Outputs: undefined
+console.log(watermelon.isFree());
+// Outputs: TypeError: watermelon.isFree is not a function.
+```
+
+### Inheritances
+
+On Javascript, we don’t have a easy way to make the object inherit from other object. It maybe complex on the way of coding. Let take’s example for more detail. Actually, we have three steps for create inheritance object on Javascript.
+
+> First, create a new constructor function which inherit.
+
+In this example below, I create a new Object named Device, it is constructor function and have a `isTablet` function prototype for sharing all the object inherit with. Also, I create a Object `Iphone` inherit from `Device` with the `features` is extension of instance property and `setFeature` for adding new feature to the `features` property on `Iphone` object.
+
+```jsx
+function Device(name, size, model) {
+  this.name = name;
+  this.size = size;
+  this.model = model;
+}
+
+Device.prototype.isTablet = () => {
+  return this.size > 360;
+};
+
+function Iphone() {
+  this.features = [];
+}
+
+Iphone.prototype.setFeature = function (name) {
+  return this.features.push(name);
+};
+```
+
+> Second, copy the `Device` ’s prototype to `Iphone` ‘s prototype.
+
+```jsx
+Iphone.prototype = Object.create(Device.prototype);
+```
+
+But, why don’t we do this thing like this:
+
+```jsx
+Iphone.prototype = Device.prototype;
+```
+
+The answer is memory point. If we assign the based constructor functions prototype to the inherit object. They will use the same memory and make based object is incorrect as original if the object inherit do some modified. So, for preventing that we will copy the based function prototype to inherit object by `Object.create` .
+
+Now, let create an object `Iphone` :
+
+```jsx
+const iphone15 = new Iphone('Iphone 15', 360, 'ip15');
+iphone15.setFeature('faceId');
+console.log(iphone15);
+
+// Outputs:
+// Device { features: [ 'faceId' ] }
+```
+
+We can see the console is only `features` created and what is happening with instance properties. Let’s print out more things about `iphone5` object:
+
+```jsx
+console.log(Iphone.prototype);
+// Outputs:
+// Device { setFeature: [Function (anonymous)] }
+console.log(Iphone.prototype.setFeature.toString());
+// Outputs:
+// function(name){
+//    return this.features.push(name);
+// }
+console.log(iphone15.isTablet());
+// Outputs:
+// false
+```
+
+As we can see the `Iphone` prototype doesn’t exist the constructors prototype and also the instance properties. We only see the setFeature function on the **Iphone** object. But we can access to `isTablet` prototype. So, what does these mean? The answer is, at the at moment, our code is only inheriting the based object prototype with no constructor make the `iphoner15` is incorrect. To fix that, we will inherit the constructor prototype from based object - Device object. We do the code like this:
+
+```jsx
+function Iphone(name, size, model) {
+  Device.call(this, name, size, model);
+  this.features = [];
+}
+// ...
+Iphone.prototype.constructor = Iphone;
+```
+
+With the `call` method we can assign any value as `this` when calling an existing function. Please refer to: [\*\*`Function.prototype.call()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call)\*\* of MDN.
+
+Now, let’s try again:
+
+```jsx
+console.log(iphone15);
+// Outputs:
+// Iphone {
+//  name: 'Iphone 15',
+//  size: 360,
+//  model: 'ip15',
+//  features: [ 'faceId' ]
+// }
+console.log(iphone15.constructor.toString());
+// Outputs:
+// function Iphone(name, size, model) {
+//    Device.call(this, name, size, model);
+//    this.features = [];
+// }
+```
+
+As the result, the `iphone15` was have the instances property and also have constructor of itself. Maybe, the `Iphone` object inherited from `Device` object.
+
+But how can we verify that an object inherited from based object? As we know, Javascript is loosely-type programming language, so that mean we doesn’t have create an specific data type as other programming language, all the data type of instance which create from function or class is `object` on Javascript. See the example below:
+
+```jsx
+function Fruit() {}
+const apple = new Fruit();
+
+console.log(typeof apple);
+// Outputs:
+// object
+
+class Animal {}
+const duck = new Animal();
+console.log(typeof duck);
+// Outputs:
+// object
+```
+
+So, to verify the data type of object, we can use `instanceof` operator. When we use `typeof iphone15`, we only get the result `object`. Now let try with `instanceof`:
+
+```jsx
+console.log(iphone15 instanceof Iphone);
+// Outputs: true
+console.log(iphone15 instanceof Object);
+// Outputs: true
+```
+
+Why `iphone15` is instance of `Object` . Please refer to the Prototype chain above the post.
+
+For more information: [`instanceof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof) of MDN.
+
+### Polymorphism
+
+> **Polymorphism** is the use of a single symbol to represent multiple different types.
+
+Refer to: [Wikipedia](<https://en.wikipedia.org/wiki/Polymorphism_(computer_science)>)
+
+Polymorphism allows us to use any object from a particular class or function as if it was that class or data types. And we can do that with Javascript, because it is a loosely-typed programming language. So that mean we can easy do the concept polymorphism on Javascript because it doesn’t have the compiler for type checker. I was creating a function `generateTitle` method to return the format name of the Device and Iphone. Look at the code below:
+
+```jsx
+Device.prototype.generateTitle = function () {
+  return `${this.name} - ${this.isTablet() ? 'tablet' : 'mobile'} - ${
+    this.model
+  }`;
+};
+
+Iphone.prototype.generateTitle = function () {
+  return `Apple device: ${this.name} - ${this.model}`;
+};
+
+const samsung = new Device('Samsung Galaxy S7', 360, 'ssgalaxys7');
+console.log(samsung.generateTitle());
+// Outputs:
+// Samsung Galaxy S7 - mobile - ssgalaxys7
+
+const iPadGen7 = new Iphone('iPad Gen 7');
+console.log(iPadGen7.generateTitle());
+// Outputs:
+// iPad Gen 7 - mobile - undefined
+```
+
+The Device `generateTitle` method was overriding by Iphone `generateTitle` method and we can see the result of two instances `samsung` and `iPadGen7` are different. By JavaScript does not have compiler and loosely-typed programming language. So we will not get the error when we miss or given wrong data type.
+
+The most concept on of Polymorphism, that is `interface` and `abstract` . Unlucky, Javascript does not support these operator for handle Object-Oriented. But we have a lot of common feature to do that.
+
+### **Abstraction**
+
+```jsx
+class AbstractAninmal {
+  constructor() {
+    if (new.target === AbstractAninmal) {
+      throw new Error('Abstract class cannot be instantiated.');
+    }
+  }
+  isEatMeal() {
+    throw new Error('Method not implemented.');
+  }
+}
+```
+
+### Interface
+
+As we discussed, Javascript is loosely-typed language, so that means there is not a native “interface” like in some other languages. However, there are different way to achieve interface-like behavior or contracts in Javascript. Here is the one:
+
+```jsx
+class IAnimal {
+  name;
+  color;
+  size;
+
+  constructor() {
+    if (new.target === IAnimal) {
+      throw new Error('Interface class cannot be instantiated.');
+    }
+  }
+}
+```
+
+### Javascript Classes
+
+On ES6, we can define an object with a `class` on Javascript. With `class`, it makes an object defined more clearly in syntax and readable.
+
+```jsx
+/**
+ * Represents a device.
+ *
+ * @constructor
+ * @param {string} name - The name of the device.
+ * @param {string} size - The size of the device.
+ * @param {string} model - The model name of the device.
+ */
+class Device {
+  name = '';
+  size = 0;
+  model = '';
+  constructor(name, size, model) {
+    this.name = name;
+    this.size = size;
+    this.model = model;
+  }
+
+  getTitle = function () {
+    return this.name + ' - ' + this.model;
+  };
+}
+
+/**
+ * Checks if the device is a tablet based on its size.
+ *
+ * @function
+ * @returns {boolean} True if the size is greater than 360 pixels, indicating a tablet.
+ */
+Device.prototype.isTablet = function () {
+  return this.size > 360;
+};
+
+/**
+ * Gets the title of the device.
+ *
+ * @function
+ * @returns {string} The title of the device, combining name, size, and model.
+ */
+Device.prototype.generateTitle = function () {
+  return `${this.name} - ${this.isTablet() ? 'tablet' : 'mobile'} - ${
+    this.model
+  }`;
+};
+
+/**
+ * Represents an iPhone device, extending the Device class.
+ *
+ * @constructor
+ * @extends Device
+ * @param {string} name - The name of the iPhone.
+ * @param {string} model - The model name of the iPhone.
+ */
+class Iphone extends Device {
+  features = [];
+  constructor(name, size, model) {
+    super(name, size, model);
+    this.features = [];
+  }
+}
+
+/**
+ * Sets a feature for the iPhone.
+ *
+ * @function
+ * @param {string} name - The name of the feature to set.
+ */
+Iphone.prototype.setFeature = function (name) {
+  this.features.push(name);
+};
+
+/**
+ * Gets the title of the device.
+ *
+ * @function
+ * @override Override the {Device.generateTitle} function.
+ * @returns {string} The title of the device, combining name, size, and model.
+ */
+Iphone.prototype.generateTitle = function () {
+  return `Apple device: ${this.name} - ${this.model}`;
+};
+
+// Example.
+const samsung = new Device('Samsung Galaxy S7', 360, 'ssgalaxys7');
+console.log(Device.prototype.toString());
+
+const iPadGen7 = new Iphone('iPad Gen 7');
+console.log(iPadGen7.generateTitle());
+
+const obj = {};
+console.log(Object.getPrototypeOf(obj));
+```
+
+On ES6, we can define an object with a class on Javascript. With class, it makes an object defined more clearly in syntax and readable.
+
+### Summary
+
+JavaScript, initially designed as a scripting language for enhancing web page interactivity, has undergone a remarkable evolution, expanding its role from a client-side tool to a versatile, object-oriented programming language. Originally executed in web browsers, JavaScript is now employed both on the client and server sides, thanks to environments like Node.js.
+
+This transition is marked by JavaScript's embrace of object-oriented programming (OOP) principles. While maintaining its scripting language roots, JavaScript introduced features like objects, prototypes, and functions, enabling developers to organize code in a more modular and reusable manner.
+
+In the OOP paradigm, JavaScript supports concepts such as encapsulation, inheritance, and polymorphism. Developers can create classes, instantiate objects, and utilize prototype-based inheritance to build complex systems with clear hierarchies and relationships.
+
+The integration of OOP concepts in JavaScript has significantly enhanced its capabilities, making it a powerful language for building scalable and maintainable applications. Whether creating dynamic web interfaces or implementing server-side logic, JavaScript's journey from a scripting language to an object-oriented programming language underscores its adaptability and widespread adoption in modern software development.
+
+Thank you for reading this post.
+
+See you later.

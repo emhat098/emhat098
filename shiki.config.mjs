@@ -1,0 +1,37 @@
+'use strict';
+
+import javaScriptLanguage from 'shiki/langs/javascript.mjs';
+import jsxScriptLanguage from 'shiki/langs/jsx.mjs';
+import typeScriptLanguage from 'shiki/langs/typescript.mjs';
+import jsonLanguage from 'shiki/langs/json.mjs';
+import tsxScriptLanguage from 'shiki/langs/tsx.mjs';
+import htmlLanguage from 'shiki/langs/html.mjs';
+import cssLanguage from 'shiki/langs/css.mjs';
+import scssLanguage from 'shiki/langs/scss.mjs';
+import sassLanguage from 'shiki/langs/sass.mjs';
+
+import shikiNordTheme from 'shiki/themes/nord.mjs';
+
+/**
+ * All languages needed within the Node.js website for syntax hightlighting.
+ *
+ * @type {Array<import('shiki').LanguageRegistration>}
+ */
+export const LANGUAGES = [
+  {
+    ...javaScriptLanguage[0],
+    aliases: javaScriptLanguage[0].aliases.concat('cjs', 'mjs'),
+  },
+  ...jsxScriptLanguage,
+  ...typeScriptLanguage,
+  ...jsonLanguage,
+  ...tsxScriptLanguage,
+  ...htmlLanguage,
+  ...cssLanguage,
+  ...scssLanguage,
+  ...sassLanguage,
+];
+
+export const DEFAULT_THEME = {
+  ...shikiNordTheme,
+};

@@ -1,0 +1,112 @@
+---
+title: 'How can we define a component in React?'
+publishedAt: '2024-10-19'
+summary: 'In this article, we’ll explore the basic steps involved in defining a component in React, focusing on managing states, handling events, and optimizing performance.'
+Tags: 'javascript, nodejs, react, typescript'
+---
+
+When working with React components, you need to think about what the component will look like, from the UI to its internal state. In this article, I will show you the basic steps for designing a component in React.
+
+**Step 1: Identify how many visual states the component has**
+
+In React, there are two types of components: stateless and stateful components. A stateless component does not have internal state—it simply receives props and renders them. On the other hand, a stateful component has internal state or multiple states to manage the visual appearance of the component.
+
+Let’s look at the component below. It’s a simple component that displays an image inside a card with a background class.
+
+When the user clicks on the image or the background, the classes background--active and picture--active toggle between each other.
+
+So, this component has two states:
+
+1. The background is active.
+2. The image is active.
+
+```jsx
+<div className={'background background--active'}>
+  <img
+    className={'picture picture--active'}
+    alt={'Random image'}
+    src='https://picsum.photos/1080'
+  />
+</div>
+```
+
+**Step 2: What triggers the state changes?**
+
+In most cases, state changes are triggered by either a user or a computer. We need to understand the behavior of both to ensure all states are handled correctly.
+
+In this example, the state changes are triggered by the user. The user can trigger state changes as follows:
+
+1. The user clicks on the background, making the image active.
+2. The user clicks on the background again, making the image inactive.
+3. The user clicks on the image, making the background active.
+4. The user clicks on the image again, making the background inactive.
+
+**Step 3: How do we represent the state in the component?**
+
+After visualizing the states of the component, we need to define the type of data that will represent these states and decide how to manage the state changes in the component.
+
+In this case, the state is a boolean (either true or false). We can use the useState hook to manage the state. Here’s the definition:
+
+1. If the state is true, the background is active, and the image is inactive.
+2. If the state is false, the background is inactive, and the image is active.
+
+```jsx
+const [isBgActive, setBgActive] = useState(true);
+
+...
+
+<div className={'background ' + (isBgActive && 'background--active')}>
+  <img
+    className={'picture ' + (!isBgActive && 'picture--active')}
+    alt='Rainbow houses in Kampung Pelangi, Indonesia'
+    src='https://picsum.photos/1080'
+  />
+</div>
+```
+
+**Step 4: Connect state to the event handler**
+
+As mentioned in Step 2, the state is dependent on user interaction. Therefore, defining how the event works is crucial to making the component’s logic work correctly.
+
+Now, we can connect the user event (click) to an event handler.
+
+```jsx
+const toggleBgActive = (e: any) => {
+  e.stopPropagation();
+  setBgActive(!isBgActive);
+};
+
+return (
+  <div
+    onClick={toggleBgActive}
+    className={'background ' + (isBgActive && 'background--active')}
+  >
+    <img
+      className={'picture ' + (!isBgActive && 'picture--active')}
+      alt='Rainbow houses in Kampung Pelangi, Indonesia'
+      src='https://picsum.photos/1080'
+      onClick={toggleBgActive}
+    />
+  </div>
+);
+```
+
+I used `e.stopPropagation();` to prevent the click event from propagating from the parent (background) to the child (image).
+
+**Step 5: Remove unnecessary state**
+
+To make the component more efficient, we should remove any unnecessary states. By clearly identifying the main state, we can help the component avoid re-renders and reduce the chance of encountering errors.
+
+**Conclusion**
+
+Defining a React component involves understanding its visual states, managing those states efficiently with hooks like useState, and handling user events correctly. By simplifying the state management and focusing on clear interactions, you can avoid unnecessary complexity and potential issues in your components. Following these steps will ensure that your components are not only functional but also maintainable and optimized for performance.
+
+**References:**
+
+Codesandbox: [https://codesandbox.io/p/sandbox/w6yjy7](https://codesandbox.io/p/sandbox/w6yjy7)
+
+<iframe
+  src={'https://codesandbox.io/p/sandbox/w6yjy7'}
+  width={'100%'}
+  height={'480'}
+/>
