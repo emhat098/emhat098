@@ -1,19 +1,24 @@
 'use client';
 
+import Link from '@/components/link/link';
+import Logo from '@/components/logo/logo';
+
 const Navbar = () => {
   return (
     <nav
       className={
-        'flex flex-row gap-4 justify-between items-center text-sm px-12 py-8 shadow'
+        'flex flex-row gap-4 justify-between items-center text-sm px-12 py-4 shadow'
       }
     >
       <div className={'flex flex-row gap-4 items-center'}>
-        <div className={'font-mono text-2xl'}>Em Ha Tuan</div>
+        <Logo />
         <ul className={'flex flex-row gap-4'}>
-          <li>Home</li>
-          <li>Blog</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li>
+            <Link href={'/'}>{'Home'}</Link>
+          </li>
+          <li>
+            <Link href={'/blog'}>{'Blogs'}</Link>
+          </li>
         </ul>
       </div>
       <div>
