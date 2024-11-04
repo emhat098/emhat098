@@ -11,6 +11,18 @@ const reactRunTime = {
   jsxs,
 };
 
+/**
+ * This is a custom simple MDX compiler.
+ *
+ * @param {import('vfile').VFile} source
+ * @param {'md' | 'mdx'} fileExtension
+ * @returns {Promise<{
+ *    MDXContent: import('mdx/types').MDXContent;
+ *    headings: Array<import('@vcarl/remark-headings').Heading>;
+ *    frontmatter: Record<string, any>;
+ *    readingTime: import('reading-time').ReadTimeResults;
+ * }>}
+ */
 export async function compileMDX(source, fileExtension) {
   matter(source, { strip: true });
   const { default: MDXContent } = await evaluate(source, {
