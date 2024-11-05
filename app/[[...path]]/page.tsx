@@ -1,6 +1,8 @@
 import Layout from '@/components/layouts/layout';
 import MDXRenderer from '@/components/mdx/mdx-renderer';
+import { setClientContext } from '@/context/client-context';
 import { dynamicRouter } from '@/next.dynamic.mjs';
+import MainProvider from '@/providers/main-provider';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -36,23 +38,29 @@ const Page = async (params: DynamicParams) => {
   const pageParams = await params;
   const { path } = await pageParams.params;
   const pathName = dynamicRouter.getPathName(path);
-
   const { source, filename } = await dynamicRouter.getMarkdownFile(pathName);
 
   if (!source || !filename) {
     return notFound();
   }
 
-  const {
-    MDXContent,
+  const { MDXContent, frontmatter, headings, readingTime } =
+    await dynamicRouter.getMdxContent(source, filename);
+
+  const sharedContext = {
     frontmatter,
-    // headings, readingTime
-  } = await dynamicRouter.getMdxContent(source, filename);
+    headings,
+    readingTime,
+  };
+
+  setClientContext(sharedContext);
 
   return (
-    <Layout layout={frontmatter.layout}>
-      <MDXRenderer Component={MDXContent} />
-    </Layout>
+    <MainProvider {...sharedContext}>
+      <Layout layout={frontmatter.layout}>
+        <MDXRenderer Component={MDXContent} />
+      </Layout>
+    </MainProvider>
   );
 };
 

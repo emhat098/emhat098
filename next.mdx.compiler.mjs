@@ -19,7 +19,7 @@ const reactRunTime = {
  * @returns {Promise<{
  *    MDXContent: import('mdx/types').MDXContent;
  *    headings: Array<import('@vcarl/remark-headings').Heading>;
- *    frontmatter: Record<string, any>;
+ *    frontmatter: import('./types/frontmatter').LegacyBlogFrontMatter;
  *    readingTime: import('reading-time').ReadTimeResults;
  * }>}
  */
