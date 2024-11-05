@@ -1,9 +1,11 @@
 import type { Layouts } from '@/types';
 import DefaultLayout from './default';
 import { FC, PropsWithChildren } from 'react';
+import BlogsLayout from './blogs';
 
 const layouts = {
   page: DefaultLayout,
+  blogs: BlogsLayout,
 } satisfies Record<Layouts, FC>;
 
 type LayoutProps<L = Layouts> = PropsWithChildren<{ layout: L }>;

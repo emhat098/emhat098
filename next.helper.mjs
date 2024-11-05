@@ -31,7 +31,6 @@ export const getMarkdownFiles = async (root, cwd, ignore = []) => {
     const filesPromise = glob('**/*.{md,mdx}', {
       cwd,
       ignore,
-      ignore,
       sync: true,
     });
     globCacheByPath.set(cacheKey, filesPromise);

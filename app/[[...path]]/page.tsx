@@ -51,6 +51,7 @@ const Page = async (params: DynamicParams) => {
     frontmatter,
     headings,
     readingTime,
+    pathname: pathName,
   };
 
   setClientContext(sharedContext);

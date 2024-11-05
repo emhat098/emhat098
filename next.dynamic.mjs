@@ -5,7 +5,7 @@ import { join, normalize, sep } from 'node:path';
 import { cache } from 'react';
 import { VFile } from 'vfile';
 import { compileMDX } from './next.mdx.compiler.mjs';
-import { IS_DEVELOPMENT } from './next.constant.mjs';
+import { IS_DEVELOPMENT } from './next.constants.mjs';
 import { getMarkdownFiles } from './next.helper.mjs';
 
 const createCachedMarkdownCache = () => {
