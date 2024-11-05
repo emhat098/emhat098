@@ -1,9 +1,11 @@
 'use client';
 
-const Logo = () => {
+import { FC, PropsWithChildren } from 'react';
+
+const Logo: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <span className={'text-base font-bold'}>@emhat098</span>
+      <span className={'text-xl font-bold'}>{children ?? 'Em Ha Tuan'}</span>
     </>
   );
 };
