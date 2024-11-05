@@ -7,6 +7,9 @@ import { VFile } from 'vfile';
 import { compileMDX } from './next.mdx.compiler.mjs';
 import { IS_DEVELOPMENT } from './next.constants.mjs';
 import { getMarkdownFiles } from './next.helper.mjs';
+import matter from 'gray-matter';
+import { PAGE_METADATA } from './next.dynamic.site.constants.mjs';
+import { siteConfig } from './next.site.config.mjs';
 
 const createCachedMarkdownCache = () => {
   if (IS_DEVELOPMENT) {
@@ -98,11 +101,46 @@ const getDynamicRouter = async () => {
 
   const getPathName = (path = []) => path.join('/');
 
+  /**
+   * Create cached for page metadata.
+   */
+  const getMetadata = cache((filename = '') => {
+    return _getMetadata(filename);
+  });
+
+  /**
+   * Get the metadata page.
+   *
+   * @param {string} path
+   * @returns {Promise<import('next').Metadata>}
+   */
+  const _getMetadata = async (path = '') => {
+    try {
+      const metadata = { ...PAGE_METADATA };
+
+      const { source = '' } = await getMarkdownFile(path);
+      const { data } = matter(source);
+
+      metadata.title = data.title
+        ? `${siteConfig.title} - ${data.title}`
+        : siteConfig.title;
+
+      metadata.description = data.description ?? siteConfig.description;
+
+      return metadata;
+    } catch (error) {
+      if (IS_DEVELOPMENT) {
+        throw new Error(error);
+      }
+    }
+  };
+
   return {
     getMarkdownFile,
     getMdxContent,
     getMdxContent,
     getPathName,
+    getMetadata,
   };
 };
 

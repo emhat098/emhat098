@@ -1,0 +1,8 @@
+{
+  "title": "Insights Em Ha Tuan",
+  "description": "Welcome to my blog, where I merge my passion for software development with a deep commitment to continuous learning. As a Software Engineer driven by curiosity and the thrill of innovation, I believe that the tech world is a never-ending adventure. Every line of code, every new framework, and every solved problem is a step forward in this exhilarating journey.",
+  "accentColor": "#000",
+  "favicon": "./favicon.ico",
+  "lightAccentColor": "#fff",
+  "darkAccentColor": "#000"
+}

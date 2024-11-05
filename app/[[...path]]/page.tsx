@@ -2,6 +2,7 @@ import Layout from '@/components/layouts/layout';
 import MDXRenderer from '@/components/mdx/mdx-renderer';
 import { setClientContext } from '@/context/client-context';
 import { dynamicRouter } from '@/next.dynamic.mjs';
+import { PAGE_VIEWPORT } from '@/next.dynamic.site.constants.mjs';
 import MainProvider from '@/providers/main-provider';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -10,33 +11,26 @@ type DynamicStaticPaths = {
   path: Array<string>;
 };
 
-type DynamicParams = {
-  params: DynamicStaticPaths;
-};
+interface DynamicParams {
+  params: Promise<DynamicStaticPaths>;
+}
+
+export const generateViewport = async () => ({
+  ...PAGE_VIEWPORT,
+});
 
 export const generateMetadata = async (
   params: DynamicParams,
 ): Promise<Metadata> => {
-  const pageParams = await params;
-  const { path } = await pageParams.params;
+  const { path } = await (await params).params;
   const pathName = dynamicRouter.getPathName(path);
 
-  const { source, filename } = await dynamicRouter.getMarkdownFile(pathName);
-  const { frontmatter: metadata } = await dynamicRouter.getMdxContent(
-    source,
-    filename,
-  );
-
-  return {
-    title: metadata.title,
-    description: metadata.summary,
-    publisher: metadata?.publisher || 'Em Ha Tuan',
-  };
+  const metadata = await dynamicRouter.getMetadata(pathName);
+  return metadata;
 };
 
 const Page = async (params: DynamicParams) => {
-  const pageParams = await params;
-  const { path } = await pageParams.params;
+  const { path } = await (await params).params;
   const pathName = dynamicRouter.getPathName(path);
   const { source, filename } = await dynamicRouter.getMarkdownFile(pathName);
 
