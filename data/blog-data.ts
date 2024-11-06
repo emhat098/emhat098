@@ -1,12 +1,20 @@
 import generateBlogData from '@/generator/blog.mjs';
-import { BLOGS_POST_PER_PAGE } from '@/next.constants.mjs';
-import { BlogPostsRSC } from '@/types';
+import { BLOGS_POST_LATEST, BLOGS_POST_PER_PAGE } from '@/next.constants.mjs';
+import { BlogPost, BlogPostsRSC } from '@/types';
 import { cache } from 'react';
 
 const { categories, posts } = await generateBlogData();
 
+/**
+ * Cached blog post based on category;
+ */
 export const provideBlogCategories = cache(() => categories);
 
+/**
+ * Get full blog posts.
+ *
+ * @returns {BlogPostsRSC}
+ */
 export const provideBlogPosts = cache((category: string): BlogPostsRSC => {
   const categoryPosts = posts
     .filter((p) => p.categories.includes(category))
@@ -25,6 +33,11 @@ export const provideBlogPosts = cache((category: string): BlogPostsRSC => {
   };
 });
 
+/**
+ * Get the list of blog post with pagination.
+ *
+ * @return {BlogPostsRSC}
+ */
 export const providePaginationBlogPosts = cache(
   (category: string, page: number): BlogPostsRSC => {
     const { posts, pagination } = provideBlogPosts(category);
@@ -56,3 +69,17 @@ export const providePaginationBlogPosts = cache(
     };
   },
 );
+
+/**
+ * Get the latest blog post.
+ * Default is {BLOGS_POST_LATEST} items.
+ *
+ * @returns {Array<BlogPost>}
+ */
+export const provideLatestBlogOfPosts = cache((): Array<BlogPost> => {
+  const data = posts
+    .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .slice(0, BLOGS_POST_LATEST);
+
+  return data;
+});

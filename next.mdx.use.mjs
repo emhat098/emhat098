@@ -1,6 +1,7 @@
 'use strict';
 
 import Banner from './components/banner/banner';
+import BlogLatest from './components/blog/latest';
 
 /**
  * A full list of React Components that we want to pass through to MDX.
@@ -8,4 +9,5 @@ import Banner from './components/banner/banner';
  */
 export const mdxComponents = {
   Banner: Banner,
+  BlogLatest: BlogLatest,
 };
