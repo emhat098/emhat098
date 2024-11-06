@@ -14,3 +14,7 @@ export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
   : 'https://nodejs.org';
 
 export const BASE_URL_API = BASE_URL + '/api';
+
+export const VERCEL_REVALIDATE = Number(
+  process.env.NEXT_PUBLIC_VERCEL_REVALIDATE_TIME || 300,
+);

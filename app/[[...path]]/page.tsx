@@ -1,6 +1,8 @@
 import Layout from '@/components/layouts/layout';
 import MDXRenderer from '@/components/mdx/mdx-renderer';
 import { setClientContext } from '@/context/client-context';
+import generateBlogData from '@/generator/blog.mjs';
+import { VERCEL_REVALIDATE } from '@/next.constants.mjs';
 import { dynamicRouter } from '@/next.dynamic.mjs';
 import { PAGE_VIEWPORT } from '@/next.dynamic.site.constants.mjs';
 import MainProvider from '@/providers/main-provider';
@@ -22,7 +24,7 @@ export const generateViewport = async () => ({
 export const generateMetadata = async (
   params: DynamicParams,
 ): Promise<Metadata> => {
-  const { path } = await (await params).params;
+  const { path } = await params.params;
   const pathName = dynamicRouter.getPathName(path);
 
   const metadata = await dynamicRouter.getMetadata(pathName);
@@ -58,5 +60,21 @@ const Page = async (params: DynamicParams) => {
     </MainProvider>
   );
 };
+
+export const generateStaticParams = async () => {
+  const { posts } = await generateBlogData();
+
+  const paths = posts.map((post) => ({
+    path: [post.slug],
+  }));
+
+  return [...paths, ...[{ path: ['/'] }]];
+};
+
+export const dynamicParams = true;
+
+export const dynamic = 'force-static';
+
+export const revalidate = VERCEL_REVALIDATE;
 
 export default Page;
