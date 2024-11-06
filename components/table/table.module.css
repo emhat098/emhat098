@@ -1,0 +1,12 @@
+.table {
+  @apply table-auto border-collapse border border-slate-500 my-2 shadow w-full;
+}
+
+.table th {
+  @apply border border-slate-600 bg-slate-500 text-white;
+  @apply dark:text-black px-2 py-1;
+}
+
+.table td {
+  @apply border border-slate-600 px-2 py-1;
+}

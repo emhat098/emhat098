@@ -17,8 +17,6 @@ const Pre: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
     }
   };
 
-  console.log(copied);
-
   return (
     <pre
       ref={ref}

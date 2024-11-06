@@ -4,8 +4,13 @@ import Link from '@/components/link/link';
 import Logo from '@/components/logo/logo';
 import { CiSearch } from 'react-icons/ci';
 import Container from '../container/container';
-import ToggleTheme from '../theme/toogle';
+
 import Button from '../button/button';
+import dynamic from 'next/dynamic';
+
+const ToggleTheme = dynamic(() => import('../theme/toogle'), {
+  ssr: false,
+});
 
 const Navbar = () => {
   return (

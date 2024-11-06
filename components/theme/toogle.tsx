@@ -5,8 +5,8 @@ import { CiLight, CiDark } from 'react-icons/ci';
 
 type ThemeType = 'light' | 'dark';
 
-const currentTheme: ThemeType =
-  (localStorage.getItem('theme') as ThemeType) ?? 'light';
+const currentTheme: ThemeType = (localStorage.getItem('theme') ??
+  'light') as ThemeType;
 
 const ToggleTheme = () => {
   const [theme, setTheme] = useState<ThemeType>(currentTheme);

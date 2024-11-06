@@ -21,7 +21,7 @@ const Code: FC<PropsWithChildren> = ({ children }) => {
         ref={ref}
         onClick={onCopy}
         className={
-          'font-semibold text-white bg-red-500 px-1 rounded hover:cursor-pointer'
+          'font-normal text-red-700 bg-red-200 px-1 rounded hover:cursor-pointer text-sm'
         }
         title={'Click to copy to clipboard!'}
       >
