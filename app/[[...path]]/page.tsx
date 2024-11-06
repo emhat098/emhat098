@@ -75,6 +75,6 @@ export const dynamicParams = true;
 
 export const dynamic = 'force-static';
 
-export const revalidate = VERCEL_REVALIDATE;
+export const revalidate = 300;
 
 export default Page;
