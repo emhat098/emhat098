@@ -5,7 +5,7 @@ export const BLOGS_POST_PER_PAGE = 10;
 /**
  * The constants of blog post latest.
  */
-export const BLOGS_POST_LATEST = 3;
+export const BLOGS_POST_LATEST = 5;
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
   ? process.env.NEXT_PUBLIC_BASE_URL

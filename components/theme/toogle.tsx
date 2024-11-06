@@ -1,46 +1,18 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import useTheme from '@/hooks/use-theme';
 import { CiLight, CiDark } from 'react-icons/ci';
 
-type ThemeType = 'light' | 'dark';
-
 const ToggleTheme = () => {
-  const currentTheme: ThemeType = (localStorage.getItem('theme') ??
-    'light') as ThemeType;
-  const [theme, setTheme] = useState<ThemeType>(currentTheme);
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      setTheme('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      setTheme('light');
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      setTheme('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      setTheme('light');
-    }
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
-      className={'p-2 border rounded-full shadow'}
+      className='p-2 border rounded-full shadow'
       onClick={toggleTheme}
     >
       {theme === 'dark' ? (
-        <CiDark className={'w-4 h-4'} />
+        <CiDark className='w-4 h-4' />
       ) : (
-        <CiLight className={'w-4 h-4'} />
+        <CiLight className='w-4 h-4' />
       )}
     </button>
   );
