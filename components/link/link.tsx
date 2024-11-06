@@ -1,12 +1,14 @@
 'use client';
 
 import cn from '@/util/tailwind-helper';
-import NextLink, { LinkProps } from 'next/link';
-import { AnchorHTMLAttributes, FC, PropsWithChildren } from 'react';
+import NextLink from 'next/link';
+import { ComponentProps, FC } from 'react';
 
-const Link: FC<
-  PropsWithChildren & LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
-> = ({ children, ...props }) => {
+type LinkProps = Omit<ComponentProps<typeof NextLink>, 'href'> & {
+  href: string;
+};
+
+const Link: FC<LinkProps> = ({ children, ...props }) => {
   return (
     <NextLink
       {...props}
