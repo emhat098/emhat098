@@ -12,7 +12,7 @@ const Container: FC<ContainerProps> = ({ as = 'div', children, ...props }) => {
   return (
     <Component
       {...props}
-      className={cn('max-w-6xl mx-auto my-4', props.className)}
+      className={cn('max-w-6xl mx-auto my-4 px-4', props.className)}
     >
       {children}
     </Component>

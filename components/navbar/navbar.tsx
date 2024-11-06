@@ -5,6 +5,8 @@ import Logo from '@/components/logo/logo';
 import { CiSearch } from 'react-icons/ci';
 import InputGroup from '@/components/input/input-group';
 import Container from '../container/container';
+import ToggleTheme from '../theme/toogle';
+import Button from '../button/button';
 
 const Navbar = () => {
   return (
@@ -37,10 +39,11 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div>
-          <form>
-            <InputGroup action={<CiSearch />} />
-          </form>
+        <div className={'flex items-center gap-4'}>
+          <ToggleTheme />
+          <Button>
+            <CiSearch className={'w-6 h-6'} />
+          </Button>
         </div>
       </Container>
     </nav>

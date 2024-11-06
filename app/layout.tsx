@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+        className={`transition-colors duration-500 ease-in-out antialiased dark:bg-slate-950 dark:text-white ${GeistSans.variable} ${GeistMono.variable} `}
       >
         <NextTopLoader
           showSpinner={false}
