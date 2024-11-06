@@ -3,7 +3,6 @@
 import Link from '@/components/link/link';
 import Logo from '@/components/logo/logo';
 import { CiSearch } from 'react-icons/ci';
-import InputGroup from '@/components/input/input-group';
 import Container from '../container/container';
 import ToggleTheme from '../theme/toogle';
 import Button from '../button/button';

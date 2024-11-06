@@ -19,7 +19,7 @@ const ToggleTheme = () => {
       document.documentElement.classList.remove('dark');
       setTheme('light');
     }
-  }, []);
+  }, [theme]);
 
   const toggleTheme = () => {
     if (theme === 'light') {
