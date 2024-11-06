@@ -2,6 +2,7 @@ import './globals.css';
 import NextTopLoader from 'nextjs-toploader';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { Toaster } from 'sonner';
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
           height={1}
         />
         {children}
+        <Toaster />
       </body>
     </html>
   );
