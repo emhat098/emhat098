@@ -30,7 +30,7 @@ export const generateMetadata = async (
 };
 
 const Page = async (params: DynamicParams) => {
-  const { path } = await (await params).params;
+  const { path } = await params.params;
   const pathName = dynamicRouter.getPathName(path);
   const { source, filename } = await dynamicRouter.getMarkdownFile(pathName);
 
