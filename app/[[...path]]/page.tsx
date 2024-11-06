@@ -2,7 +2,6 @@ import Layout from '@/components/layouts/layout';
 import MDXRenderer from '@/components/mdx/mdx-renderer';
 import { setClientContext } from '@/context/client-context';
 import generateBlogData from '@/generator/blog.mjs';
-import { VERCEL_REVALIDATE } from '@/next.constants.mjs';
 import { dynamicRouter } from '@/next.dynamic.mjs';
 import { PAGE_VIEWPORT } from '@/next.dynamic.site.constants.mjs';
 import MainProvider from '@/providers/main-provider';
