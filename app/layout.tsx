@@ -12,7 +12,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`transition-colors duration-500 ease-in-out antialiased dark:bg-slate-950 dark:text-white ${GeistSans.variable} ${GeistMono.variable} `}
+        className={`transition-colors duration-500 ease-in-out antialiased dark:bg-slate-950 dark:text-white ${GeistSans.variable} ${GeistMono.variable}`}
       >
         <TopLoader />
         {children}

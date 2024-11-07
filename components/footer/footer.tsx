@@ -2,6 +2,7 @@
 
 import Link from '@/components/link/link';
 import Logo from '../logo/logo';
+import { footerNavigators } from '@/next.navigation.mjs';
 
 const Footer = () => {
   return (
@@ -16,15 +17,17 @@ const Footer = () => {
             <Logo>{'@emhat098'}</Logo>
           </Link>
         </li>
-        <li>
-          <Link
-            target={'_blank'}
-            href={'https://github.com/emhat098'}
-            className={'font-semibold'}
-          >
-            {'Github'}
-          </Link>
-        </li>
+        {footerNavigators.map((navigator) => (
+          <li key={navigator.href}>
+            <Link
+              target={navigator.isExternal ? '_blank' : '_parent'}
+              href={navigator.href}
+              className={'font-semibold'}
+            >
+              {navigator.title}
+            </Link>
+          </li>
+        ))}
       </ul>
     </footer>
   );

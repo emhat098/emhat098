@@ -4,6 +4,7 @@ import { evaluate } from '@mdx-js/mdx';
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 import { matter } from 'vfile-matter';
 import { NEXT_REHYPE_PLUGINS, NEXT_REMARK_PLUGINS } from './next.mdx.mjs';
+import createGitHubSlugger from './util/slugger';
 
 const reactRunTime = {
   Fragment,
@@ -25,6 +26,7 @@ const reactRunTime = {
  */
 export async function compileMDX(source, fileExtension) {
   matter(source, { strip: true });
+
   const { default: MDXContent } = await evaluate(source, {
     remarkPlugins: NEXT_REMARK_PLUGINS,
     rehypePlugins: NEXT_REHYPE_PLUGINS,
@@ -33,6 +35,15 @@ export async function compileMDX(source, fileExtension) {
   });
 
   const { headings, matter: frontmatter, readingTime } = source.data;
+
+  // Create slugger for each heading level to make the Table of content.
+  const slugger = createGitHubSlugger();
+  headings.forEach((heading) => {
+    heading.data = {
+      ...heading.data,
+      id: slugger(heading.value),
+    };
+  });
 
   return { MDXContent, headings, frontmatter, readingTime };
 }

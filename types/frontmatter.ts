@@ -4,7 +4,7 @@ export interface LegacyFrontMatter extends Record<string, unknown> {
   layout: Layouts;
   title: string;
   labels: Record<string, string>;
-  authors: string;
+  author: string;
 }
 
 export interface LegacyBlogFrontMatter extends LegacyFrontMatter {

@@ -21,7 +21,10 @@ const Pre: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
     <pre
       ref={ref}
       {...props}
-      className={cn(props.className, 'rounded px-4 py-2 shadow my-2 relative')}
+      className={cn(
+        props.className,
+        'rounded px-4 py-2 shadow my-2 relative  *:text-wrap',
+      )}
     >
       <button
         onClick={onCopy}

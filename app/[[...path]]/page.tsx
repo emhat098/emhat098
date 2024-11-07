@@ -46,7 +46,7 @@ const Page = async (params: DynamicParams) => {
     frontmatter,
     headings,
     readingTime,
-    pathname: pathName,
+    pathname: `/${pathName}`,
   };
 
   setClientContext(sharedContext);
