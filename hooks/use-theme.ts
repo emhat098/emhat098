@@ -3,12 +3,7 @@ import { useEffect, useState } from 'react';
 export type ThemeType = 'light' | 'dark' | null;
 
 const useTheme = () => {
-  // Initialize theme from localStorage or default to 'light'
-  const getInitialTheme = (): ThemeType => {
-    return (localStorage.getItem('theme') ?? 'light') as ThemeType;
-  };
-
-  const [theme, setTheme] = useState<ThemeType>(getInitialTheme);
+  const [theme, setTheme] = useState<ThemeType>(null);
 
   useEffect(() => {
     // Apply the theme to the document's root class
@@ -20,6 +15,13 @@ const useTheme = () => {
     // Store the theme in localStorage
     localStorage.setItem('theme', theme ?? '');
   }, [theme]);
+
+  useEffect(() => {
+    if (window) {
+      const currentTheme = window.localStorage.getItem('theme') as ThemeType;
+      setTheme(currentTheme);
+    }
+  }, []);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
