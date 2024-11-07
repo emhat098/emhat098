@@ -1,19 +1,15 @@
 'use client';
 
-import useTheme from '@/hooks/use-theme';
 import NextTopLoader from 'nextjs-toploader';
-import { FC, PropsWithChildren } from 'react';
 
-const TopLoader: FC<PropsWithChildren> = ({ children }) => {
-  const { theme } = useTheme();
+const TopLoader = () => {
   return (
     <>
       <NextTopLoader
         showSpinner={false}
-        color={theme === 'light' ? '#000' : '#fff'}
+        color={'#000'}
         height={1}
       />
-      {children}
     </>
   );
 };

@@ -6,11 +6,6 @@ import { CiSearch } from 'react-icons/ci';
 import Container from '../container/container';
 
 import Button from '../button/button';
-import dynamic from 'next/dynamic';
-
-const ToggleTheme = dynamic(() => import('../theme/toogle'), {
-  ssr: false,
-});
 
 const Navbar = () => {
   return (
@@ -36,6 +31,14 @@ const Navbar = () => {
             <li>
               <Link
                 className={'font-semibold text-base'}
+                href={'/about'}
+              >
+                {'About'}
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={'font-semibold text-base'}
                 href={'/blog'}
               >
                 {'Blogs'}
@@ -44,7 +47,6 @@ const Navbar = () => {
           </ul>
         </div>
         <div className={'flex items-center gap-4'}>
-          <ToggleTheme />
           <Button>
             <CiSearch className={'w-6 h-6'} />
           </Button>
