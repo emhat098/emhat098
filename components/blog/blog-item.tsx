@@ -8,7 +8,7 @@ interface BlogItemProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const BlogItem: FC<BlogItemProps> = ({
-  post: { slug, author, categories, date, title, username },
+  post: { slug, author, date, title },
 }) => {
   return (
     <div>

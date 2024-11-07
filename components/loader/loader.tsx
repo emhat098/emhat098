@@ -6,7 +6,6 @@ import { FC, PropsWithChildren } from 'react';
 
 const TopLoader: FC<PropsWithChildren> = ({ children }) => {
   const { theme } = useTheme();
-  console.log(theme);
   return (
     <>
       <NextTopLoader
