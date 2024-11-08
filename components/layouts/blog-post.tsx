@@ -50,7 +50,6 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
                 </summary>
                 <TOC
                   items={{
-                    'Author: ': frontmatter.author,
                     'Last updated:': lastUpdated,
                     'Reading time:': readingTime.text,
                   }}

@@ -5,9 +5,9 @@ summary: 'Sometimes, we misunderstand the true meaning of props and state, which
 layout: 'blog'
 category: 'react'
 author: 'Em Ha Tuan'
+authorImg: 'https://img.notionusercontent.com/s3/prod-files-secure%2F56297b57-d436-4e76-b430-dc33daeb3f94%2Fbe7dbcc9-f087-4c69-bce0-f5c59fbf8034%2F322727530_3383089278636676_8051574977311734060_n.jpg/size/w=250?exp=1731145919&sig=hGTmXJxEmtwj70qZBrD9MYrLj7SZavRIGfEERnSi8Cg'
+banner: 'https://images.unsplash.com/photo-1502007275795-570461cb6b13?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=4800'
 ---
-
-**Contents**
 
 When you first start working with React, you might wonder: what are **props** and **state**, and how do they work? How do you decide when to use props versus state in your component? Sometimes, we misunderstand the true meaning of props and state, which can lead to unexpected bugs that are difficult to track down as the application grows. In this article, I will discuss an issue that many people, including myself, have faced: mixing props and state, specifically **“mirroring props as state.”**
 
@@ -51,12 +51,12 @@ export default function App() {
   const [bgColor, setBgColor] = useState<string>('black');
   // Prepare for rendering.
   return (
-		  ...
+    ...
   );
 }
 ```
 
-1. Render phase: React calls the component function (in functional components) or render() method (in class components) to process JSX and create a Virtual DOM.
+2. Render phase: React calls the component function (in functional components) or render() method (in class components) to process JSX and create a Virtual DOM.
 
 ```jsx
 // React call the component for process JSX or TSX and create Vitural DOM.
@@ -67,14 +67,14 @@ root.render(
 );
 ```
 
-1. **Reconciliation (Diffing):** After generating the Virtual DOM. React compares it with the current Virtual DOM (for initial render, there’s nothing to compare against).
+3. **Reconciliation (Diffing):** After generating the Virtual DOM. React compares it with the current Virtual DOM (for initial render, there’s nothing to compare against).
 
 ```jsx
 // App component calls for first time render. So there is nothing for comparing.
 <App />
 ```
 
-1. Commit Phase (DOM updates): React applies the Virtual DOM to the real DOM by creating the necessary elements and inserting them into the document.
+4. Commit Phase (DOM updates): React applies the Virtual DOM to the real DOM by creating the necessary elements and inserting them into the document.
 
 ```jsx
 export default function App() {
@@ -86,7 +86,7 @@ export default function App() {
 }
 ```
 
-1. Browser Painting: After React updates the real DOM. The browser takes over and visually renders (paints) the updated DOM on the screen. This step is outside React’s control.
+5. Browser Painting: After React updates the real DOM. The browser takes over and visually renders (paints) the updated DOM on the screen. This step is outside React’s control.
 
 ## So what is happening if the state or props updates or changes?
 
@@ -123,7 +123,7 @@ export default function App() {
 }
 ```
 
-1. Render phase (Re-execution of Component Function).
+2. Render phase (Re-execution of Component Function).
 
 ```jsx
 export default function App() {
@@ -134,8 +134,9 @@ export default function App() {
 }
 ```
 
-1. Reconciliation (Diffing): React compares the new Virtual DOM with the previous virtual DOM. If only one element has changed (such as the background color). React will only update that element in the real DOM.
-2. Commit Phase (Updating the Real DOM): The `useEffect` hooks (with dependencies) will run again if the state or props that they depend on have changed. With the code above. The log message `App component added and ready in real DOM` will never log in the console because there is not depend. It is only for first time component render as initialization stage.
+2.1. Reconciliation (Diffing): React compares the new Virtual DOM with the previous virtual DOM. If only one element has changed (such as the background color). React will only update that element in the real DOM.
+
+2.2. Commit Phase (Updating the Real DOM): The `useEffect` hooks (with dependencies) will run again if the state or props that they depend on have changed. With the code above. The log message `App component added and ready in real DOM` will never log in the console because there is not depend. It is only for first time component render as initialization stage.
 
 ```jsx
 export default function App() {
@@ -147,7 +148,7 @@ export default function App() {
 }
 ```
 
-1. Browser Painting (Rendering Updates to the Screen): Once React updates the DOM, the browser paints the changes on the screen.
+3. Browser Painting (Rendering Updates to the Screen): Once React updates the DOM, the browser paints the changes on the screen.
 
 So at the end, React re-renders are triggered by changes in state or props and context. React efficiently handles re-renders by regenerating the virtual DOM, comparing it with the previous one, and only applying the minimal changes to real DOM. This optimization allows React to maintain hight performance, even in complex applications.
 
@@ -262,8 +263,8 @@ const Clock: React.FC<ClockProps> = ({ bgColor, time }) => {
 };
 ```
 
-1. Synchronization Issues: Once the `bgColor` is copied into state (`color`). If the `bgColor` changes in the parent (App), the state in the Clock component will not automatically update to reflect changes. This can lead to bugs where UI does not stay in sync with the data passed from the parent.
-2. Unnecessary Complexity: Using both `props` and `state` to manage the same data (e.g. `bgColor` and `color`) makes the code harder to maintain. Even thought we can use `useEffect` to resolve the problem. But it is suck. I do not like it.
+2. Synchronization Issues: Once the `bgColor` is copied into state (`color`). If the `bgColor` changes in the parent (App), the state in the Clock component will not automatically update to reflect changes. This can lead to bugs where UI does not stay in sync with the data passed from the parent.
+3. Unnecessary Complexity: Using both `props` and `state` to manage the same data (e.g. `bgColor` and `color`) makes the code harder to maintain. Even thought we can use `useEffect` to resolve the problem. But it is suck. I do not like it.
 
 ## **Solution**: Keep it simple.
 

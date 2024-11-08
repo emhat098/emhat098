@@ -3,7 +3,7 @@
 }
 
 .table th {
-  @apply border border-white bg-slate-900 text-white  px-2 py-1;
+  @apply border border-white bg-[#1a1b26] text-white font-normal px-2 py-1;
 }
 
 .table td {

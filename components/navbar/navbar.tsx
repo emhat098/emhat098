@@ -15,7 +15,7 @@ const Navbar = () => {
       }
     >
       <Container className={'flex justify-between w-full'}>
-        <div className={'flex flex-row gap-8 items-center'}>
+        <div className={'flex flex-row gap-6 items-center'}>
           <Link href={'/'}>
             <Logo />
           </Link>
