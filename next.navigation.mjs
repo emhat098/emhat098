@@ -14,7 +14,7 @@ export const navigators = [
   },
   {
     href: '/blog',
-    title: 'blogs',
+    title: 'Blogs',
   },
 ];
 

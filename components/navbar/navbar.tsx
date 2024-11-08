@@ -23,7 +23,7 @@ const Navbar = () => {
             {navigators.map((nav) => (
               <li key={nav.href}>
                 <Link
-                  className={'font-normal text-base'}
+                  className={'font-normal text-sm'}
                   href={nav.href}
                   target={nav.isExternal ? '_blank' : '_parent'}
                 >

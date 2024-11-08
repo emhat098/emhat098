@@ -43,6 +43,23 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
                   className={'h-full w-full object-cover rounded-xl shadow'}
                 />
               </div>
+              <details className={'block sm:hidden'}>
+                <summary className={'font-normal'}>
+                  Details
+                  <hr />
+                </summary>
+                <TOC
+                  items={{
+                    'Author: ': frontmatter.author,
+                    'Last updated:': lastUpdated,
+                    'Reading time:': readingTime.text,
+                  }}
+                  headings={{
+                    items: headings,
+                    minDepth: 2,
+                  }}
+                />
+              </details>
               <div className={'*:break-words'}>{children}</div>
             </div>
           </article>
