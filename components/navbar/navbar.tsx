@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <nav
       className={
-        'flex flex-row gap-4 justify-between items-center text-sm shadow border-b border-b-slate-50 dark:border-b'
+        'flex flex-row gap-4 justify-between items-center text-sm border-b border-b-slate-50 dark:border-b'
       }
     >
       <Container className={'flex justify-between w-full'}>

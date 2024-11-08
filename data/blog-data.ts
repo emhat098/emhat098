@@ -83,3 +83,14 @@ export const provideLatestBlogOfPosts = cache((): Array<BlogPost> => {
 
   return data;
 });
+
+/**
+ * Get the blog post by slug.
+ *
+ * @param {string} slug - the blog slug.
+ * @returns {BlogPost | undefined}
+ */
+export const provideBlogBySlug = cache((slug: string): BlogPost | undefined => {
+  const data = posts.find((p) => p.slug === slug);
+  return data;
+});

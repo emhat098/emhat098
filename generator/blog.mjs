@@ -26,10 +26,10 @@ const getFrontMatter = (filename, source) => {
      */
     const grayFrontMatter = graymatter(source);
     const {
-      title = 'Untitled',
+      title = '',
       author = 'Em Ha Tuan',
       date = new Date(),
-      category = 'uncategorized',
+      category = '',
       summary = '',
       banner = '',
       authorImg = '',
@@ -41,15 +41,15 @@ const getFrontMatter = (filename, source) => {
     // We also use publishing years as categories for the blog
     const publishYear = new Date(date).getUTCFullYear();
 
-    // Provides a full list of categories for the Blog Post which consists of
-    // all = (all blog posts), publish year and the actual blog category
-    const categories = [category, `year-${publishYear}`, 'all'];
+    const categoryYear = `${publishYear}`;
 
-    // we add the year to the categories set
-    blogCategories.add(`year-${publishYear}`);
+    const categories = [category, 'all', categoryYear];
 
-    // we add the category to the categories set
-    blogCategories.add(category);
+    blogCategories.add(categoryYear);
+
+    if (category) {
+      blogCategories.add(category);
+    }
 
     // this is the url used for the blog post it based on the category and filename
     const slug = `/blog/${basename(filename, extname(filename))}`;
