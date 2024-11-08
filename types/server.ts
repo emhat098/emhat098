@@ -1,9 +1,9 @@
 import type { Heading } from '@vcarl/remark-headings';
 import type { ReadTimeResults } from 'reading-time';
-import { LegacyBlogFrontMatter } from './frontmatter';
+import { BaseFrontMatter } from './frontmatter';
 
 export interface ClientSharedServerContext {
-  frontmatter: LegacyBlogFrontMatter;
+  frontmatter: BaseFrontMatter;
   headings: Array<Heading>;
   pathname: string;
   filename: string;

@@ -2,9 +2,11 @@ export interface BlogPost {
   title: string;
   author: string;
   username: string;
+  banner: string;
   date: Date;
   categories: Array<string>;
   slug: string;
+  summary: string;
 }
 
 export interface BlogData {

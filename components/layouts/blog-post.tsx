@@ -7,6 +7,7 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import TOC from '../toc/toc';
 import useClientContext from '@/hooks/use-client';
+import Image from '@/components/image/image';
 
 const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
   const { headings, frontmatter, readingTime } = useClientContext();
@@ -27,9 +28,9 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
               {/* TODO: Split this element in to the avatar element. */}
               <div className={'flex flex-row gap-2 items-center'}>
                 <div className={'w-[40px] h-[40px]'}>
-                  <img
-                    src={'https://picsum.photos/1081'}
-                    alt={'no image'}
+                  <Image
+                    src={frontmatter?.authorImg || 'https://picsum.photos/1081'}
+                    alt={'Avatar of ' + frontmatter.author}
                     className={'h-full w-full object-cover rounded-full shadow'}
                   />
                 </div>
@@ -37,10 +38,9 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
                 <p className={'font-normal text-base'}>{frontmatter.author}</p>
               </div>
               <div className={'h-[240px] my-5'}>
-                <img
-                  src={'https://picsum.photos/1080'}
-                  alt={'no image'}
-                  className={'h-full w-full object-cover rounded-xl shadow'}
+                <Image
+                  src={frontmatter?.banner || 'https://picsum.photos/1080'}
+                  alt={'Banner image of ' + frontmatter.title}
                 />
               </div>
               <details className={'block sm:hidden'}>

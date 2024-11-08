@@ -1,6 +1,9 @@
 import getBlogsData from '@/actions/blog-action';
 import { getClientContext } from '@/context/client-context';
 import Link from '../link/link';
+import Navbar from '../navbar/navbar';
+import Container from '../container/container';
+import BlogItem2 from '../blog/blog-item-2';
 
 const getBlogData = async (pathname: string) => {
   const [, , category = 'all', , page = 1] = pathname.split('/');
@@ -10,18 +13,26 @@ const getBlogData = async (pathname: string) => {
 const BlogsLayout = async () => {
   const { pathname } = getClientContext();
   const blogs = await getBlogData(pathname);
+
   return (
-    <div>
-      <h2>Blogs layout</h2>
-      <ul>
-        {blogs.posts.length > 0 &&
-          blogs.posts.map((post) => (
-            <li key={post.slug}>
-              <Link href={post.slug}>{post.title}</Link>
-            </li>
-          ))}
-      </ul>
-    </div>
+    <>
+      <Navbar />
+      <Container>
+        <div
+          className={
+            'transition-all duration-300 ease-linear grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-4'
+          }
+        >
+          {blogs.posts.length > 0 &&
+            blogs.posts.map((post) => (
+              <BlogItem2
+                key={post.slug}
+                post={post}
+              />
+            ))}
+        </div>
+      </Container>
+    </>
   );
 };
 

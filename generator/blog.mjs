@@ -17,16 +17,25 @@ const blogCategories = new Set(['all']);
  *
  * @param {string} filename the filename related to the blog post
  * @param {string} source the source markdown content of the blog post
+ * @return {import('./../types').BaseFrontMatter}
  */
 const getFrontMatter = (filename, source) => {
   try {
+    /**
+     * @type {import('./../types').LegacyFrontMatter}
+     */
     const grayFrontMatter = graymatter(source);
     const {
       title = 'Untitled',
       author = 'Em Ha Tuan',
-      username,
       date = new Date(),
       category = 'uncategorized',
+      summary = '',
+      banner = '',
+      authorImg = '',
+      publisher = '',
+      labels = '',
+      layout = 'blog',
     } = grayFrontMatter.data;
 
     // We also use publishing years as categories for the blog
@@ -45,7 +54,19 @@ const getFrontMatter = (filename, source) => {
     // this is the url used for the blog post it based on the category and filename
     const slug = `/blog/${basename(filename, extname(filename))}`;
 
-    return { title, author, username, date: new Date(date), categories, slug };
+    return {
+      title,
+      author,
+      date: new Date(date),
+      categories,
+      slug,
+      summary,
+      banner,
+      labels,
+      layout,
+      publisher,
+      authorImg,
+    };
   } catch (err) {
     console.error(`Error parsing front matter in file ${filename}:`, err);
     if (IS_DEVELOPMENT) {

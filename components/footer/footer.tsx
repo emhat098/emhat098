@@ -6,11 +6,7 @@ import { footerNavigators } from '@/next.navigation.mjs';
 
 const Footer = () => {
   return (
-    <footer
-      className={
-        'flex flex-row gap-4 items-start text-sm px-12 py-4 border-t border-t-slate-200'
-      }
-    >
+    <footer className={'flex flex-row gap-4 items-start text-sm px-12 py-4'}>
       <ul className={'flex gap-6 items-center'}>
         <li>
           <Link href={'/'}>
