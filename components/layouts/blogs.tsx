@@ -1,6 +1,5 @@
 import getBlogsData from '@/actions/blog-action';
 import { getClientContext } from '@/context/client-context';
-import Link from '../link/link';
 import Navbar from '../navbar/navbar';
 import Container from '../container/container';
 import BlogItem2 from '../blog/blog-item-2';
