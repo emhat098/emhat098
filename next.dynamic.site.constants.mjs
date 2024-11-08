@@ -2,6 +2,24 @@
 
 import { siteConfig } from './next.site.config.mjs';
 import { BASE_URL } from './next.constants.mjs';
+import { provideBlogCategories, provideBlogPosts } from './data/blog-data';
+
+/**
+ * This constant is used to create static routes in the system.
+ *
+ * @type {Map<string, import('./types').Layouts>} A Map of pathname and Layout Name
+ */
+export const DYNAMIC_ROUTES = new Map([
+  ...provideBlogCategories().map((c) => [`blog/${c}`, 'category']),
+  ...provideBlogCategories()
+    .map((c) => [c, provideBlogPosts(c).pagination.pages])
+    .map(([c, t]) =>
+      [...Array(t).keys()].map((p) => `/blog/${c}/page/${p + 1}`),
+    )
+    .map((paths) => paths.map((path) => [path, 'category']))
+    .flat(),
+]);
+
 /**
  * This is the default Next.js Page Metadata for all pages
  *

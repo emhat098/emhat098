@@ -1,1 +1,1 @@
-export type Layouts = 'page' | 'blogs' | 'blog';
+export type Layouts = 'page' | 'blogs' | 'blog-post' | 'category';

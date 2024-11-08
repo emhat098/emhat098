@@ -35,7 +35,7 @@ const getFrontMatter = (filename, source) => {
       authorImg = '',
       publisher = '',
       labels = '',
-      layout = 'blog',
+      layout = 'blog-post',
     } = grayFrontMatter.data;
 
     // We also use publishing years as categories for the blog

@@ -13,10 +13,11 @@ import baseLanguage from 'shiki/langs/bash.mjs';
 import javaLanguage from 'shiki/langs/java.mjs';
 import dotenvLanguage from 'shiki/langs/dotenv.mjs';
 import dockerLanguage from 'shiki/langs/dockerfile.mjs';
+import yamlLanguage from 'shiki/langs/yaml.mjs';
 
 import BASE_THEME from 'shiki/themes/tokyo-night.mjs';
 /**
- * All languages needed within the Node.js website for syntax hightlighting.
+ * All languages needed within the Node.js website for syntax highlighting.
  *
  * @type {Array<import('shiki').LanguageRegistration>}
  */
@@ -37,6 +38,7 @@ export const LANGUAGES = [
   ...javaLanguage,
   ...dotenvLanguage,
   ...dockerLanguage,
+  ...yamlLanguage,
 ];
 
 export const DEFAULT_THEME = {
