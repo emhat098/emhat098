@@ -29,21 +29,24 @@ const TOC: FC<TOCProps> = ({ headings, items }) => {
             .filter(([, value]) => !!value)
             .map(([key, value]) => (
               <Fragment key={key}>
-                <dt className={'font-bold py-1'}>{key}</dt>
-                <dd>{value}</dd>
+                <dt className={'font-medium py-1'}>{key}</dt>
+                <dd className={'text-sm'}>{value}</dd>
               </Fragment>
             ))}
       </div>
 
       {headingList.length > 0 && (
         <div>
-          <dt className={'font-semibold underline underline-offset-4 my-2'}>
-            {'Table of contents'}
+          <dt className={'font-medium underline underline-offset-4 my-2'}>
+            {'Table of contents:'}
           </dt>
           <dd>
-            <ol className={'list-disc ml-4'}>
+            <ol className={'list-[circle] ml-4'}>
               {headingList.map((head) => (
-                <li key={head.value}>
+                <li
+                  key={head.value}
+                  className={'text-sm'}
+                >
                   <Link href={`#${head?.data?.id}`}>{head.value}</Link>
                 </li>
               ))}

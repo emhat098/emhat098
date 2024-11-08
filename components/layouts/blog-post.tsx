@@ -19,9 +19,9 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
     <main>
       <Navbar />
       <Container>
-        <div className='grid grid-cols-12 gap-10 w-full'>
+        <div className='grid grid-cols-12 sm:gap-10 w-full mx-auto'>
           {/* The main content of blog */}
-          <article className={'col-span-9'}>
+          <article className={'col-span-12 sm:col-span-9'}>
             <div className='flex flex-col gap-2'>
               <h1 className={'font-bold text-3xl py-4'}>{frontmatter.title}</h1>
               {/* TODO: Split this element in to the avatar element. */}
@@ -43,11 +43,11 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
                   className={'h-full w-full object-cover rounded-xl shadow'}
                 />
               </div>
-              <>{children}</>
+              <div className={'*:break-words'}>{children}</div>
             </div>
           </article>
           {/* Table of content */}
-          <section className={'col-span-3 w-auto'}>
+          <section className={'hidden sm:inline-grid sm:col-span-3 w-auto'}>
             <TOC
               items={{
                 'Author: ': frontmatter.author,

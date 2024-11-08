@@ -17,6 +17,12 @@ const config: Config = {
         sans: ['var(--font-geist-sans)'],
         mono: ['var(--font-geist-mono)'],
       },
+      listStyleType: {
+        circle: 'circle',
+      },
+      'overflow-wrap': {
+        break: 'break-word',
+      },
     },
   },
   plugins: [],

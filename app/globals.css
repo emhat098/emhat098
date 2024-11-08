@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply box-border;
-}
+@layer base {
+  * {
+    @apply box-border;
+  }
 
-body {
-  @apply font-sans;
+  body {
+    @apply font-sans;
+  }
 }

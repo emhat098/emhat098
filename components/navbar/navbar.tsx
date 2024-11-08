@@ -1,11 +1,11 @@
 'use client';
 
+import { CiSearch } from 'react-icons/ci';
+import { navigators } from '@/next.navigation.mjs';
+import Button from '@/components/button/button';
+import Container from '@/components/container/container';
 import Link from '@/components/link/link';
 import Logo from '@/components/logo/logo';
-import { CiSearch } from 'react-icons/ci';
-import Container from '../container/container';
-
-import Button from '../button/button';
 
 const Navbar = () => {
   return (
@@ -20,30 +20,17 @@ const Navbar = () => {
             <Logo />
           </Link>
           <ul className={'flex flex-row gap-4'}>
-            <li>
-              <Link
-                className={'font-semibold text-base'}
-                href={'/'}
-              >
-                {'Home'}
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={'font-semibold text-base'}
-                href={'/about'}
-              >
-                {'About'}
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={'font-semibold text-base'}
-                href={'/blog'}
-              >
-                {'Blogs'}
-              </Link>
-            </li>
+            {navigators.map((nav) => (
+              <li key={nav.href}>
+                <Link
+                  className={'font-normal text-base'}
+                  href={nav.href}
+                  target={nav.isExternal ? '_blank' : '_parent'}
+                >
+                  {nav.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className={'flex items-center gap-4'}>
