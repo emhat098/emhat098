@@ -47,7 +47,7 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
             </div>
           </article>
           {/* Table of content */}
-          <section className={'hidden sm:inline-grid sm:col-span-3 w-auto'}>
+          <section className={'hidden sm:block sm:col-span-3 w-auto'}>
             <TOC
               items={{
                 'Author: ': frontmatter.author,
