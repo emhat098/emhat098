@@ -4,7 +4,7 @@ import { FC, useEffect, useRef } from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 interface CarouselProps {
-  items: Array<any>;
+  items: Array<React.ReactNode>;
 }
 
 const Carousel: FC<CarouselProps> = ({ items }) => {
@@ -31,7 +31,7 @@ const Carousel: FC<CarouselProps> = ({ items }) => {
     const interval = setInterval(autoScroll, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [items.length]);
 
   const prevSlide = () => {
     if (ref.current) {
