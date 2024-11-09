@@ -15,7 +15,7 @@ export default function RootLayout({
       className={'scrollbar-thumb-slate-900 scrollbar-track-slate-300'}
     >
       <body
-        className={`transition-colors duration-500 ease-in-out antialiased dark:bg-slate-950 dark:text-white ${GeistSans.variable} ${GeistMono.variable} `}
+        className={`transition-colors duration-500 ease-in-out antialiased dark:bg-slate-950 dark:text-white ${GeistSans.variable} ${GeistMono.variable}`}
       >
         <TopLoader />
         {children}

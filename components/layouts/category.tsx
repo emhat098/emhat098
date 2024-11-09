@@ -19,7 +19,7 @@ const CategoryLayout = async () => {
     <>
       <Navbar />
       <Container>
-        <div
+        <main
           className={
             'transition-all duration-300 ease-linear grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-0'
           }
@@ -31,7 +31,7 @@ const CategoryLayout = async () => {
                 post={post}
               />
             ))}
-        </div>
+        </main>
       </Container>
 
       <Footer />
