@@ -96,6 +96,25 @@ export const provideBlogBySlug = cache((slug: string): BlogPost | undefined => {
 });
 
 /**
+ * Get the list of post by array of slug.
+ *
+ * @param {Array<string>} slugs - the blog slug.
+ * @returns {Array<BlogPost> | undefined}
+ */
+export const provideBlogsBySlugs = cache(
+  (slugs: Array<string>): Array<BlogPost> | undefined => {
+    const result: Array<BlogPost> = [];
+    slugs.forEach((slug) => {
+      const data = posts.find((p) => p.slug === slug);
+      if (data) {
+        result.push(data);
+      }
+    });
+    return result;
+  },
+);
+
+/**
  * Get the blog data.
  *
  * @param {string} category

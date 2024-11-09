@@ -1,40 +1,33 @@
-import { getBlogsData } from '@/data/blog-data';
-import { cache, FC } from 'react';
+import { provideBlogsBySlugs } from '@/data/blog-data';
+import { FC } from 'react';
 import Carousel from '../carousel/carousel';
 import ArticleItem from './article-item';
 import cn from '@/util/tailwind-helper';
-
-const getBlogData = cache(async (category: string) => {
-  if (!category || category === 'all') {
-    throw new Error('Articles is must be specific');
-  }
-  return getBlogsData(category, 1);
-});
 
 interface ArticlesProps {
   title: string;
   summary: string;
   color?: string;
-  category: string;
+  slugs: Array<string>;
 }
 
-const Articles: FC<ArticlesProps> = async ({
+const Articles: FC<ArticlesProps> = ({
   summary,
   title,
-  category,
+  slugs,
   color = 'blue',
 }) => {
-  const data = await getBlogData(category);
+  const data = provideBlogsBySlugs(slugs);
 
   if (!data) {
-    return <div>{'No found the article'}</div>;
+    return <div>{'No found the article.'}</div>;
   }
 
   return (
     <div
       className={cn(
         cn(
-          'rounded-xl p-10 bg-blue-50 text-background flex flex-col gap-8 mb-2',
+          'rounded-xl p-10 bg-blue-50 text-background flex flex-col gap-8 mb-8',
           color && `bg-${color}-50`,
           'shadow-sm',
         ),
@@ -46,15 +39,17 @@ const Articles: FC<ArticlesProps> = async ({
           <div className={'sm:w-[50vw]'}>{summary}</div>
         </div>
       </div>
-      <Carousel
-        items={data.posts.map((p) => (
-          <ArticleItem
-            key={p.slug}
-            {...p}
-          />
-        ))}
-        sliderClass={'gap-2'}
-      />
+      <div className={'flex flex-col gap-2 py-6'}>
+        <Carousel
+          items={data.map((p) => (
+            <ArticleItem
+              key={p.slug}
+              {...p}
+            />
+          ))}
+          sliderClass={'gap-4'}
+        />
+      </div>
     </div>
   );
 };

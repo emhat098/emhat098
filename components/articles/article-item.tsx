@@ -5,27 +5,19 @@ import Image from '../image/image';
 
 const ArticleItem: FC<BlogPost> = ({ banner, title, slug }) => {
   return (
-    <div className={'h-full w-96 group border-b m-2 p-4 bg-white rounded-lg'}>
+    <div>
       <Link
-        href={slug ?? '/404'}
-        className={'block'}
+        href={slug}
+        className={
+          'flex flex-col gap-2 items-center hover:border-b-0 w-[240px]'
+        }
       >
-        <div className={'w-full h-full'}>
-          <Image
-            src={banner || 'https://picsum.photos/1080'}
-            alt={'Banner of ' + title}
-            className={'h-52 w-full'}
-          />
-        </div>
-        <div className={'flex flex-col gap-2 pt-4'}>
-          <p
-            className={
-              'line-clamp-1 text-base font-medium group-hover:underline'
-            }
-          >
-            {title}
-          </p>
-        </div>
+        <Image
+          src={banner}
+          alt={title}
+          className={'w-full h-[144px]'}
+        />
+        <p className={'font-normal line-clamp-2'}>{title}</p>
       </Link>
     </div>
   );
