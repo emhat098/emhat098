@@ -1,4 +1,4 @@
-import getBlogsData from '@/actions/blogs';
+import { getBlogsData } from '@/data/blog-data';
 import { getClientContext } from '@/context/client-context';
 import Navbar from '@/components/navbar/navbar';
 import Container from '@/components/container/container';

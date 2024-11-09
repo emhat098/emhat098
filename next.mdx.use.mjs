@@ -1,5 +1,6 @@
 'use strict';
 
+import Articles from './components/articles/articles';
 import Banner from './components/banner/banner';
 import BlogLatest from './components/blog/latest';
 import CategoryList from './components/category/category-list';
@@ -14,4 +15,5 @@ export const mdxComponents = {
   BlogLatest: BlogLatest,
   Pickup: PickUp,
   CategoryList: CategoryList,
+  Articles: Articles,
 };

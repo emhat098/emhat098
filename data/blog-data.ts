@@ -94,3 +94,23 @@ export const provideBlogBySlug = cache((slug: string): BlogPost | undefined => {
   const data = posts.find((p) => p.slug === slug);
   return data;
 });
+
+/**
+ * Get the blog data.
+ *
+ * @param {string} category
+ * @param {number | string} page
+ * @returns {BlogPostsRSC}
+ */
+export const getBlogsData = (
+  category: string,
+  page: number | string,
+): BlogPostsRSC => {
+  const requestedPage = Number(page);
+  const data =
+    requestedPage >= 1
+      ? providePaginationBlogPosts(category, requestedPage)
+      : provideBlogPosts(category);
+
+  return data;
+};

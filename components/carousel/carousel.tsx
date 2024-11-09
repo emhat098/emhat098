@@ -1,13 +1,15 @@
 'use client';
 
+import cn from '@/util/tailwind-helper';
 import { FC, useEffect, useRef } from 'react';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 interface CarouselProps {
   items: Array<React.ReactNode>;
+  sliderClass?: string;
 }
 
-const Carousel: FC<CarouselProps> = ({ items }) => {
+const Carousel: FC<CarouselProps> = ({ items, sliderClass }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -54,10 +56,13 @@ const Carousel: FC<CarouselProps> = ({ items }) => {
   return (
     <div className={'flex flex-col gap-2'}>
       <div
-        className={'flex flex-row overflow-x-scroll scrollbar-none gap-4'}
+        className={cn(
+          'flex flex-row overflow-x-scroll scrollbar-none gap-4',
+          sliderClass,
+        )}
         ref={ref}
       >
-        {items.map((item) => item)}
+        {items}
       </div>
       <div className={'flex flex-row gap-2'}>
         <button
