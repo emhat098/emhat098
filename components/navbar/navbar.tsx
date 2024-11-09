@@ -1,11 +1,10 @@
 'use client';
 
-import { CiSearch } from 'react-icons/ci';
 import { navigators } from '@/next.navigation.mjs';
-import Button from '@/components/button/button';
 import Container from '@/components/container/container';
 import Link from '@/components/link/link';
 import Logo from '@/components/logo/logo';
+import SearchDialog from '@/components/search/search';
 
 const Navbar = () => {
   return (
@@ -34,9 +33,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className={'flex items-center gap-4'}>
-          <Button>
-            <CiSearch className={'w-6 h-6'} />
-          </Button>
+          <SearchDialog />
         </div>
       </Container>
     </nav>
