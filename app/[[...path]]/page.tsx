@@ -3,7 +3,10 @@ import MDXRenderer from '@/components/mdx/mdx-renderer';
 import { setClientContext } from '@/context/client-context';
 import generateBlogData from '@/generator/blog.mjs';
 import { dynamicRouter } from '@/next.dynamic.mjs';
-import { DYNAMIC_ROUTES } from '@/next.dynamic.site.constants.mjs';
+import {
+  DYNAMIC_ROUTES,
+  PAGE_VIEWPORT,
+} from '@/next.dynamic.site.constants.mjs';
 import MainProvider from '@/providers/main-provider';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -16,7 +19,9 @@ interface DynamicParams {
   params: Promise<DynamicStaticPaths>;
 }
 
-export const generateViewport = async () => ({});
+export const generateViewport = async () => ({
+  ...PAGE_VIEWPORT,
+});
 
 export const generateMetadata = async (
   params: DynamicParams,

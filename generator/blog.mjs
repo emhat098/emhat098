@@ -7,8 +7,17 @@ import readline from 'node:readline';
 import graymatter from 'gray-matter';
 import { IS_DEVELOPMENT } from '@/next.constants.mjs';
 
+/**
+ * Default blog path.
+ *
+ * @type {string}
+ */
 const BLOG_PATH = join(process.cwd(), 'pages/blog');
 
+/**
+ * The blog categories.
+ * @type {Set}
+ */
 const blogCategories = new Set(['all']);
 
 /**

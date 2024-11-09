@@ -5,6 +5,14 @@ import { BASE_URL } from './next.constants.mjs';
 import { provideBlogCategories, provideBlogPosts } from './data/blog-data';
 
 /**
+ * The default category route.
+ *
+ * @param {string} category The category
+ * @returns string
+ */
+export const getCategoryRoute = (category) => `/blog/${category}`;
+
+/**
  * This constant is used to create static routes in the system.
  *
  * @type {Map<string, import('./types').Layouts>} A Map of pathname and Layout Name

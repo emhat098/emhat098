@@ -1,0 +1,84 @@
+'use client';
+
+import { FC, useEffect, useRef } from 'react';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+
+interface CarouselProps {
+  items: Array<any>;
+}
+
+const Carousel: FC<CarouselProps> = ({ items }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const autoScroll = () => {
+      if (ref.current) {
+        const { scrollLeft, scrollWidth, offsetWidth } = ref.current;
+        if (scrollLeft + offsetWidth >= scrollWidth) {
+          ref.current.scrollTo({
+            left: 0,
+            behavior: 'smooth',
+          });
+        } else {
+          ref.current.scrollBy({
+            left: offsetWidth / items.length,
+            behavior: 'smooth',
+          });
+        }
+      }
+    };
+
+    const interval = setInterval(autoScroll, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const prevSlide = () => {
+    if (ref.current) {
+      ref.current.scrollBy({
+        left: -ref.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const nextSlide = () => {
+    if (ref.current) {
+      ref.current.scrollBy({
+        left: ref.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  return (
+    <div className={'flex flex-col gap-2'}>
+      <div
+        className={'flex flex-row overflow-x-scroll scrollbar-none gap-4'}
+        ref={ref}
+      >
+        {items.map((item) => item)}
+      </div>
+      <div className={'flex flex-row gap-2'}>
+        <button
+          onClick={prevSlide}
+          className={
+            'p-2 rounded-full shadow hover:shadow-sm hover:bg-green-50'
+          }
+        >
+          <BiChevronLeft className={'w-6 h-6'} />
+        </button>
+        <button
+          onClick={nextSlide}
+          className={
+            'p-2 rounded-full shadow hover:shadow-sm hover:bg-green-50'
+          }
+        >
+          <BiChevronRight className={'w-6 h-6'} />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Carousel;

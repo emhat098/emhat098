@@ -12,10 +12,7 @@ const Link: FC<LinkProps> = ({ children, ...props }) => {
   return (
     <NextLink
       {...props}
-      className={cn(
-        'transition-all duration-300 border-b border-b-transparent hover:border-b-black hover:text-slate-700',
-        props.className,
-      )}
+      className={cn('text-blue-950 hover:text-black', props.className)}
     >
       {children}
     </NextLink>
