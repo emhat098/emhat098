@@ -1,4 +1,4 @@
-::backdrop {
+.dialog::backdrop {
   --color-backdrop: rgb(0 0 0 / 25%);
 }
 
