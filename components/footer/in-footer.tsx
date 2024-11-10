@@ -29,8 +29,10 @@ const InFooter = () => {
                 />
               </div>
               <div className='flex flex-col'>
-                <P className={'font-medium'}>{'Home'}</P>
-                <span className={'line-clamp-2 text-xs'}>{'Back to home'}</span>
+                <P className={'font-medium'}>{'Home page'}</P>
+                <span className={'line-clamp-2 text-xs'}>
+                  {'Go back home to see more things.'}
+                </span>
               </div>
             </div>
           </li>
@@ -47,7 +49,7 @@ const InFooter = () => {
               <div className='flex flex-col'>
                 <P className={'font-medium'}>{'About me'}</P>
                 <span className={'line-clamp-2 text-xs'}>
-                  {'I believe the world needs more smile than the angry.'}
+                  {'I believe the world needs more smiles than anger.'}
                 </span>
               </div>
             </div>
@@ -70,7 +72,7 @@ const InFooter = () => {
               <div className='flex flex-col gap-1'>
                 <P className={'font-medium'}>{'My Blogs'}</P>
                 <span className={'line-clamp-2 text-xs'}>
-                  {'Sometime, we need to take a break to see more wide world.'}
+                  {'Sometimes, we need to take a break to see a wider world.'}
                 </span>
               </div>
             </div>
