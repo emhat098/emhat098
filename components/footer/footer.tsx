@@ -12,7 +12,7 @@ const Footer = () => {
       <ul className={'flex gap-6 items-center'}>
         <li>
           <Link href={'/'}>
-            <Logo>{'@emhat098'}</Logo>
+            <Logo className={'text-sm font-bold'}>{'@emhat098'}</Logo>
           </Link>
         </li>
         {footerNavigators.map((navigator) => (

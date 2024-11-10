@@ -8,6 +8,7 @@ import Footer from '@/components/footer/footer';
 import TOC from '../toc/toc';
 import useClientContext from '@/hooks/use-client';
 import Image from '@/components/image/image';
+import Avatar from '../avatar/avatar';
 
 const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
   const { headings, frontmatter, readingTime } = useClientContext();
@@ -27,13 +28,10 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
               <h1 className={'font-bold text-3xl py-4'}>{frontmatter.title}</h1>
               {/* TODO: Split this element in to the avatar element. */}
               <div className={'flex flex-row gap-2 items-center'}>
-                <div className={'w-[40px] h-[40px]'}>
-                  <Image
-                    src={frontmatter?.authorImg || 'https://picsum.photos/1081'}
-                    alt={'Avatar of ' + frontmatter.author}
-                    className={'h-full w-full object-cover rounded-full shadow'}
-                  />
-                </div>
+                <Avatar
+                  image={frontmatter?.authorImg}
+                  title={frontmatter.author}
+                />
                 <span>{'-'}</span>
                 <p className={'font-normal text-base'}>{frontmatter.author}</p>
               </div>

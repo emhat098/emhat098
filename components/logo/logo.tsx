@@ -1,11 +1,18 @@
 'use client';
 
+import cn from '@/util/tailwind-helper';
 import { FC, PropsWithChildren } from 'react';
 
-const Logo: FC<PropsWithChildren> = ({ children }) => {
+interface LogoProps extends PropsWithChildren {
+  className?: string;
+}
+
+const Logo: FC<LogoProps> = ({ children, className }) => {
   return (
     <>
-      <span className={'text-lg font-medium'}>{children ?? 'Em Ha Tuan'}</span>
+      <span className={cn('text-lg font-medium', className)}>
+        {children ?? 'Em Ha Tuan'}
+      </span>
     </>
   );
 };

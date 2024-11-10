@@ -4,6 +4,8 @@ import Articles from './components/articles/articles';
 import Banner from './components/banner/banner';
 import BlogLatest from './components/blog/latest';
 import CategoryList from './components/category/category-list';
+import InFooter from './components/footer/in-footer';
+import Navbar from './components/navbar/navbar';
 
 /**
  * A full list of React Components that we want to pass through to MDX.
@@ -14,4 +16,6 @@ export const mdxComponents = {
   BlogLatest: BlogLatest,
   CategoryList: CategoryList,
   Articles: Articles,
+  InFooter: InFooter,
+  Navbar: Navbar,
 };
