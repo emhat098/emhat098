@@ -19,7 +19,7 @@ const SearchItem: FC<BlogPost> = ({ slug, banner, title, date }) => {
           <Image
             src={banner}
             alt={title}
-            className={'w-full h-10 min-w-20 rounded'}
+            className={'w-full h-10 max-w-20 min-w-20 rounded'}
           />
         </div>
         <div className={'flex flex-col'}>

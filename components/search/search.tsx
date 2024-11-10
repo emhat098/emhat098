@@ -61,7 +61,7 @@ const SearchDialog = memo(() => {
         ref={ref}
         className={cn(
           styles.dialog,
-          'rounded-lg w-[80vw] md:w-[60vw] lg:w-[35vw]',
+          'rounded-lg w-[90vw] md:w-[60vw] lg:w-[30vw]',
         )}
         onClick={() => ref.current?.close()}
       >
