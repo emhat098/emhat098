@@ -2,6 +2,7 @@ import { provideLatestBlogOfPosts } from '@/data/blog-data';
 import { cache } from 'react';
 import BlogItem from './blog-item';
 import cn from '@/util/tailwind-helper';
+import Heading from '../heading';
 
 const BlogLatest = cache(() => {
   const data = provideLatestBlogOfPosts();
@@ -11,20 +12,24 @@ const BlogLatest = cache(() => {
   }
 
   return (
-    <div className={'grid grid-cols-4 grid-rows-2 gap-4'}>
-      {data.map((post, index) => {
-        const isSpanCol = index === 1;
-        return (
-          <div
-            className={cn(
-              isSpanCol && 'col-span-2 row-span-2 border-l border-r px-4',
-            )}
-            key={post.slug}
-          >
-            <BlogItem post={post} />
-          </div>
-        );
-      })}
+    <div className={'flex flex-col gap-2'}>
+      <Heading
+        as={'h2'}
+        className={'uppercase'}
+      >
+        Latest
+      </Heading>
+      <hr className={'my-2'} />
+      <div className={'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4'}>
+        {data.map((post, index) => {
+          return (
+            <BlogItem
+              key={post.slug}
+              post={post}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 });

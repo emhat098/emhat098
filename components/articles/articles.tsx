@@ -29,7 +29,7 @@ const Articles: FC<ArticlesProps> = ({
     <div
       className={cn(
         cn(
-          'rounded-xl p-10 bg-blue-50 text-background flex flex-col md:gap-8 md:mb-8 gap-4 mb-4 shadow-sm',
+          'rounded-xl p-4 sm:p-8 md:p-10 bg-blue-50 text-background flex flex-col gap-2 md:gap-8 md:mb-8 mb-4 shadow-sm',
           color && `bg-${color}-50`,
         ),
       )}
@@ -40,7 +40,7 @@ const Articles: FC<ArticlesProps> = ({
           <P className={'sm:w-[50vw]'}>{summary}</P>
         </div>
       </div>
-      <div className={'flex flex-col gap-2 py-2 md:py-6'}>
+      <div className={'flex flex-col py-2 md:py-6'}>
         <Carousel
           items={data.map((p) => (
             <ArticleItem
@@ -48,7 +48,7 @@ const Articles: FC<ArticlesProps> = ({
               {...p}
             />
           ))}
-          sliderClass={'gap-4'}
+          sliderClass={'gap-0'}
         />
       </div>
     </div>

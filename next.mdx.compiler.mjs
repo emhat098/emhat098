@@ -5,6 +5,7 @@ import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 import { matter } from 'vfile-matter';
 import { NEXT_REHYPE_PLUGINS, NEXT_REMARK_PLUGINS } from './next.mdx.mjs';
 import createGitHubSlugger from './util/slugger';
+import { sitePageConfig } from './next.page.config.mjs';
 
 const reactRunTime = {
   Fragment,
@@ -34,7 +35,7 @@ export async function compileMDX(source, fileExtension) {
     ...reactRunTime,
   });
 
-  const { headings, matter: frontmatter, readingTime } = source.data;
+  let { headings, matter: frontmatter, readingTime } = source.data;
 
   // Create slugger for each heading level to make the Table of content.
   const slugger = createGitHubSlugger();
@@ -44,6 +45,12 @@ export async function compileMDX(source, fileExtension) {
       id: slugger(heading.value),
     };
   });
+
+  frontmatter = {
+    ...frontmatter,
+    author: sitePageConfig.author.name || frontmatter?.author || '',
+    authorImg: sitePageConfig.author.imageUrl || frontmatter?.authorImg || '',
+  };
 
   return { MDXContent, headings, frontmatter, readingTime };
 }

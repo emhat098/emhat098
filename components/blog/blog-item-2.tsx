@@ -12,7 +12,11 @@ const BlogItem2: FC<BlogItem2Props> = ({
   post: { slug, author, date, title, summary, banner },
 }) => {
   return (
-    <div className={'h-full w-full group border-b m-2 p-4'}>
+    <div
+      className={
+        'transition-all duration-200 ease-linear h-max w-full border-b p-4 rounded-lg hover:bg-slate-50 hover:shadow'
+      }
+    >
       <Link
         href={slug ?? '/404'}
         className={'block'}
@@ -25,13 +29,7 @@ const BlogItem2: FC<BlogItem2Props> = ({
           />
         </div>
         <div className={'flex flex-col gap-2 py-2'}>
-          <p
-            className={
-              'line-clamp-1 text-base font-medium group-hover:underline'
-            }
-          >
-            {title}
-          </p>
+          <p className={'line-clamp-1 text-base font-medium'}>{title}</p>
           <p className={'line-clamp-2 text-sm'}>{summary}</p>
           <div className='flex justify-between gap-2 text-slate-800 text-sm items-center'>
             <p className='w-full'>By {author}</p>

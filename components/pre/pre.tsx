@@ -23,7 +23,7 @@ const Pre: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
       {...props}
       className={cn(
         props.className,
-        'rounded px-4 py-2 shadow my-2 relative text-sm lg:text-base *:text-wrap *:break-words',
+        'rounded p-6 shadow my-2 relative text-xs sm:text-sm md:text-base *:text-wrap *:break-words',
       )}
     >
       <button

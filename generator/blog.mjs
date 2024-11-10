@@ -6,6 +6,7 @@ import { join, basename, extname } from 'node:path';
 import readline from 'node:readline';
 import graymatter from 'gray-matter';
 import { IS_DEVELOPMENT } from '@/next.constants.mjs';
+import { sitePageConfig } from '@/next.page.config.mjs';
 
 /**
  * Default blog path.
@@ -36,7 +37,7 @@ const getFrontMatter = (filename, source) => {
     const grayFrontMatter = graymatter(source);
     const {
       title = '',
-      author = 'Em Ha Tuan',
+      author = '',
       date = new Date(),
       category = '',
       summary = '',
@@ -65,7 +66,8 @@ const getFrontMatter = (filename, source) => {
 
     return {
       title,
-      author,
+      author: sitePageConfig.author.name || author,
+      authorImg: sitePageConfig.author.imageUrl || authorImg,
       date: new Date(date),
       categories,
       slug,
@@ -74,7 +76,6 @@ const getFrontMatter = (filename, source) => {
       labels,
       layout,
       publisher,
-      authorImg,
     };
   } catch (err) {
     console.error(`Error parsing front matter in file ${filename}:`, err);

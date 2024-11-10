@@ -57,7 +57,7 @@ const Carousel: FC<CarouselProps> = ({ items, sliderClass }) => {
     <div className={'flex flex-col gap-2'}>
       <div
         className={cn(
-          'flex flex-row flex-nowrap overflow-x-scroll scrollbar-none gap-4',
+          'flex flex-row flex-nowrap overflow-x-scroll scrollbar-none gap-4 py-2',
           sliderClass,
         )}
         ref={ref}
