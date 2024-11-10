@@ -8,7 +8,10 @@ import { compileMDX } from './next.mdx.compiler.mjs';
 import { IS_DEVELOPMENT } from './next.constants.mjs';
 import { getMarkdownFiles } from './next.helper.mjs';
 import matter from 'gray-matter';
-import { PAGE_METADATA } from './next.dynamic.site.constants.mjs';
+import {
+  DYNAMIC_ROUTES,
+  PAGE_METADATA,
+} from './next.dynamic.site.constants.mjs';
 import { siteConfig } from './next.site.config.mjs';
 
 const createCachedMarkdownCache = () => {
@@ -135,12 +138,23 @@ const getDynamicRouter = async () => {
     }
   };
 
+  /**
+   * This method returns a list of all routes.
+   *
+   * @param {string} locale
+   * @returns {Promise<Array<string>>}
+   */
+  const getRoutes = () => {
+    return [...pathnameToFileName.keys()].concat([...DYNAMIC_ROUTES.keys()]);
+  };
+
   return {
     getMarkdownFile,
     getMdxContent,
     getMdxContent,
     getPathName,
     getMetadata,
+    getRoutes,
   };
 };
 
