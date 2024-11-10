@@ -8,7 +8,7 @@ const P: FC<HTMLAttributes<HTMLParagraphElement>> = ({
   return (
     <p
       {...props}
-      className={cn('text-base py-1', props.className)}
+      className={cn('text-sm md:text-base py-1', props.className)}
     >
       {children}
     </p>

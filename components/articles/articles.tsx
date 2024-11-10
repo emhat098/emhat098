@@ -1,8 +1,10 @@
 import { provideBlogsBySlugs } from '@/data/blog-data';
 import { FC } from 'react';
-import Carousel from '../carousel/carousel';
+import Carousel from '@/components/carousel/carousel';
 import ArticleItem from './article-item';
 import cn from '@/util/tailwind-helper';
+import Title from '@/components/title/title';
+import P from '../paragraph/paragraph';
 
 interface ArticlesProps {
   title: string;
@@ -27,19 +29,18 @@ const Articles: FC<ArticlesProps> = ({
     <div
       className={cn(
         cn(
-          'rounded-xl p-10 bg-blue-50 text-background flex flex-col gap-8 mb-8',
+          'rounded-xl p-10 bg-blue-50 text-background flex flex-col md:gap-8 md:mb-8 gap-4 mb-4 shadow-sm',
           color && `bg-${color}-50`,
-          'shadow-sm',
         ),
       )}
     >
       <div className='flex justify-between items-start'>
-        <div className='flex flex-col gap-4'>
-          <p className={'text-4xl'}>{title}</p>
-          <div className={'sm:w-[50vw]'}>{summary}</div>
+        <div className='flex flex-col gap-2 md:gap-4'>
+          <Title>{title}</Title>
+          <P className={'sm:w-[50vw]'}>{summary}</P>
         </div>
       </div>
-      <div className={'flex flex-col gap-2 py-6'}>
+      <div className={'flex flex-col gap-2 py-2 md:py-6'}>
         <Carousel
           items={data.map((p) => (
             <ArticleItem

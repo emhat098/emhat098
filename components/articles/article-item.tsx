@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Link from '../link/link';
 import { BlogPost } from '@/types';
 import Image from '../image/image';
+import P from '../paragraph/paragraph';
 
 const ArticleItem: FC<BlogPost> = ({ banner, title, slug }) => {
   return (
@@ -17,7 +18,7 @@ const ArticleItem: FC<BlogPost> = ({ banner, title, slug }) => {
           alt={title}
           className={'w-full h-[144px]'}
         />
-        <p className={'font-normal line-clamp-2'}>{title}</p>
+        <P className={'line-clamp-2'}>{title}</P>
       </Link>
     </div>
   );
