@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Read Me First
 
-## Getting Started
+> Welcome to an alternative blog setup for Notion users. This application provides full control over your content with MDX files for Markdown.
 
-First, run the development server:
+## How to Use It?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. The pages folder contains all the MDX files, and you must add your Markdown files to this folder.
+2. index.mdx serves as the main endpoint.
+3. The blog folder is where you can write and organize your blog posts.
+4. To define a new route, add a new folder within the pages directory, such as contact/index.mdx.
+5. Each MDX file must follow the frontmatter format (metadata) used in other existing files.
+6. You can add support components inside MDX files.
+
+## What Are the Components in MDX Files?
+
+These are built-in components available in the MDX compiler for easy integration. Here’s the list:
+
+```tsx
+import Articles from './components/articles/articles';
+import Banner from './components/banner/banner';
+import BlogLatest from './components/blog/latest';
+import CategoryList from './components/category/category-list';
+import InFooter from './components/footer/in-footer';
+import Navbar from './components/navbar/navbar';
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Vercel-Only Support
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This system is designed for the Vercel platform. Deploying to other platforms may require adjustments.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Powered by Next.js
 
-## Learn More
+This application is built with Next.js, offering flexibility and performance for your blog.
 
-To learn more about Next.js, take a look at the following resources:
+### Tailwind CSS as the Main UI Framework
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The UI is designed with Tailwind CSS, focusing on simplicity and custom styling.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### No External Theme Libraries
 
-## Deploy on Vercel
+This application does not use external theme libraries, keeping the UI lightweight and customizable.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Good luck with your blog!
