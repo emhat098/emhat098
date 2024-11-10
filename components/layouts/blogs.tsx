@@ -3,7 +3,6 @@ import { getClientContext } from '@/context/client-context';
 import Navbar from '../navbar/navbar';
 import Container from '../container/container';
 import BlogItem2 from '../blog/blog-item-2';
-import Heading from '../heading';
 
 const getBlogData = async (pathname: string) => {
   const [, , category = 'all', , page = 0] = pathname.split('/');
