@@ -9,6 +9,7 @@ import cn from '@/util/tailwind-helper';
 import styles from './search.module.css';
 import useDebounce from '@/hooks/use-debounce';
 import SearchItem from './search-item';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type SearchState = 'searching' | 'loaded' | 'no-found' | 'init';
 
@@ -58,7 +59,10 @@ const SearchDialog = memo(() => {
       </Button>
       <dialog
         ref={ref}
-        className={cn(styles.dialog, 'rounded-lg w-[80vw] sm:w-[35vw]')}
+        className={cn(
+          styles.dialog,
+          'rounded-lg w-[80vw] md:w-[60vw] lg:w-[35vw]',
+        )}
         onClick={() => ref.current?.close()}
       >
         <div
@@ -75,28 +79,47 @@ const SearchDialog = memo(() => {
             }
             placeholder={'Searching by title of blog'}
           />
-          {state === 'searching' && (
-            <div className={'mt-4'}>{'Searching ...'}</div>
-          )}
-          {state === 'no-found' && (
-            <div className={'mt-4'}>{'Not found blog.'}</div>
-          )}
-          {state === 'loaded' && (
-            <ul
-              className={cn(
-                'flex flex-col gap-2 overflow-scroll scrollbar-thin mt-4',
-                `max-h-[400px]`,
-              )}
-            >
-              {blogs &&
-                blogs.length > 0 &&
-                blogs.map((blog) => (
-                  <li key={blog.slug}>
-                    <SearchItem {...blog} />
-                  </li>
-                ))}
-            </ul>
-          )}
+          <AnimatePresence>
+            {state === 'searching' && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={'mt-4'}
+              >
+                {'Searching ...'}
+              </motion.div>
+            )}
+            {state === 'no-found' && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={'mt-4'}
+              >
+                {'Not found blog.'}
+              </motion.div>
+            )}
+            {state === 'loaded' && (
+              <motion.ul
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 0, opacity: 0 }}
+                className={cn(
+                  'flex flex-col gap-2 overflow-scroll scrollbar-thin mt-4',
+                  `max-h-[400px]`,
+                )}
+              >
+                {blogs &&
+                  blogs.length > 0 &&
+                  blogs.map((blog) => (
+                    <li key={blog.slug}>
+                      <SearchItem {...blog} />
+                    </li>
+                  ))}
+              </motion.ul>
+            )}
+          </AnimatePresence>
         </div>
       </dialog>
     </>

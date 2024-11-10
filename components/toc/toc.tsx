@@ -22,7 +22,11 @@ const TOC: FC<TOCProps> = ({ headings, items }) => {
   );
 
   return (
-    <div className={'sticky top-0'}>
+    <div
+      className={
+        'sticky top-0 sm:landscape:overflow-y-scroll sm:landscape:overflow-hidden sm:landscape:scrollbar-thin sm:landscape:max-h-[90vh]'
+      }
+    >
       <div className={'flex flex-col gap-2 pl-4 p-2 border-l'}>
         <div>
           {items &&
@@ -47,6 +51,7 @@ const TOC: FC<TOCProps> = ({ headings, items }) => {
                   <li
                     key={head.value}
                     className={'text-sm'}
+                    style={{}}
                   >
                     <Link href={`#${head?.data?.id}`}>{head.value}</Link>
                   </li>
