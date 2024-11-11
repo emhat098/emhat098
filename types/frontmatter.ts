@@ -13,6 +13,7 @@ export interface BaseFrontMatter extends FrontMatter {
   summary: string;
   publisher: string;
   banner?: string;
+  externalUrl?: string;
 }
 
 export interface LegacyFrontMatter {

@@ -46,6 +46,7 @@ const getFrontMatter = (filename, source) => {
       publisher = '',
       labels = '',
       layout = 'blog-post',
+      externalUrl = '',
     } = grayFrontMatter.data;
 
     // We also use publishing years as categories for the blog
@@ -76,6 +77,7 @@ const getFrontMatter = (filename, source) => {
       labels,
       layout,
       publisher,
+      externalUrl,
     };
   } catch (err) {
     console.error(`Error parsing front matter in file ${filename}:`, err);

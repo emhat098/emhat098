@@ -9,7 +9,7 @@ import {
 } from '@/next.dynamic.site.constants.mjs';
 import MainProvider from '@/providers/main-provider';
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 type DynamicStaticPaths = {
   path: Array<string>;
@@ -56,6 +56,11 @@ const Page = async (params: DynamicParams) => {
   if (source && filename) {
     const { MDXContent, frontmatter, headings, readingTime } =
       await dynamicRouter.getMdxContent(source, filename);
+
+    // If there is an external link. Redirect it to the place.
+    if (frontmatter.externalUrl) {
+      return redirect(frontmatter.externalUrl);
+    }
 
     const sharedContext = {
       frontmatter,

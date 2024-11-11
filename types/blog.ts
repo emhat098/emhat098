@@ -7,6 +7,7 @@ export interface BlogPost {
   categories: Array<string>;
   slug: string;
   summary: string;
+  externalUrl?: string;
 }
 
 export interface BlogData {

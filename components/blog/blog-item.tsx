@@ -4,17 +4,18 @@ import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
 import Image from '@/components/image/image';
 import P from '../paragraph/paragraph';
+import { GoLinkExternal } from 'react-icons/go';
 
 interface BlogItemProps extends HTMLAttributes<HTMLDivElement> {
   post: BlogPost;
 }
 
 const BlogItem: FC<BlogItemProps> = ({
-  post: { slug, author, date, title, banner, summary },
+  post: { slug, author, date, title, banner, summary, externalUrl },
 }) => {
   return (
     <Link
-      href={slug ?? '/404'}
+      href={externalUrl || slug || '/404'}
       className={
         'transition-all duration-300 eas block p-2 rounded-lg hover:bg-slate-50 hover:shadow-lg'
       }
@@ -27,9 +28,17 @@ const BlogItem: FC<BlogItemProps> = ({
         />
       </div>
       <div className={'flex flex-col pt-2 px-2'}>
-        <P className={'line-clamp-2 text-base md:text-lg font-medium'}>
-          {title}
-        </P>
+        <div className={'flex justify-between items-start'}>
+          <P className={'line-clamp-2 text-base md:text-lg font-medium'}>
+            {title}
+          </P>
+          {externalUrl && (
+            <div className={'py-2'}>
+              <GoLinkExternal className={'w-4 h-4'} />
+            </div>
+          )}
+        </div>
+
         <P className={'line-clamp-2 md:text-sm'}>{summary}</P>
         <div
           className={

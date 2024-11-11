@@ -3,13 +3,15 @@ import { BlogPost } from '@/types';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
 import Image from '../image/image';
+import P from '../paragraph/paragraph';
+import { GoLinkExternal } from 'react-icons/go';
 
 interface BlogItem2Props extends HTMLAttributes<HTMLDivElement> {
   post: BlogPost;
 }
 
 const BlogItem2: FC<BlogItem2Props> = ({
-  post: { slug, author, date, title, summary, banner },
+  post: { slug, author, date, title, summary, banner, externalUrl },
 }) => {
   return (
     <div
@@ -18,8 +20,9 @@ const BlogItem2: FC<BlogItem2Props> = ({
       }
     >
       <Link
-        href={slug ?? '/404'}
+        href={externalUrl || slug || '/404'}
         className={'block'}
+        target={externalUrl ? '_blank' : '_parent'}
       >
         <div className={'w-full h-full'}>
           <Image
@@ -29,7 +32,14 @@ const BlogItem2: FC<BlogItem2Props> = ({
           />
         </div>
         <div className={'flex flex-col gap-2 py-2'}>
-          <p className={'line-clamp-1 text-base font-medium'}>{title}</p>
+          <div className={'flex justify-between items-start'}>
+            <P className={'line-clamp-1'}>{title}</P>
+            {externalUrl && (
+              <div className={'py-2'}>
+                <GoLinkExternal className={'w-4 h-4'} />
+              </div>
+            )}
+          </div>
           <p className={'line-clamp-2 text-sm'}>{summary}</p>
           <div className='flex justify-between gap-2 text-slate-800 text-sm items-center'>
             <p className='w-full'>By {author}</p>
