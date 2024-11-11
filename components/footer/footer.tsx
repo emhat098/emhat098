@@ -1,32 +1,46 @@
 'use client';
 
 import Link from '@/components/link/link';
-import Logo from '../logo/logo';
 import { footerNavigators } from '@/next.navigation.mjs';
 
 const Footer = () => {
   return (
     <footer
-      className={'flex flex-row gap-4 items-start text-sm px-12 py-4 mt-auto'}
+      className={
+        'flex flex-row justify-between gap-4 items-start text-sm px-12 py-4 mt-auto'
+      }
     >
       <ul className={'flex gap-6 items-center'}>
-        <li>
-          <Link href={'/'}>
-            <Logo className={'text-sm font-bold'}>{'@emhat098'}</Logo>
-          </Link>
-        </li>
         {footerNavigators.map((navigator) => (
           <li key={navigator.href}>
             <Link
               target={navigator.isExternal ? '_blank' : '_parent'}
               href={navigator.href}
-              className={'font-semibold'}
+              className={'hover:underline'}
             >
               {navigator.title}
             </Link>
           </li>
         ))}
       </ul>
+      <div className={'flex flex-rows gap-1'}>
+        <span>{'Powered by'}</span>
+        <Link
+          href={'https://vercel.com/'}
+          target={'_blank'}
+          className={'hover:underline'}
+        >
+          {'Vercel'}
+        </Link>
+        <span>+</span>
+        <Link
+          href={'https://nextjs.org/'}
+          target={'_blank'}
+          className={'hover:underline'}
+        >
+          {'Next.js'}
+        </Link>
+      </div>
     </footer>
   );
 };

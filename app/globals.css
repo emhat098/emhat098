@@ -13,3 +13,7 @@ body {
 main {
   min-height: calc(100vh - 160px);
 }
+
+aside {
+  @apply bg-neutral-50 p-4 rounded-xl shadow;
+}

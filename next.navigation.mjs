@@ -9,12 +9,16 @@ export const navigators = [
     title: 'Home',
   },
   {
-    href: '/about',
-    title: 'About',
-  },
-  {
     href: '/blog',
     title: 'Blogs',
+  },
+  {
+    href: '/project',
+    title: 'Projects',
+  },
+  {
+    href: '/about',
+    title: 'About',
   },
 ];
 
@@ -26,6 +30,21 @@ export const footerNavigators = [
   {
     href: 'https://github.com/emhat098',
     title: 'Github',
+    isExternal: true,
+  },
+  {
+    href: 'https://www.facebook.com/emhat098',
+    title: 'Facebook',
+    isExternal: true,
+  },
+  {
+    href: 'https://x.com/emhat098',
+    title: 'X',
+    isExternal: true,
+  },
+  {
+    href: 'https://www.tiktok.com/@emhat098',
+    title: 'Tiktok',
     isExternal: true,
   },
 ];

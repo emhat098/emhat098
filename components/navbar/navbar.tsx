@@ -15,14 +15,17 @@ const Navbar = () => {
     >
       <Container className={'flex justify-between w-full'}>
         <div className={'flex flex-row gap-6 items-center'}>
-          <Link href={'/'}>
+          <Link
+            href={'/'}
+            className={'hover:underline'}
+          >
             <Logo />
           </Link>
           <ul className={'flex flex-row gap-4'}>
             {navigators.map((nav) => (
               <li key={nav.href}>
                 <Link
-                  className={'font-normal text-sm'}
+                  className={'font-normal text-sm hover:underline'}
                   href={nav.href}
                   target={nav.isExternal ? '_blank' : '_parent'}
                 >

@@ -6,14 +6,21 @@ import Image from '@/components/image/image';
 import Link from '@/components/link/link';
 import P from '@/components/paragraph/paragraph';
 
-const SearchItem: FC<BlogPost> = ({ slug, banner, title, date }) => {
+const SearchItem: FC<BlogPost> = ({
+  slug,
+  banner,
+  title,
+  date,
+  externalUrl,
+}) => {
   return (
     <>
       <Link
-        href={slug}
+        href={externalUrl || slug}
         className={
           'hover:underline sm:text-base flex flex-row gap-4 items-center'
         }
+        target={externalUrl ? '_blank' : '_parent'}
       >
         <div className={'aspect-video'}>
           <Image
@@ -25,7 +32,7 @@ const SearchItem: FC<BlogPost> = ({ slug, banner, title, date }) => {
         <div className={'flex flex-col'}>
           <P className={'font-normal'}>{title}</P>
           <P className={'!text-xs'}>
-            {new Date(date.toString()).toLocaleDateString()}
+            {new Date(date?.toString()).toLocaleDateString()}
           </P>
         </div>
       </Link>
