@@ -16,7 +16,7 @@ const BlogItem2: FC<BlogItem2Props> = ({
   return (
     <div
       className={
-        'transition-all duration-200 ease-linear h-max w-full border-b p-4 rounded-lg hover:bg-slate-50 hover:shadow'
+        'transition-all duration-200 ease-linear h-max w-full border-b p-1 sm:p-2 md:p-4 rounded-lg hover:bg-slate-50 hover:shadow'
       }
     >
       <Link
