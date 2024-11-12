@@ -26,7 +26,7 @@ const BlogsLayout = async () => {
             blogs.posts.map((post) => (
               <BlogItem2
                 key={post.slug}
-                post={post}
+                {...post}
               />
             ))}
         </main>

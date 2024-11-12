@@ -1,17 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import { BlogPost } from '@/types';
 import Link from 'next/link';
-import { FC, HTMLAttributes } from 'react';
+import { FC } from 'react';
 import Image from '../image/image';
 import P from '../paragraph/paragraph';
 import { GoLinkExternal } from 'react-icons/go';
 
-interface BlogItem2Props extends HTMLAttributes<HTMLDivElement> {
-  post: BlogPost;
-}
-
-const BlogItem2: FC<BlogItem2Props> = ({
-  post: { slug, author, date, title, summary, banner, externalUrl },
+const BlogItem2: FC<BlogPost> = ({
+  slug,
+  author,
+  date,
+  title,
+  summary,
+  banner,
+  externalUrl,
 }) => {
   return (
     <div

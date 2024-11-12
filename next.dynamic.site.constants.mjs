@@ -18,12 +18,10 @@ export const getCategoryRoute = (category) => `/blog/${category}`;
  * @type {Map<string, import('./types').Layouts>} A Map of pathname and Layout Name
  */
 export const DYNAMIC_ROUTES = new Map([
-  ...provideBlogCategories().map((c) => [`blog/${c}`, 'category']),
+  ...provideBlogCategories().map((c) => [`blog/${c ?? 1}`, 'category']),
   ...provideBlogCategories()
     .map((c) => [c, provideBlogPosts(c).pagination.pages])
-    .map(([c, t]) =>
-      [...Array(t).keys()].map((p) => `/blog/${c}/page/${p + 1}`),
-    )
+    .map(([c, t]) => [...Array(t).keys()].map((p) => `blog/${c}/page/${p + 1}`))
     .map((paths) => paths.map((path) => [path, 'category']))
     .flat(),
 ]);

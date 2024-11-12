@@ -49,14 +49,7 @@ const getFrontMatter = (filename, source) => {
       externalUrl = '',
     } = grayFrontMatter.data;
 
-    // We also use publishing years as categories for the blog
-    const publishYear = new Date(date).getUTCFullYear();
-
-    const categoryYear = `${publishYear}`;
-
-    const categories = [category, 'all', categoryYear];
-
-    blogCategories.add(categoryYear);
+    const categories = [category, 'all'];
 
     if (category) {
       blogCategories.add(category);
