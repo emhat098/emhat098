@@ -12,10 +12,10 @@ export const navigators = [
     href: '/blog',
     title: 'Blogs',
   },
-  {
-    href: '/project',
-    title: 'Projects',
-  },
+  // {
+  //   href: '/project',
+  //   title: 'Projects',
+  // },
   {
     href: '/about',
     title: 'About',

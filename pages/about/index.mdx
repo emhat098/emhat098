@@ -4,47 +4,71 @@ date: '2024-10-31'
 summary: 'About Em Ha Tuan'
 ---
 
-## Self-motivated Software Engineering
+<BannerImage
+  image={
+    'https://scontent.fsgn2-10.fna.fbcdn.net/v/t39.30808-6/321611981_534185458655195_1694703891739014574_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=eLjw6Uz-VXYQ7kNvgFoG_3y&_nc_zt=23&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AoZGm_ngpTBQ4-HQRAUkftp&oh=00_AYDGSaRyRIyepclUUj4Mie1AyLQh49SYf_BSz169ZcFQew&oe=67365CEF'
+  }
+  title={'Em Ha Tuan'}
+/>
 
-<aside>
-👨🏻‍💻 Hello and welcome! I’m a dedicated and self-motivated Software Engineer with a passion for cutting-edge technologies. Over the past six years, starting at the age of 18, I have honed my skills through self-directed learning and professional experience in the industry. My journey has led me to develop a robust proficiency in JavaScript, TypeScript, React, and Next.js, as well as PHP and Postgres. Here, I share insights, tutorials, and my experiences in the ever-evolving world of software development. Join me as I explore the latest trends and innovations, and let’s learn and grow together!
+# Self-motivated Software Engineering
 
-</aside>
+Hello and welcome! I’m a dedicated and self-motivated Software Engineer
+with a passion for cutting-edge technologies. Over the past six years,
+starting at the age of 18, I have honed my skills through self-directed
+learning and professional experience in the industry. My journey has led me to
+develop a robust proficiency in JavaScript, TypeScript, React, and Next.js, as
+well as PHP and Postgres. Here, I share insights, tutorials, and my
+experiences in the ever-evolving world of software development.
 
-## Blogs
+### Technical Stack:
 
-Welcome to my blog, where I merge my passion for software development with a deep commitment to continuous learning. As a Software Engineer driven by curiosity and the thrill of innovation, I believe that the tech world is a never-ending adventure. Every line of code, every new framework, and every solved problem is a step forward in this exhilarating journey.
+<div className={'flex flex-col py-2 md:py-6'}>
+  <Carousel
+    items={[
+      {
+        title: 'Node.js',
+        image: '/nodejs.svg',
+      },
+      {
+        title: 'JavaScript',
+        image: '/javascript.png',
+      },
+      {
+        title: 'TypeScript',
+        image: '/ts.png',
+      },
+      {
+        title: 'React',
+        image: '/react.png',
+      },
+      {
+        title: 'Next.js',
+        image: '/nextjs-icon-dark-background.png',
+      },
+      {
+        title: 'Postgres',
+        image: '/postgre.png',
+      },
+    ].map((p) => (
+      <div
+        key={p.title}
+        className={'p-4 flex flex-col gap-2 items-center'}
+      >
+        <div className={'w-40 h-40'}>
+          <Image
+            src={p.image}
+            className={'p-1 object-contain rounded'}
+          />
+        </div>
+        {p.title}
+      </div>
+    ))}
+    sliderClass={'gap-0'}
+  />
+</div>
 
-## **Highlighted Projects:**
-
-Explore some of the significant projects I’ve worked on throughout my career, showcasing my expertise across various industries and technical stacks**.**
-
-[Projects](Insights%20by%20Em%20Ha%20Tuan%20d6639276ae29471786c819c7e4de0518/Projects%209049d30d9d5a4b45b08b63ae13e97253.csv)
-
-### Client feedbacks:
-
-<aside>
-👨🏻‍💻 “Em Ha-Tuan's contribution to our project has been exceptional. The team has been consistently impressed and appreciative of Em's work on the app. Em demonstrated a keen eye for detail and a proactive approach in identifying and resolving issues. Em's dedication and commitment to implementing solutions for the version 4.0.2 work were instrumental in achieving project success.”  - Product Owner James Reed - [https://www.linkedin.com/in/james-reed](https://www.linkedin.com/in/james-reed/)
-
-</aside>
-
-### Company feedbacks:
-
-<aside>
-👨🏻‍💻 “He is a person who always tries his best in everything. Once he works, he will try to complete it well and is not afraid to take on anything. He is very hard-working, learns many things, and does many things.” - Line Manager Minh Tran - [https://www.facebook.com/vuilendi](https://www.facebook.com/vuilendi)
-
-</aside>
-
-<aside>
-👨🏻‍💻 “Em is a potential developer and he knows how the shortest way to unblock his limitation to hit a further steps in his career path. He brings a lot values to the outputs of Mobile App, Application and the other development on cross backlogs.” - Project Manager Quynh Diep Lan - [https://www.linkedin.com/in/quynh-diep-lan-b46195179/](https://www.linkedin.com/in/quynh-diep-lan-b46195179/)
-
-</aside>
-
-## About me - **Software Engineering**
-
-**Technical Stack:** Node.js, JavaScript, TypeScript, React, Next.js, PHP, Postgres, MongoDB.
-
-Overview:
+### Overview:
 
 - Self-learning software developer since 2018.
 - Studied at Cao Thang College.
@@ -56,12 +80,89 @@ Overview:
   - Mobile application: Maintained the application during core app version upgrades by fixing UI issues in the WebKit element for both Android and iOS. Developed new features by manipulating the DOM tree of the Moodle App. Resolved performance issues for users with many courses. Supported the on-shore team in debugging and fixing issues in the production environment.
 - First contract going into production: [Bazango.vn](http://bazango.vn/) is my first application built from scratch for a client in Ho Chi Minh City. It uses cutting-edge technology with Next.js 14, MongoDB (now migrated to Postgres with a third-party service on Vercel), Google Cloud Storage, JWT - Jose (resolving authentication problems in the middleware of Next.js), React.js, TypeScript, JavaScript, Tailwind, Shadcn, Radix-UI, and Vercel.
 
-## Contact:
+### Companies:
 
-1. 💌 Email: [emhat098@gmail.com](mailto:emhat098@gmail.com)
-2. 📞 Phone: +84 898919304
-3. ☁️ Skype: live:hatuanem199801
-4. 🐦 Twitter: [https://twitter.com/emhat098](https://twitter.com/emhat098)
-5. 📘 Facebook: [https://www.facebook.com/justamanlovecode](https://www.facebook.com/justamanlovecode)
-6. 🐙 Github: [https://github.com/emhat098](https://github.com/emhat098)
-7. ❔Stack-Overflow: [https://stackoverflow.com/users/19549317/em-ha-tuan](https://stackoverflow.com/users/19549317/em-ha-tuan)
+<div className={'flex flex-col py-2 md:py-6'}>
+  <Carousel
+    items={[
+      {
+        title: 'Caganu',
+        image: '/caganu.png',
+      },
+      {
+        title: 'Fujinet',
+        image: '/fujinet.jpg',
+      },
+      {
+        title: 'Nashtech',
+        image: '/nash.png',
+      },
+      {
+        title: 'Bazango',
+        image: '/bazango.jpeg',
+      },
+    ].map((p) => (
+      <div
+        key={p.title}
+        className={'p-4 flex flex-col gap-2 items-center'}
+      >
+        <div className={'w-40 h-40'}>
+          <Image
+            src={p.image}
+            className={'p-1 object-contain rounded'}
+          />
+        </div>
+        {p.title}
+      </div>
+    ))}
+    sliderClass={'gap-0'}
+  />
+</div>
+
+### Contact:
+
+- Email: [emhat098@gmail.com](mailto:emhat098@gmail.com)
+- Phone: [+84 898919304](tel:84898919304)
+- Skype: [live:hatuanem199801](live:hatuanem199801)
+- Twitter: [https://twitter.com/emhat098](https://twitter.com/emhat098)
+- Facebook: [https://www.facebook.com/justamanlovecode](https://www.facebook.com/justamanlovecode)
+- Github: [https://github.com/emhat098](https://github.com/emhat098)
+- Stack-Overflow: [https://stackoverflow.com/users/19549317/em-ha-tuan](https://stackoverflow.com/users/19549317/em-ha-tuan)
+
+## Feedbacks:
+
+<WithQuote
+  title={`Client - Product Owner`}
+  summary={`Em Ha-Tuan's contribution to our project has been exceptional. The team
+  has been consistently impressed and appreciative of Em's work on the app. Em
+  demonstrated a keen eye for detail and a proactive approach in identifying and
+  resolving issues. Em's dedication and commitment to implementing solutions for
+  the version 4.0.2 work were instrumental in achieving project success.`}
+  author={{
+    title: 'James Reed',
+    href: 'https://www.linkedin.com/in/james-reed/',
+  }}
+/>
+
+<WithQuote
+  title={`Line Manager`}
+  summary={`He is a person who always tries his best in everything. Once he works, he
+  will try to complete it well and is not afraid to take on anything. He is very
+  hard-working, learns many things, and does many things.`}
+  author={{
+    title: 'Minh Tran',
+    href: 'https://www.facebook.com/vuilendi',
+  }}
+/>
+
+<WithQuote
+  title={`Project Manager`}
+  summary={`Em is a potential developer and he knows how the shortest way to unblock
+  his limitation to hit a further steps in his career path. He brings a lot
+  values to the outputs of Mobile App, Application and the other development on
+  cross backlogs.`}
+  author={{
+    title: 'Quynh Diep Lan',
+    href: 'https://www.linkedin.com/in/quynh-diep-lan-b46195179/',
+  }}
+/>

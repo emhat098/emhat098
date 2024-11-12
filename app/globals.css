@@ -15,5 +15,5 @@ main {
 }
 
 aside {
-  @apply bg-neutral-50 p-4 rounded-xl shadow;
+  @apply bg-slate-50 py-2 px-4 rounded-xl shadow my-2;
 }
