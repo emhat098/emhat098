@@ -1,6 +1,9 @@
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
-export const BLOGS_POST_PER_PAGE = 2;
+/**
+ * The constants of items display the post per page.
+ */
+export const BLOGS_POST_PER_PAGE = 6;
 
 /**
  * The constants of blog post latest.

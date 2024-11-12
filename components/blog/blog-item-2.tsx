@@ -33,16 +33,16 @@ const BlogItem2: FC<BlogPost> = ({
             className={'h-52 w-full'}
           />
         </div>
-        <div className={'flex flex-col gap-2 py-2'}>
+        <div className={'flex flex-col gap-1 py-2'}>
           <div className={'flex justify-between items-start'}>
-            <P className={'line-clamp-1'}>{title}</P>
+            <P className={'line-clamp-1 md:text-base'}>{title}</P>
             {externalUrl && (
               <div className={'py-2'}>
                 <GoLinkExternal className={'w-4 h-4'} />
               </div>
             )}
           </div>
-          <p className={'line-clamp-2 text-sm'}>{summary}</p>
+          <P className={'line-clamp-2 md:text-sm'}>{summary}</P>
           <div className='flex justify-between gap-2 text-slate-800 text-sm items-center'>
             <p className='w-full'>By {author}</p>
             <p>{date.toLocaleDateString()}</p>

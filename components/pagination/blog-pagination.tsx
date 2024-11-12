@@ -18,7 +18,7 @@ const BlogPagination: FC<BlogPaginationProps> = ({
   return (
     <div className={'flex flex-row gap-2'}>
       <div className='flex flex-row gap-2 items-center'>
-        {prev && <Link href={`/${pathName}/${prev}`}>{'prev'}</Link>}
+        {prev && <Link href={`/${pathName}/${prev}`}>{'Prev'}</Link>}
         {[...Array(pages).keys()].map((page) => {
           page = page + 1;
           return (
@@ -34,7 +34,7 @@ const BlogPagination: FC<BlogPaginationProps> = ({
             </Link>
           );
         })}
-        {next && <Link href={`/${pathName}/${next}`}>{'next'}</Link>}
+        {next && <Link href={`/${pathName}/${next}`}>{'Next'}</Link>}
       </div>
     </div>
   );

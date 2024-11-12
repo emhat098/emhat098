@@ -9,6 +9,7 @@ import TOC from '../toc/toc';
 import useClientContext from '@/hooks/use-client';
 import Image from '@/components/image/image';
 import Avatar from '../avatar/avatar';
+import InFooter from '../footer/in-footer';
 
 const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
   const { headings, frontmatter, readingTime } = useClientContext();
@@ -75,8 +76,9 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
             />
           </section>
         </div>
+        <InFooter />
+        <Footer />
       </Container>
-      <Footer />
     </main>
   );
 };
