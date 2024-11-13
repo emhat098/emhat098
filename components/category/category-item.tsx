@@ -15,7 +15,9 @@ const CategoryItem: FC<CategoryItemProps> = ({ slug, title }) => {
     >
       <Link
         href={slug}
-        className={'flex flex-col items-center hover:border-b-0'}
+        className={
+          'flex flex-col items-center hover:border-b-0 hover:no-underline'
+        }
       >
         <p
           className={

@@ -24,7 +24,7 @@ const BlogsLayout = async () => {
       <Container>
         <main
           className={
-            'transition-all duration-300 ease-linear grid gap-2 grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-0 min-h-full'
+            'transition-all duration-300 ease-linear grid grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-0 min-h-full'
           }
         >
           {posts.length > 0 &&

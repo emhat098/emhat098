@@ -7,10 +7,10 @@ const Footer = () => {
   return (
     <footer
       className={
-        'flex flex-row justify-between gap-4 items-start text-sm px-12 py-4 mt-auto'
+        'flex flex-row justify-between gap-2 md:gap-4 items-start text-sm px-12 py-4 mt-auto border-t'
       }
     >
-      <ul className={'flex gap-6 items-center'}>
+      <ul className={'flex gap-2 md:gap-6 items-center'}>
         {footerNavigators.map((navigator) => (
           <li key={navigator.href}>
             <Link
@@ -24,7 +24,7 @@ const Footer = () => {
         ))}
       </ul>
       <div className={'flex flex-rows gap-1'}>
-        <span>{'Powered by'}</span>
+        <span className={'hidden md:inline'}>{'Powered by'}</span>
         <Link
           href={'https://vercel.com/'}
           target={'_blank'}

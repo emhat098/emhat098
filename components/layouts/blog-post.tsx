@@ -5,11 +5,22 @@ import { FC, PropsWithChildren } from 'react';
 import Container from '@/components/container/container';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
-import TOC from '../toc/toc';
 import useClientContext from '@/hooks/use-client';
 import Image from '@/components/image/image';
-import Avatar from '../avatar/avatar';
-import InFooter from '../footer/in-footer';
+import Avatar from '@/components/avatar/avatar';
+import InFooter from '@/components/footer/in-footer';
+import dynamic from 'next/dynamic';
+
+const TOC = dynamic(() => import('@/components/toc/toc'), {
+  ssr: false,
+  loading: () => (
+    <div
+      className={
+        'animate-pulse h-10 w-full bg-slate-200 rounded text-sm flex flex-col gap-2 items-center justify-center shadow'
+      }
+    ></div>
+  ),
+});
 
 const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
   const { headings, frontmatter, readingTime } = useClientContext();

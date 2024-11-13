@@ -15,7 +15,7 @@ const BlogItem: FC<BlogItemProps> = ({
 }) => {
   return (
     <Link
-      href={externalUrl || slug || '/404'}
+      href={externalUrl || slug}
       className={
         'transition-all duration-300 eas block p-2 rounded-lg hover:bg-slate-50 hover:shadow-lg'
       }
