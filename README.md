@@ -23,7 +23,8 @@ I’m always open to networking and discussing tech! You can find me on:
 
 - [LinkedIn](https://www.linkedin.com/in/ha-tuan-em-52753a154/)
 - [Twitter](https://x.com/emhat098)
-- Personal Blog: https://emhat098.vercel.app
+- [Blog](https://emhat098.vercel.app)
+- [Facebook](https://www.facebook.com/emhat098)
 
 Feel free to reach out if you have any questions or if you’d like to collaborate on a project!
 
