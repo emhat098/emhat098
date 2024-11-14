@@ -7,7 +7,11 @@ import { GoLinkExternal } from 'react-icons/go';
 
 const ArticleItem: FC<BlogPost> = ({ banner, title, slug, externalUrl }) => {
   return (
-    <div className={'p-2 rounded-lg hover:bg-slate-50 hover:shadow'}>
+    <div
+      className={
+        'p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-dark hover:shadow dark:shadow-none'
+      }
+    >
       <Link
         href={externalUrl || slug}
         className={

@@ -4,7 +4,7 @@ import useClipboard from '@/hooks/use-clipboard';
 import cn from '@/util/tailwind-helper';
 import { FC, HTMLAttributes, useRef } from 'react';
 import { toast } from 'sonner';
-import { BsFillClipboard2Fill, BsFillClipboardCheckFill } from 'react-icons/bs';
+import { PiClipboardThin, PiClipboardFill } from 'react-icons/pi';
 
 const Pre: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
   const ref = useRef<HTMLPreElement>(null);
@@ -31,9 +31,9 @@ const Pre: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
         className={'absolute right-2 top-2'}
       >
         {copied ? (
-          <BsFillClipboardCheckFill className={'text-green-500 w-6 h-6'} />
+          <PiClipboardFill className={'text-green-300 w-4 h-4 md:w-6 md:h-6'} />
         ) : (
-          <BsFillClipboard2Fill className={'text-white w-6 h-6'} />
+          <PiClipboardThin className={'text-white w-4 h-4 md:w-6 md:h-6'} />
         )}
       </button>
       <button></button>

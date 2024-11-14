@@ -74,10 +74,9 @@ const SearchDialog = memo(() => {
             name={'search'}
             value={search}
             onChange={onSearch}
-            className={
-              'border border-black rounded-lg w-full px-3 py-2 shadow outline-none'
-            }
+            className={'rounded-lg w-full px-3 py-2 outline-none'}
             placeholder={'Searching by title of blog'}
+            autoComplete={'off'}
           />
           <AnimatePresence>
             {state === 'searching' && (
@@ -106,7 +105,7 @@ const SearchDialog = memo(() => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 0, opacity: 0 }}
                 className={cn(
-                  'flex flex-col gap-2 overflow-scroll scrollbar-thin mt-4',
+                  'flex flex-col gap-1 overflow-scroll scrollbar-thin mt-4',
                   `max-h-[400px]`,
                 )}
               >

@@ -8,7 +8,11 @@ import P from '../paragraph/paragraph';
 
 const InFooter = () => {
   return (
-    <div className={'grid grid-cols-12 gap-4 p-6 bg-slate-50 rounded-lg my-4'}>
+    <div
+      className={
+        'grid grid-cols-12 gap-4 p-6 bg-slate-50 dark:bg-dark dark:text-dark dark:border dark:border-slate-50 rounded-lg my-4'
+      }
+    >
       <div className={'col-span-12 md:col-span-6 flex flex-col gap-2'}>
         <Logo className={'text-xl md:text2xl'}>{'Em Ha Tuan'}</Logo>
         <P className={'text-sm md:text-sm'}>

@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
         title: c.title,
         banner: c.banner,
         date: c.date,
+        externalUrl: c.externalUrl,
       })),
     },
     {

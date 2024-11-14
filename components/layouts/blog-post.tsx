@@ -16,7 +16,7 @@ const TOC = dynamic(() => import('@/components/toc/toc'), {
   loading: () => (
     <div
       className={
-        'animate-pulse h-10 w-full bg-slate-200 rounded text-sm flex flex-col gap-2 items-center justify-center shadow'
+        'animate-pulse h-10 w-full bg-slate-200 dark:bg-dark dark:text-dark rounded text-sm flex flex-col gap-2 items-center justify-center shadow'
       }
     ></div>
   ),
@@ -33,7 +33,7 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
     <main>
       <Navbar />
       <Container>
-        <div className='grid grid-cols-12 sm:gap-10 w-full mx-auto'>
+        <div className='grid grid-cols-12 sm:gap-10 w-full mx-auto px-2 md:p-0'>
           {/* The main content of blog */}
           <article className={'col-span-12 sm:col-span-9'}>
             <div className='flex flex-col gap-2'>

@@ -18,7 +18,7 @@ const BlogItem2: FC<BlogPost> = ({
   return (
     <div
       className={
-        'transition-all duration-200 ease-linear h-max w-full border-b p-1 sm:p-2 md:p-4 hover:rounded-lg hover:bg-slate-50 hover:shadow'
+        'transition-all duration-200 ease-linear h-max w-full p-1 sm:p-2 md:p-4 hover:rounded-lg hover:bg-slate-50 dark:hover:bg-darker hover:shadow'
       }
     >
       <Link
@@ -45,7 +45,7 @@ const BlogItem2: FC<BlogPost> = ({
             )}
           </div>
           <P className={'line-clamp-2 text-xs md:text-sm py-0'}>{summary}</P>
-          <div className='flex justify-between gap-2 text-slate-800 text-sm items-center'>
+          <div className='flex justify-between gap-2 text-slate-800 dark:text-dark text-sm items-center'>
             <P className='w-full text-xs md:text-sm'>By {author}</P>
             <P className='text-xs md:text-sm'>{date.toLocaleDateString()}</P>
           </div>

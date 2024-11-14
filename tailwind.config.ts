@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import tailwindScrollbar from 'tailwind-scrollbar';
 
 const config: Config = {
   darkMode: ['class'],
@@ -12,6 +13,9 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        dark: 'white',
+        // text-slate-200
+        darker: 'rgb(226 232 240)',
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)'],
@@ -23,8 +27,13 @@ const config: Config = {
       'overflow-wrap': {
         break: 'break-word',
       },
+      backgroundColor: {
+        dark: 'rgb(15 23 42)',
+        darker: 'rgb(2 6 23)',
+      },
     },
   },
-  plugins: [require('tailwind-scrollbar')],
+  plugins: [tailwindScrollbar],
 };
+
 export default config;

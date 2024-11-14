@@ -11,14 +11,13 @@ const BlogLatest = cache(() => {
   }
 
   return (
-    <div className={'flex flex-col gap-2'}>
+    <div className={'flex flex-col gap-2 my-2'}>
       <Heading
         as={'h2'}
         className={'uppercase'}
       >
-        Latest
+        {'Latest'}
       </Heading>
-      <hr className={'my-2'} />
       <div className={'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4'}>
         {data.map((post) => {
           return (

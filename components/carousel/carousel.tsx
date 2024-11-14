@@ -68,7 +68,7 @@ const Carousel: FC<CarouselProps> = ({ items, sliderClass }) => {
         <button
           onClick={prevSlide}
           className={
-            'p-2 rounded-full shadow hover:shadow-sm hover:bg-green-50'
+            'p-2 rounded-full shadow hover:shadow-sm hover:bg-green-50 dark:bg-darker dark:hover:bg-dark'
           }
         >
           <BiChevronLeft className={'w-6 h-6'} />
@@ -76,7 +76,7 @@ const Carousel: FC<CarouselProps> = ({ items, sliderClass }) => {
         <button
           onClick={nextSlide}
           className={
-            'p-2 rounded-full shadow hover:shadow-sm hover:bg-green-50'
+            'p-2 rounded-full shadow hover:shadow-sm hover:bg-green-50 dark:bg-darker dark:hover:bg-dark'
           }
         >
           <BiChevronRight className={'w-6 h-6'} />

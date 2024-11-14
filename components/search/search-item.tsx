@@ -5,6 +5,7 @@ import { FC } from 'react';
 import Image from '@/components/image/image';
 import Link from '@/components/link/link';
 import P from '@/components/paragraph/paragraph';
+import { GoLinkExternal } from 'react-icons/go';
 
 const SearchItem: FC<BlogPost> = ({
   slug,
@@ -18,7 +19,7 @@ const SearchItem: FC<BlogPost> = ({
       <Link
         href={externalUrl || slug}
         className={
-          'hover:underline sm:text-base flex flex-row gap-4 items-center'
+          'hover:underline sm:text-base flex flex-row gap-4 items-center rounded-lg py-1 dark:bg-darker'
         }
         target={externalUrl ? '_blank' : '_parent'}
       >
@@ -30,7 +31,14 @@ const SearchItem: FC<BlogPost> = ({
           />
         </div>
         <div className={'flex flex-col'}>
-          <P className={'font-normal'}>{title}</P>
+          <div className='flex flex-row gap-2 items-center'>
+            <P className={'font-normal'}>{title}</P>
+            {externalUrl && (
+              <div className={'py-2'}>
+                <GoLinkExternal className={'w-4 h-4'} />
+              </div>
+            )}
+          </div>
           <P className={'!text-xs'}>
             {new Date(date?.toString()).toLocaleDateString()}
           </P>

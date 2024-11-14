@@ -17,7 +17,7 @@ const BlogItem: FC<BlogItemProps> = ({
     <Link
       href={externalUrl || slug}
       className={
-        'transition-all duration-300 eas block p-2 rounded-lg hover:bg-slate-50 hover:shadow-lg'
+        'transition-all duration-300 ease-linear block p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-darker hover:shadow-lg'
       }
     >
       <div className={'w-full h-max'}>
@@ -29,7 +29,7 @@ const BlogItem: FC<BlogItemProps> = ({
       </div>
       <div className={'flex flex-col pt-2 px-2'}>
         <div className={'flex justify-between items-start'}>
-          <P className={'line-clamp-2 text-base md:text-lg font-medium'}>
+          <P className={'line-clamp-2 text-base md:text-base font-medium'}>
             {title}
           </P>
           {externalUrl && (
@@ -42,11 +42,11 @@ const BlogItem: FC<BlogItemProps> = ({
         <P className={'line-clamp-2 md:text-sm'}>{summary}</P>
         <div
           className={
-            'flex justify-between gap-2 text-slate-800 text-sm items-center'
+            'flex justify-between gap-2 pt-2 text-slate-800 dark:text-dark text-sm items-center'
           }
         >
-          <P className={'text-xs'}>By {author}</P>
-          <P className={'text-xs'}>{date.toLocaleDateString()}</P>
+          <P className={'md:text-sm'}>By {author}</P>
+          <P className={'md:text-sm'}>{date.toLocaleDateString()}</P>
         </div>
       </div>
     </Link>

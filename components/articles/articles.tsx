@@ -29,7 +29,7 @@ const Articles: FC<ArticlesProps> = ({
     <div
       className={cn(
         cn(
-          'rounded-xl p-4 sm:p-8 md:p-10 bg-blue-50 text-background flex flex-col gap-2 md:gap-8 md:mb-8 mb-4 shadow-sm',
+          'rounded-xl p-4 sm:p-8 md:p-10 bg-blue-50 dark:bg-dark dark:border text-black dark:text-dark flex flex-col gap-2 md:gap-8 md:mb-8 mb-4 shadow-sm',
           color && `bg-${color}-50`,
         ),
       )}

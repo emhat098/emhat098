@@ -18,10 +18,14 @@ const CategoryList = () => {
   return (
     <div className={'flex flex-col gap-2 py-6'}>
       <div className={'flex justify-between items-center'}>
-        <h2 className={'pb-4 text-3xl font-light'}>{'Browser topics'}</h2>
+        <h2 className={'pb-4 text-xl md:text-3xl font-light'}>
+          {'Browser topics'}
+        </h2>
         <Link
           href={'/blog'}
-          className={'px-4 py-2 border rounded-xl bg-green-50 text-blue-950'}
+          className={
+            'px-2 py-1 md:px-4 md:py-2 text-sm md:text-base border rounded-lg bg-green-50 text-slate-950 dark:bg-dark dark:text-dark dark:hover:text-darker dark:hover:bg-darker'
+          }
         >
           {'View all topics'}
         </Link>
