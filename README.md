@@ -2,7 +2,7 @@ Hi there! 👋 I’m Em Ha Tuan
 
 Welcome to my GitHub profile! I’m a passionate Software Engineer with a focus on building clean, efficient, and impactful solutions.
 
-# 👨‍💻 About Me
+## 👨‍💻 About Me
 
 - 🔭 Currently Working On: Projects related to Typescript, Javascript, React, Next.js, Node.js, Postgres.
 - 🌱 Learning & Exploring: Expanding my skills in Design System.
