@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <nav
       className={
-        'flex flex-row p-2 md:p-0 gap-4 justify-between items-center text-sm border-b dark:bg-slate-900 dark:text-white border-b-slate-50 dark:border-b'
+        'flex flex-row p-2 md:p-0 gap-4 text-xs md:text-sm justify-between items-center border-b dark:bg-slate-900 dark:text-white border-b-slate-50 dark:border-b'
       }
     >
       <Container className={'flex justify-between w-full items-center'}>
@@ -24,13 +24,13 @@ const Navbar = () => {
             href={'/'}
             className={'hover:underline'}
           >
-            <Logo />
+            <Logo className={'text-sm sm:text-base'} />
           </Link>
           <ul className={'flex flex-row gap-4'}>
             {navigators.map((nav) => (
               <li key={nav.href}>
                 <Link
-                  className={'font-normal text-sm hover:underline'}
+                  className={'font-normal hover:underline'}
                   href={nav.href}
                   target={nav.isExternal ? '_blank' : '_parent'}
                 >
@@ -40,7 +40,7 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        <div className={'flex items-center gap-4'}>
+        <div className={'flex items-center gap-1 md:gap-4'}>
           <ToggleTheme />
           <SearchDialog />
         </div>

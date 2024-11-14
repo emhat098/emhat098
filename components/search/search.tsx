@@ -55,7 +55,7 @@ const SearchDialog = memo(() => {
   return (
     <>
       <Button onClick={() => ref.current?.showModal()}>
-        <CiSearch className={'w-6 h-6'} />
+        <CiSearch className={'w-4 h-4 md:w-6 md:h-6'} />
       </Button>
       <dialog
         ref={ref}

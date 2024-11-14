@@ -17,7 +17,7 @@ const Banner: FC<BannerProps> = ({ slug }) => {
   const { title, banner, summary, slug: blogSlug } = blog;
 
   return (
-    <div className={'relative max-h-max h-full my-4'}>
+    <div className={'relative max-h-max h-full my-1 sm:my-2 md:my-4'}>
       <Link href={blogSlug}>
         <Image
           alt={title}

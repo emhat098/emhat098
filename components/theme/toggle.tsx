@@ -2,6 +2,7 @@
 
 import { useTheme } from 'next-themes';
 import { CiLight, CiDark } from 'react-icons/ci';
+import Button from '@/components/button/button';
 
 const ToggleTheme = () => {
   const { resolvedTheme, theme, setTheme } = useTheme();
@@ -11,16 +12,13 @@ const ToggleTheme = () => {
   };
 
   return (
-    <button
-      className='p-2 rounded-full'
-      onClick={toggleTheme}
-    >
+    <Button onClick={toggleTheme}>
       {theme === 'dark' ? (
-        <CiDark className={'w-6 h-6'} />
+        <CiDark className={'w-4 h-4 md:w-6 md:h-6'} />
       ) : (
-        <CiLight className={'w-6 h-6'} />
+        <CiLight className={'w-4 h-4 md:w-6 md:h-6'} />
       )}
-    </button>
+    </Button>
   );
 };
 
