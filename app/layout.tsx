@@ -4,6 +4,7 @@ import { GeistMono } from 'geist/font/mono';
 import { Toaster } from 'sonner';
 import TopLoader from '@/components/loader/loader';
 import { ThemeProvider } from 'next-themes';
+import { CodeEditorCSS } from '@/components/code-editor/code-css';
 
 export default function RootLayout({
   children,
@@ -16,6 +17,9 @@ export default function RootLayout({
       className={'scrollbar-thumb-slate-900 scrollbar-track-slate-300'}
       suppressHydrationWarning
     >
+      <head>
+        <CodeEditorCSS />
+      </head>
       <body
         className={`transition-colors duration-500 ease-in-out antialiased ${GeistSans.variable} ${GeistMono.variable} dark:bg-dark dark:text-dark`}
       >

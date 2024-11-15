@@ -6,6 +6,7 @@ import BannerImage from './components/banner/banner-with-image';
 import BlogLatest from './components/blog/latest';
 import Carousel from './components/carousel/carousel';
 import CategoryList from './components/category/category-list';
+import CodeEditor from './components/code-editor/code-editor';
 import InFooter from './components/footer/in-footer';
 import WithQuote from './components/hoc/with-quote';
 import Image from './components/image/image';
@@ -19,6 +20,7 @@ export const mdxComponents = {
   Articles: Articles,
   Banner: Banner,
   BannerImage: BannerImage,
+  CodeEditor: CodeEditor,
   Image: Image,
   BlogLatest: BlogLatest,
   CategoryList: CategoryList,
