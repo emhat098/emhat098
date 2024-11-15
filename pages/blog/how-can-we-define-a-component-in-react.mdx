@@ -11,7 +11,7 @@ banner: 'https://www.notion.so/images/page-cover/nasa_tim_peake_spacewalk.jpg'
 
 When working with React components, you need to think about what the component will look like, from the UI to its internal state. In this article, I will show you the basic steps for designing a component in React.
 
-**Step 1: Identify how many visual states the component has**
+## Step 1: Identify how many visual states the component has
 
 In React, there are two types of components: stateless and stateful components. A stateless component does not have internal state—it simply receives props and renders them. On the other hand, a stateful component has internal state or multiple states to manage the visual appearance of the component.
 
@@ -34,7 +34,7 @@ So, this component has two states:
 </div>
 ```
 
-**Step 2: What triggers the state changes?**
+## Step 2: What triggers the state changes?
 
 In most cases, state changes are triggered by either a user or a computer. We need to understand the behavior of both to ensure all states are handled correctly.
 
@@ -45,7 +45,7 @@ In this example, the state changes are triggered by the user. The user can trigg
 3. The user clicks on the image, making the background active.
 4. The user clicks on the image again, making the background inactive.
 
-**Step 3: How do we represent the state in the component?**
+### Step 3: How do we represent the state in the component?
 
 After visualizing the states of the component, we need to define the type of data that will represent these states and decide how to manage the state changes in the component.
 
@@ -68,7 +68,7 @@ const [isBgActive, setBgActive] = useState(true);
 </div>
 ```
 
-**Step 4: Connect state to the event handler**
+## Step 4: Connect state to the event handler
 
 As mentioned in Step 2, the state is dependent on user interaction. Therefore, defining how the event works is crucial to making the component’s logic work correctly.
 
@@ -97,15 +97,15 @@ return (
 
 I used `e.stopPropagation();` to prevent the click event from propagating from the parent (background) to the child (image).
 
-**Step 5: Remove unnecessary state**
+## Step 5: Remove unnecessary state
 
 To make the component more efficient, we should remove any unnecessary states. By clearly identifying the main state, we can help the component avoid re-renders and reduce the chance of encountering errors.
 
-**Conclusion**
+## Conclusion
 
 Defining a React component involves understanding its visual states, managing those states efficiently with hooks like useState, and handling user events correctly. By simplifying the state management and focusing on clear interactions, you can avoid unnecessary complexity and potential issues in your components. Following these steps will ensure that your components are not only functional but also maintainable and optimized for performance.
 
-**References:**
+## References
 
 Codesandbox: [https://codesandbox.io/p/sandbox/w6yjy7](https://codesandbox.io/p/sandbox/w6yjy7)
 

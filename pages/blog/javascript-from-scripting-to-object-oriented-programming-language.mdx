@@ -17,11 +17,13 @@ Yes, JavaScript is indeed a scripting language. It was originally created to ena
 
 Let's examine a simple code snippet written in JavaScript, which is often used as a scripting language:
 
-```html
-<!-- A simple HTML element to display the greeting -->
-<p id="greeting"></p>
-
+<CodeEditor
+  template={"static"}
+  files={{
+    '/index.html': {
+      code: `<p id="greeting"></p>
 <!-- JavaScript code -->
+
 <script>
   // Get the current hour of the day
   const currentHour = new Date().getHours();
@@ -43,7 +45,12 @@ Let's examine a simple code snippet written in JavaScript, which is often used a
   // Display the greeting message in the HTML element with id "greeting"
   document.getElementById('greeting').innerText = greetingMessage;
 </script>
-```
+
+      `
+    }
+
+}}
+/>
 
 This HTML file includes a simple JavaScript script that does the following:
 
@@ -83,47 +90,64 @@ In Javascript, each object has an associated prototype, which is accessed throug
 
 Prototype chaining in JavaScript refers to the mechanism by which objects are linked to other objects through their prototypes, forming a chain-like structure. This chaining allows objects to inherit properties and methods from their prototypes, creating a hierarchical structure known as the "prototype chain” and how prototype chaining works?
 
-1. **Object Creation:** Each object in JavaScript, when created, is linked to a prototype object - **`Object.prototype`**. This prototype object is referred to by the internal property **`[[Prototype]]`**.
-2. **Property and Method Lookup:**
+1.  **Object Creation:** Each object in JavaScript, when created, is linked to a prototype object - **`Object.prototype`**. This prototype object is referred to by the internal property **`[[Prototype]]`**.
+2.  **Property and Method Lookup:**
 
-   - When you access a property or method on an object, JavaScript first looks for that property in the object itself.
+- When you access a property or method on an object, JavaScript first looks for that property in the object itself.
 
-   ```jsx
-   const Person = {
-     firstName: '',
-     lastName: '',
-     fullName: function () {
-       console.log(this.firstName + ' ' + this.lastName);
-     },
-   };
-   const john = {};
-   Object.setPrototypeOf(john, Person);
-   john.firstName = 'John';
-   john.lastName = 'Wick';
-   console.log(john.fullName()); // John Wick.
-   // JavaScript first checks if that property or method exists directly within the object.
-   ```
+<CodeEditor
+  template={'vanilla'}
+  files={{
+    '/index.js': {
+      code: `const Person = {
+    firstName: '',
+    lastName: '',
+    fullName: function () {
+      console.log(this.firstName + ' ' + this.lastName);
+    },
+  };
+  const john = {};
+  Object.setPrototypeOf(john, Person);
+  john.firstName = 'John';
+  john.lastName = 'Wick';
+  console.log(john.fullName()); // John Wick.
+  // JavaScript first checks if that property or method exists directly within the object.
+`,
+    },
+  }}
+  options={{
+    showConsole: true,
+  }}
+/>
 
-   - If the property is not found in the object, JavaScript looks in the object's prototype.
+- If the property is not found in the object, JavaScript looks in the object's prototype.
 
-   ```jsx
-   john ---> Person.prototype ---> Object.prototype ---> underfined
-   ```
+```jsx
+john ---> Person.prototype ---> Object.prototype ---> underfined
+```
 
-   - This process continues up the prototype chain until the property is found or until the end of the chain is reached.
+- This process continues up the prototype chain until the property is found or until the end of the chain is reached.
 
 3. **Inheritance:** Objects inherit properties and methods from their prototypes. If an object doesn't have a particular property, JavaScript looks in its prototype, and so on, until it finds the property or reaches the end of the prototype chain.
 
-```jsx
-const Person = {
-  sayHello: function () {
-    console.log('Hello! Give me a pencil.');
-  },
-};
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `const Person = {
+    sayHello: function () {
+      console.log('Hello! Give me a pencil.');
+    },
+  };
 
 const john = Object.create(Person);
 john.sayHello(); // Outputs 'Hello! Give me a pencil.'
-```
+`
+}
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 In this example, `john` doesn't have its own `sayHello` method, so it looks in its prototype (`Person`) and finds the `sayHello` method there.
 
@@ -141,15 +165,23 @@ The instance properties are typically set inside the constructor function using 
 
 Example:
 
-```jsx
-function Person(name, age) {
-  this.name = name; // Instance property
-  this.age = age; // Instance property
-}
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `function Person(name, age) {
+    this.name = name; // Instance property
+    this.age = age; // Instance property
+  }
 
 const person1 = new Person('Alice', 30);
 const person2 = new Person('Bob', 25);
-```
+`
+}
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 So now, what is Prototype Properties?
 
@@ -157,8 +189,10 @@ The Prototype Properties are shared among all of constructor function, typically
 
 Example:
 
-```jsx
-function Person(name, age) {
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `function Person(name, age) {
   this.name = name; // Instance property
   this.age = age; // Instance property
 }
@@ -167,15 +201,23 @@ Person.prototype.gender = 'Unknown'; // Prototype property
 
 const person1 = new Person('Someone', 20);
 console.log(person1.gender); // Outputs 'Unknown'.
-```
+`
+}
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 Now, let summary all the things about Instance Property and Prototype Properties with the example below:
 
-```jsx
-function Car(make, model) {
-  this.make = make; // Instance property
-  this.model = model; // Instance property
-}
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `function Car(make, model) {
+    this.make = make; // Instance property
+    this.model = model; // Instance property
+  }
 
 Car.prototype.year = 2023; // Prototype property
 
@@ -183,8 +225,13 @@ const car1 = new Car('Toyota', 'Camry');
 const car2 = new Car('Honda', 'Civic');
 
 console.log(car1.year); // Outputs 2023
-console.log(car2.year); // Outputs 2023
-```
+console.log(car2.year); // Outputs 2023`
+}
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 In this example, `year` is a prototype property shared among all instance of the `Car` constructor. The `make` and `model` properties are instance properties unique to each `Car` instance.
 
@@ -210,18 +257,31 @@ Firstly, understanding the new Keywords.
 
 So now, what is happening with the `new` keywords? Take a look at the code below:
 
-```jsx
-function Student(firstName, lastName, age, address) {
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.age = age;
-	this.address = address;
-  this.fullName = () => {
-		return ...;
-	}
-}
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `function Student(firstName, lastName, age, address) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.address = address;
+    this.fullName = () => {
+      // We will talk about 'this' in this code later.
+      return firstName + ' ' + lastName;
+    }
+  }
 let em = new Student('Ha', 'Em', 20, 'Ho Chi Minh City');
-```
+console.log(em.firstName);
+console.log(em.lastName);
+console.log(em.age);
+console.log(em.address);
+console.log(em.fullName());`,
+    },
+  }}
+  options={{
+    showConsole: true,
+  }}
+/>
 
 1. We define the `Student` object with constructor function.
 2. We use `this` keywords to point some object in memory.
@@ -240,69 +300,68 @@ We have a few ways to make setter and getter work on Javascript object.
 
 1. Use `Object.defineProperty` for define a property on object function. This is complex way for creating a property with set and get on Javascript object. We will figure out the easy way later.
 
-```jsx
-function Fruit(name, color, price, salePrice, stock) {
-  this.name = name;
-  this.color = color;
-  this.price = price;
-  this.salePrice = salePrice;
-  this.stock = stock;
-  this.allowOutOfStock = false;
+<CodeEditor
+  files={{
+    'index.js': {
+code: `function Fruit(name, color, price, salePrice, stock) {
+    this.name = name;
+    this.color = color;
+    this.price = price;
+    this.salePrice = salePrice;
+    this.stock = stock;
+    this.allowOutOfStock = false;
 
-  Object.defineProperty(this, 'isSaled', {
-    get: () => {
-      return this.salePrice && this.salePrice < this.price;
-    },
-  });
+    Object.defineProperty(this, 'isSaled', {
+      get: () => {
+        return this.salePrice && this.salePrice < this.price;
+      },
+    });
 
-  Object.defineProperty(this, 'setStock', {
-    set: function (value) {
-      this.allowOutOfStock = value;
-    },
-  });
+    Object.defineProperty(this, 'setStock', {
+      set: function (value) {
+        this.allowOutOfStock = value;
+      },
+    });
+
 }
 
 const apple = new Fruit('Apple', 'red', 20, 10, 10);
 apple.setStock = true;
 
 console.log({ apple });
-// Outputs:
-// {
-//     apple: Fruit {
-//         name: 'Apple',
-//         color: 'red',
-//         price: 20,
-//         salePrice: 10,
-//         stock: 10,
-//         allowOutOfStock: true
-//     }
-// }
 console.log({ isSaled: apple.isSaled });
-// Outputs: { isSaled: true }
-```
+`,
+},
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 1. Use Function `Prototype` this is easy way for define a get and set on Javascript with less syntax. Take a look at the example below:
 
-```jsx
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `
 function Fruit(name, color, price, salePrice, stock) {
-  this.name = name;
-  this.color = color;
-  this.price = price;
-  this.salePrice = salePrice;
-  this.stock = stock;
-  this.allowOutOfStock = false;
-}
-
-Fruit.prototype = {
-  get fullTitle() {
-    return this.name + ' - ' + this.color;
-  },
-  set fullTitle(value) {
-    const titles = value.split(' ');
-    this.name = titles[0];
-    this.color = titles[1];
-  },
-};
+    this.name = name;
+    this.color = color;
+    this.price = price;
+    this.salePrice = salePrice;
+    this.stock = stock;
+    this.allowOutOfStock = false;
+  }
+  Fruit.prototype = {
+      get fullTitle() {
+      return this.name + ' - ' + this.color;
+    },
+    set fullTitle(value) {
+      const titles = value.split(' ');
+      this.name = titles[0];
+      this.color = titles[1];
+    },
+  };
 
 const lemon = new Fruit('Lemon', 'green', 2000, 1000, 10);
 console.log(lemon.fullTitle);
@@ -310,8 +369,13 @@ console.log(lemon.fullTitle);
 
 lemon.fullTitle = 'Lemon yellow';
 console.log(lemon.fullTitle);
-// Lemon - yellow
-```
+// Lemon - yellow`,
+},
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 ### Static properties and Static method
 
@@ -341,15 +405,17 @@ I define the static method - `getTitle` and we can access this property by `Frui
 
 Why we have the result like that? Because, when we define a static property in a class or a constructor function, it is related with constructor function itself, not with instances of that constructor. Therefore, the `this` does not make sense within the context of static properties or methods. Take a look the example bellow:
 
-```jsx
-function Fruit(name, color, price, salePrice, stock) {
-  this.name = name;
-  this.color = color;
-  this.price = price;
-  this.salePrice = salePrice;
-  this.stock = stock;
-  this.allowOutOfStock = false;
-}
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `function Fruit(name, color, price, salePrice, stock) {
+    this.name = name;
+    this.color = color;
+    this.price = price;
+    this.salePrice = salePrice;
+    this.stock = stock;
+    this.allowOutOfStock = false;
+  }
 
 Fruit.totalPrice = this;
 
@@ -358,8 +424,13 @@ const watermelon = new Fruit('watermelon', 'red', 2000, 0, 10);
 console.log(watermelon.name);
 // Outputs: watermelon
 console.log(Fruit.totalPrice);
-// Outputs: {}
-```
+// Outputs: {}`,
+},
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 As we can see the result, `this` is `{}` - empty object. That mean we can not access to instance properties of constructor function.
 
@@ -371,25 +442,26 @@ What is Closure? A closure in Javascript is a feature that allows a function to 
 
 Let’s make the private properties and method to understand the closure:
 
-```jsx
-function Fruit(name, color, price) {
-  let tax = '10%';
-  this.name = name;
-  this.color = color;
-  this.price = price;
-
-  this.getTax = function () {
-    return tax;
-  };
-
-  this.getPrice = () => {
-    if (isFree()) return 'The fruit is free';
-    return this.price;
-  };
-
-  let isFree = () => {
-    return this.price === 0;
-  };
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `function Fruit(name, color, price) {
+    let tax = '10%';
+    this.name = name;
+    this.color = color;
+    this.price = price;
+    this.getTax = function () {
+      return tax;
+    };
+    
+    this.getPrice = () => {
+      if (isFree()) return 'The fruit is free';
+      return this.price;
+    };
+    
+    let isFree = () => {
+      return this.price === 0;
+    };
 }
 
 const watermelon = new Fruit('watermelon', 'red', 0);
@@ -397,8 +469,13 @@ const watermelon = new Fruit('watermelon', 'red', 0);
 console.log(watermelon.getTax());
 // Outputs: 10%.
 console.log(watermelon.getPrice());
-// Outputs: The fruit is free.
-```
+// Outputs: The fruit is free.`,
+},
+}}
+options={{
+    showConsole: true,
+  }}
+/>
 
 Now, we try to access the `tax` and `isFree` properties. We will get the value like this:
 
@@ -417,25 +494,30 @@ On Javascript, we don’t have a easy way to make the object inherit from other 
 
 In this example below, I create a new Object named Device, it is constructor function and have a `isTablet` function prototype for sharing all the object inherit with. Also, I create a Object `Iphone` inherit from `Device` with the `features` is extension of instance property and `setFeature` for adding new feature to the `features` property on `Iphone` object.
 
-```jsx
-function Device(name, size, model) {
-  this.name = name;
-  this.size = size;
-  this.model = model;
-}
-
-Device.prototype.isTablet = () => {
-  return this.size > 360;
-};
-
-function Iphone() {
-  this.features = [];
-}
-
-Iphone.prototype.setFeature = function (name) {
-  return this.features.push(name);
-};
-```
+<CodeEditor
+  files={{
+    'index.js': {
+      code: `function Device(name, size, model) {
+    this.name = name;
+    this.size = size;
+    this.model = model;
+  }
+  Device.prototype.isTablet = () => {
+    return this.size > 360;
+  };
+  function Iphone() {
+    this.features = [];
+  }
+  Iphone.prototype.setFeature = function (name) {
+    return this.features.push(name);
+  };
+`,
+    },
+  }}
+  options={{
+    showConsole: true,
+  }}
+/>
 
 > Second, copy the `Device` ’s prototype to `Iphone` ‘s prototype.
 
@@ -722,3 +804,7 @@ The integration of OOP concepts in JavaScript has significantly enhanced its cap
 Thank you for reading this post.
 
 See you later.
+
+```
+
+```

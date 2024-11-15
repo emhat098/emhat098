@@ -17,7 +17,7 @@ const CodeEditor: FC<CodeEditorProps> = ({ files, template, options }) => {
   return (
     <Sandpack
       files={files}
-      template={template}
+      template={template || 'vanilla'}
       options={{
         autoReload: true,
         autorun: true,
