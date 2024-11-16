@@ -10,7 +10,10 @@ const Heading: FC<HeadingProps> = ({ as, children, ...props }) => {
   return (
     <Component
       {...props}
-      className={cn('font-medium my-2', props.className)}
+      className={cn(
+        'font-medium my-2 border-b border-b-black dark:border-b-white w-max',
+        props.className,
+      )}
     >
       {children}
     </Component>
