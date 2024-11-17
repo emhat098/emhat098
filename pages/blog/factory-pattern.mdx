@@ -1,0 +1,323 @@
+---
+title: 'Factory Pattern'
+summary: 'The Factory Pattern is a design pattern in software development that provides a way to create objects without specifying the exact class of object that will be created. It is widely used for creating objects in situations where the implementation of the object may change or when the creation process is complex.'
+category: 'design-pattern'
+layout: 'blog-post'
+banner: 'https://images.unsplash.com/photo-1576666735065-b24beb27b939?q=80&w=3521&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+date: '2024-11-16'
+---
+
+## What is the Factory Pattern?
+
+The Factory Pattern is a design pattern in software development that provides a way to create objects without specifying the exact class of the object to be created. It is widely used in scenarios where the implementation of the object may change, or when the creation process is complex.
+
+The Factory Pattern is especially useful in real-life situations where you need to dynamically create objects without tightly coupling your code to specific classes.
+
+<Figure
+  caption={`D. Napier & Son Ltd, 'Aero Engine in the Making', England, circa 1918`}
+  src={
+    'https://images.unsplash.com/photo-1576666735112-87a8ea71671c?q=80&w=3593&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  }
+/>
+
+## Purposes of the Factory Pattern
+
+Here are some common scenarios where the Factory Pattern is particularly effective:
+
+### 1. Dynamic Object Creation
+
+Imagine you’re building software for a car rental company that handles multiple car types, such as sedans, SUVs, and electric cars. As a developer, you would typically write `new Sedan()`, `new SUV()`, or `new ElectricCar()` whenever you need to create a car, which tightly couples your code to specific classes.
+
+With the Factory Pattern, you can create a factory function that simplifies this process. For instance, you could call `CarFactory.createCar('SUV')`, and the factory would handle the rest. If a new car type needs to be added, you simply update the factory function, ensuring the new logic is encapsulated.
+
+<Figure
+  caption={'The Shelby American factory in Las Vegas.'}
+  src={
+    'https://images.unsplash.com/photo-1596986952526-3be237187071?q=80&w=3571&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  }
+/>
+
+### 2. When Object Creation Logic Is Complex
+
+Consider an open-source framework for the education domain. The community proposes a feature to support multiple database types in the application. As a developer, how would you achieve this without breaking the existing database connections in the current application?
+
+Instead of updating multiple parts of the code to handle the creation logic for each new database type, the Factory Pattern can encapsulate this logic in a centralized place. The factory returns the appropriate database object based on the application’s configuration. For example, a simple call like `DatabaseFactory.createConnection('mysql')` would provide the correct database connection without requiring changes to existing code.
+
+<Figure
+  caption={'The inside of a hard drive is exposed.'}
+  src={
+    'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  }
+/>
+
+### 3. When Object Types Are Determined at Runtime
+
+Suppose you have an online store that supports multiple payment gateways, such as PayPal, Momo, and Bank Transfers, depending on user preferences. Without the Factory Pattern, you would need to write conditionals throughout your code to handle gateway initialization.
+
+This approach would lead to maintenance challenges and make the code difficult to enhance. Instead, you can use the Factory Pattern to centralize this logic. For example, calling `PaymentGatewayFactory.create('Momo')` would return the correct payment gateway object, making the code cleaner and easier to maintain.
+
+<Figure
+  caption={'Mobile Payment using Payment Terminal.'}
+  src={
+    'https://images.unsplash.com/photo-1509017174183-0b7e0278f1ec?q=80&w=3571&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  }
+/>
+
+### 4. To Abstract Away Object Details
+
+The Factory Pattern is particularly effective in Object-Oriented Programming (OOP). In scenarios like gaming, where you need to create a variety of objects such as characters (e.g., warriors, chefs, wizards, or students), the Factory Pattern can simplify the process.
+
+Without the Factory Pattern, you would create a new object for each character type, and any changes to the class structure would require significant updates throughout the code. By using a `CharacterFactory` class to handle the specifics of creating the right character type, the game logic remains decoupled from the details of object creation.
+
+<Figure
+  caption={'Faces.'}
+  src={
+    'https://images.unsplash.com/photo-1521220546621-cf34a1165c67?q=80&w=3576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  }
+/>
+
+## Hands-on in the Real-World Application
+
+Imagine you are building an application that uses notifications, commonly referred to as `toast` to provide feedback to users about their actions. These toasts can indicate statuses like errors, warnings, informational messages, or successes. For example:
+
+- Displaying an error toast when a user encounters an issue.
+- Showing a success toast when an operation completes successfully.
+- Highlighting a warning when the user is about to perform a risky action.
+- Offering an informational toast to guide the user.
+
+Managing these notifications effectively requires a clean and scalable approach, especially as your application grows. This is where the Factory Pattern becomes invaluable.
+
+This example provides an implementation of a Toast Notification System using the Factory Pattern, which demonstrates how to streamline the creation and management of toast notifications dynamically.
+
+**Example: Factory Pattern in Action**
+
+Centralized Toast Management with the Factory
+
+The repository’s Toaster component manages active toasts and uses a factory (ToastItemFactory) to determine which toast component to render based on its type. This encapsulates the creation logic, ensuring scalability and maintainability.
+
+```jsx
+const ToastItemFactory = ({ type, message, index }) => {
+  const style = { top: `${index * 0.25}rem` }; // Dynamically position toasts
+
+  switch (type) {
+    case 'success':
+      return (
+        <SuccessToast
+          message={message}
+          style={style}
+        />
+      );
+    case 'error':
+      return (
+        <ErrorToast
+          message={message}
+          style={style}
+        />
+      );
+    case 'warning':
+      return (
+        <WarningToast
+          message={message}
+          style={style}
+        />
+      );
+    case 'info':
+      return (
+        <InfoToast
+          message={message}
+          style={style}
+        />
+      );
+    default:
+      return null;
+  }
+};
+```
+
+This approach provides:
+
+- Scalability: Adding a new toast type requires minimal changes, as the logic is centralized.
+- Encapsulation: Each toast type is handled by its own component, keeping the code clean and modular.
+
+Simplified API with useToast
+
+The useToast hook abstracts the complexity of interacting with the Toaster, providing an intuitive interface for triggering notifications:
+
+```jsx
+const useToast = () => {
+  return {
+    success: (message) => toasterRef.current.addToast('success', message),
+    error: (message) => toasterRef.current.addToast('error', message),
+    warning: (message) => toasterRef.current.addToast('warning', message),
+    info: (message) => toasterRef.current.addToast('info', message),
+  };
+};
+```
+
+Here’s how you can use it in your application:
+
+```jsx
+const toast = useToast();
+
+toast.success('Operation completed successfully!');
+toast.error('An error occurred.');
+toast.warning('Be cautious!');
+toast.info('Here’s some helpful information.');
+```
+
+Encapsulated Toast Components
+
+Each toast type is encapsulated in a separate component, ensuring modularity and reusability. For example:
+
+```jsx
+const SuccessToast = ({ message, style }) => (
+  <li
+    className='toast toast-success'
+    style={style}
+  >
+    ✅ {message}
+  </li>
+);
+
+const ErrorToast = ({ message, style }) => (
+  <li
+    className='toast toast-error'
+    style={style}
+  >
+    ❌ {message}
+  </li>
+);
+
+const WarningToast = ({ message, style }) => (
+  <li
+    className='toast toast-warning'
+    style={style}
+  >
+    ⚠️ {message}
+  </li>
+);
+
+const InfoToast = ({ message, style }) => (
+  <li
+    className='toast toast-info'
+    style={style}
+  >
+    ℹ️ {message}
+  </li>
+);
+```
+
+These components handle the specific styling and logic for each toast type, ensuring clear separation of concerns.
+
+<Figure
+  caption={'2-slot bread toaster illustration'}
+  src={
+    'https://images.unsplash.com/photo-1558180678-ad8b95ffa810?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  }
+/>
+
+### Advantages of Using the Factory Pattern in This Context
+
+1. Centralized Logic:
+
+- The ToastItemFactory centralizes the logic for determining which toast to render, simplifying the overall structure.
+
+2. Modularity:
+
+- Each toast type is encapsulated in its own component, making it easy to extend or modify.
+
+3. Scalability:
+
+- Adding a new toast type is straightforward and doesn’t require changes to the existing components or logic.
+
+4. Ease of Use:
+
+- The useToast hook provides a clean, intuitive API for triggering notifications, abstracting away the underlying complexity.
+
+## Pros and Cons of the Factory Pattern
+
+The Factory Pattern is a powerful design pattern that provides flexibility and scalability in creating objects, particularly in scenarios where the exact class or structure of the object might change over time. However, like any pattern, it has its strengths and weaknesses.
+
+### Pros
+
+1. Encapsulation of Object Creation
+
+- The Factory Pattern centralizes the creation logic, ensuring that the client code doesn’t need to know how objects are instantiated.
+- This promotes cleaner and more modular code by separating object creation from its usage.
+
+2. Scalability and Extensibility
+
+- Adding new types of objects is straightforward and doesn’t require changes to existing code.
+- The centralized factory logic can be extended to support additional classes or configurations.
+
+3. Flexibility
+
+- The Factory Pattern allows you to create objects at runtime based on specific conditions or inputs, such as configuration files or user input.
+
+4. Code Reusability
+
+- Common object creation logic is reused, reducing duplication across the codebase.
+
+5. Loose Coupling
+
+- The client code is decoupled from the specifics of the object creation process, making it easier to switch between different implementations or modify existing ones.
+
+6. Improved Maintainability
+
+- Changes to the object creation process are isolated within the factory, reducing the risk of breaking other parts of the application.
+
+### Cons
+
+1. Increased Complexity
+
+- Introducing a factory adds an extra layer of abstraction, which can make the codebase more complex, especially for simpler applications.
+
+2. Debugging Challenges
+
+- Debugging issues can become more difficult as the creation logic is abstracted and often involves multiple layers of indirection.
+
+3. Tight Coupling to Factory
+
+- While the client code is decoupled from the object creation, it becomes tightly coupled to the factory itself. Changing the factory’s structure or interface can still impact the client.
+
+4. Potential Overhead
+
+- For simple object creation, using a factory might be over-engineering and introduce unnecessary performance overhead.
+
+5. Maintenance Costs
+
+- As the factory grows to support more object types or complex creation logic, it can become harder to maintain and test.
+
+6. Learning Curve
+
+- For developers unfamiliar with design patterns, understanding and implementing the Factory Pattern can introduce a learning curve.
+
+## When to Use the Factory Pattern
+
+**Ideal Scenarios:**
+
+- When object creation logic is complex or requires conditional decisions.
+- When the type of object to be created may change at runtime.
+- When multiple classes share a common interface or base class, and you need to decide which to instantiate dynamically.
+- When you want to centralize and reuse object creation logic to avoid duplication.
+
+**Avoid When:**
+
+- The object creation process is simple and unlikely to change.
+- The overhead of additional abstraction outweighs the benefits for a small-scale project.
+
+## Summary
+
+The Factory Pattern is a foundational design pattern in software development, offering a clean and scalable solution to object creation. By centralizing creation logic, it promotes loose coupling, encapsulation, and flexibility, making it particularly effective in complex or dynamic systems.
+
+In this repository, we’ve demonstrated how the Factory Pattern simplifies the management of toast notifications. Through modular components, a centralized factory, and an intuitive API, the system becomes easy to extend and maintain, addressing real-world challenges with elegance.
+
+While the Factory Pattern provides many benefits, such as scalability and improved maintainability, it’s essential to balance its use against potential downsides like increased abstraction and complexity. As with any design pattern, understanding when and how to apply it ensures you reap its full advantages without unnecessary overhead.
+
+Incorporating the Factory Pattern into your projects can significantly enhance your codebase, especially for scalable and extensible applications. Explore this repository to see the pattern in action and use it as a foundation for building robust, maintainable systems.
+
+## References:
+
+Repository: https://github.com/emhat098/factory-pattern
+
+Refactoring.guru: https://refactoring.guru/design-patterns/factory-method
