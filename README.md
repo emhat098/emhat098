@@ -34,4 +34,7 @@ Feel free to reach out if you have any questions or if you’d like to collabora
 - 📚 In my free time, I love reading tech blogs and experimenting with new coding projects.
 - 🎮 I’m a fan of video games and enjoy playing Wild Rift.
 
-Roadmap.sh: https://roadmap.sh/projects/basic-html-website
+Roadmap.sh:
+
+- https://roadmap.sh/projects/basic-html-website
+- https://roadmap.sh/projects/portfolio-website
