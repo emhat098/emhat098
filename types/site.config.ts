@@ -3,4 +3,5 @@ export interface SiteConfig {
   description: string;
   accentColor: string;
   favicon: string;
+  category: string;
 }

@@ -29,7 +29,7 @@ const blogCategories = new Set(['all']);
  * @param {string} source the source markdown content of the blog post
  * @return {import('./../types').BaseFrontMatter}
  */
-const getFrontMatter = (filename, source) => {
+export const getFrontMatter = (filename, source) => {
   try {
     /**
      * @type {import('./../types').LegacyFrontMatter}

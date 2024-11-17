@@ -15,7 +15,7 @@ import dotenvLanguage from 'shiki/langs/dotenv.mjs';
 import dockerLanguage from 'shiki/langs/dockerfile.mjs';
 import yamlLanguage from 'shiki/langs/yaml.mjs';
 
-import BASE_THEME from 'shiki/themes/tokyo-night.mjs';
+import BASE_THEME from 'shiki/themes/kanagawa-wave.mjs';
 /**
  * All languages needed within the Node.js website for syntax highlighting.
  *

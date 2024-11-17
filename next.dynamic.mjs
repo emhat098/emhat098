@@ -5,7 +5,7 @@ import { join, normalize, sep } from 'node:path';
 import { cache } from 'react';
 import { VFile } from 'vfile';
 import { compileMDX } from './next.mdx.compiler.mjs';
-import { IS_DEVELOPMENT } from './next.constants.mjs';
+import { BASE_URL, IS_DEVELOPMENT } from './next.constants.mjs';
 import { getMarkdownFiles } from './next.helper.mjs';
 import matter from 'gray-matter';
 import {
@@ -13,6 +13,7 @@ import {
   PAGE_METADATA,
 } from './next.dynamic.site.constants.mjs';
 import { siteConfig } from './next.site.config.mjs';
+import { sitePageConfig } from './next.page.config.mjs';
 
 const createCachedMarkdownCache = () => {
   if (IS_DEVELOPMENT) {
@@ -128,7 +129,26 @@ const getDynamicRouter = async () => {
         ? `${siteConfig.title} - ${data.title}`
         : siteConfig.title;
 
-      metadata.description = data.description ?? siteConfig.description;
+      metadata.description =
+        data?.summary ?? data?.description ?? siteConfig.description;
+      metadata.alternates = {
+        canonical: `${BASE_URL}/${path}`,
+      };
+      metadata.publisher = sitePageConfig.author.name;
+      metadata.category = sitePageConfig.category;
+      metadata.keywords = [sitePageConfig.category, data?.category];
+      metadata.applicationName = siteConfig.title;
+      metadata.assets = BASE_URL;
+      metadata.authors = sitePageConfig.author;
+      metadata.icons = BASE_URL + '/icon.png';
+      metadata.manifest = BASE_URL + '/site.webmanifest.json';
+      metadata.openGraph = {
+        type: data?.type ?? 'article',
+        images: data?.banner ?? sitePageConfig.banner,
+        locale: 'vi',
+        title: data.title ?? siteConfig.title,
+        tags: [sitePageConfig.category, data?.category],
+      };
 
       return metadata;
     } catch (error) {
