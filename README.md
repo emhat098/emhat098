@@ -25,6 +25,7 @@ I’m always open to networking and discussing tech! You can find me on:
 - [Twitter](https://x.com/emhat098)
 - [Blog](https://emhat098.vercel.app)
 - [Facebook](https://www.facebook.com/emhat098)
+- [Roamap](https://roadmap.sh/u/emhat098)
 
 Feel free to reach out if you have any questions or if you’d like to collaborate on a project!
 
@@ -33,8 +34,3 @@ Feel free to reach out if you have any questions or if you’d like to collabora
 - 🌍 I enjoy learning about different programming languages.
 - 📚 In my free time, I love reading tech blogs and experimenting with new coding projects.
 - 🎮 I’m a fan of video games and enjoy playing Wild Rift.
-
-Roadmap.sh:
-
-- https://roadmap.sh/projects/basic-html-website
-- https://roadmap.sh/projects/portfolio-website
