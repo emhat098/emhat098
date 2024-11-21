@@ -1,3 +1,7 @@
 .list li ul {
   list-style: circle;
 }
+
+.list ul li a {
+  text-decoration: underline;
+}

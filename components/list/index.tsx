@@ -13,6 +13,7 @@ const List: FC<ListProps> = ({ as = 'ul', children, ...props }) => {
       {...props}
       className={cn(
         'ml-4',
+        'list-content',
         as === 'ul' ? 'list-disc' : 'list-decimal',
         styles.list,
       )}

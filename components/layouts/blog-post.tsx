@@ -32,7 +32,7 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <main>
       <Navbar />
-      <Container>
+      <Container id='blog-post'>
         <div className='grid grid-cols-12 sm:gap-10 w-full mx-auto px-2 md:p-0'>
           {/* The main content of blog */}
           <article className={'col-span-12 sm:col-span-9'}>
