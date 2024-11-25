@@ -1,0 +1,490 @@
+---
+title: 'Best practices for using useEffect in React'
+date: '2024-11-25'
+summary: 'If you’re just getting started with useEffect, focus on understanding its basic behaviors—when it runs, how to handle dependencies, and how to clean up effects. For more experienced developers, consider diving into advanced patterns like debouncing, optimizing for performance, or debugging re-renders.'
+layout: 'blog-post'
+category: 'react'
+banner: 'https://images.unsplash.com/photo-1506123880582-b365334fd375?q=80&w=3584&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+isPublished: 1
+---
+
+If you’ve worked with React, you’ve probably encountered the `useEffect` Hook—it’s one of the most versatile tools for managing side effects in your components. Whether you’re fetching data, syncing with external systems, or cleaning up after a component unmounts, `useEffect` gets the job done.
+
+When I first started using `useEffect`, I thought, “How hard can it be?” But soon, I found myself facing weird bugs, performance issues, and even the dreaded infinite loop. Sound familiar? Trust me, you’re not alone.
+
+After diving deeper into how `useEffect` works and experimenting with best practices, I realized it’s not just about writing code that works - it’s about writing code that’s clean, efficient, and maintainable. That’s what I want to share with you in this article.
+
+We’ll go step-by-step through:
+
+- How `useEffect` operates?
+- Common mistakes to avoid
+- Practical tips to make your side effects smooth and bug-free.
+
+By the end, you’ll have a clear roadmap for understanding `useEffect` and avoiding the pitfalls I ran into.
+
+---
+
+## Understanding useEffect in React
+
+Before diving into best practices, let’s start by understanding how useEffect works. Think of it as a way to perform **side effects** in functional components. A side effect is anything that interacts with the outside world or modifies the state of your application in ways React doesn’t handle natively.
+
+---
+
+**When does useEffect run?**
+
+- After the Initial Render
+- After Updates
+- Before Component Unmounts
+
+---
+
+**1. After the Initial Render:** by default, `useEffect` runs after the component renders for the first time.
+
+```jsx
+useEffect(() => {
+  console.log('This runs after the first render!');
+}, []); // Dependency array is empty
+```
+
+**2. After Updates:** If you specify dependencies in the dependency array, `useEffect` will run whenever those dependencies change.
+
+```jsx
+useEffect(() => {
+  console.log(`Count updated to: ${count}`);
+}, [count]); // Runs only when `count` changes
+```
+
+**3. Before Component Unmounts**: `useEffect` can return a cleanup function, which React calls when the component is about to unmount or before re-running the effect.
+
+```jsx
+useEffect(() => {
+  const timer = setInterval(() => console.log('Tick'), 1000);
+  return () => clearInterval(timer); // Cleanup when the component unmounts
+}, []);
+```
+
+---
+
+**What can you do with useEffect?**
+
+Here are som common use cases:
+
+1. Fetching Data:
+
+```jsx
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await fetch('/api/data');
+    const result = await response.json();
+    setData(result);
+  };
+
+  fetchData();
+}, []); // Runs only once
+```
+
+2. Subscribing to Events:
+
+```jsx
+useEffect(() => {
+  const handleResize = () => console.log('Window resized');
+  window.addEventListener('resize', handleResize);
+
+  return () => window.removeEventListener('resize', handleResize); // Cleanup
+}, []);
+```
+
+3. DOM Manipulation:
+
+```jsx
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, [count]); // Updates the title when `count` changes
+```
+
+---
+
+**How useEffect fits into React’s Lifecycle?**
+
+Unlike class components, which use lifecycle methods like `componentDidMount` or `componentDidUpdate`, `useEffect` combines all these functionalities into one powerful hook.
+
+| Lifecycle Phase           | Class Component Method | `useEffect` in Function Component                |
+| ------------------------- | ---------------------- | ------------------------------------------------ |
+| After Render (Initial)    | `componentDidMount`    | `useEffect(() => { ... }, []);`                  |
+| After State/Props Updates | `componentDidUpdate`   | `useEffect(() => { ... }, [<dependencies>]);`    |
+| Before Component Unmount  | `componentWillUnmount` | `useEffect(() => { return () => { ... } }, []);` |
+
+Understanding these basics is crucial because most `useEffect` pitfalls come from not knowing when or why it runs. In the next section, we’ll dive into the **best practices** to ensure your `useEffect` usage is smooth and efficient.
+
+---
+
+## **Best Practices**
+
+### **Dependencies Thoughtfully**
+
+Dependencies control when useEffect runs. Mismanaging them can lead to stale data, unnecessary re-renders, or missed updates.
+
+For example: Fetch data when a URL changes.
+
+You want to fetch data from an API, but only when the URL changes. Adding the url as a dependency ensures that the effect runs only when needed.
+
+```jsx
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await fetch(url);
+    const result = await response.json();
+    setData(result);
+  };
+
+  fetchData();
+}, [url]); // Runs only when `url` changes
+```
+
+---
+
+### **Use Cleanup Functions**
+
+When your component sets up subscriptions, intervals, or event listeners, it’s important to clean them up to avoid memory leaks or unwanted behavior.
+
+For example: Set up a timer
+
+You want to create a timer that logs every second and clean it up when the component unmounts.
+
+```jsx
+useEffect(() => {
+  const timer = setInterval(() => {
+    console.log('Timer tick');
+  }, 1000);
+
+  return () => clearInterval(timer); // Cleanup the timer
+}, []);
+```
+
+---
+
+### **Avoid Heavy Computations**
+
+Performing expensive calculations inside `useEffect` can block rendering and impact performance. Instead, use `useMemo` to optimize such computations.
+
+For example:  Calculate a summary of data
+
+You need to compute a summary of a large dataset when the data changes.
+
+```jsx
+const summary = useMemo(() => {
+  return data.reduce((sum, item) => sum + item.value, 0);
+}, [data]);
+```
+
+---
+
+### **Separate concerns with multiple useEffect calls**
+
+It’s tempting to combine all side effects into a single `useEffect`, but separating them makes your code more readable and maintainable.
+
+For example: Fetch data and handle a subscription
+
+You want to fetch data and set up a WebSocket connection, each with its own cleanup logic.
+
+```jsx
+// Fetch data
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await fetch(url);
+    const result = await response.json();
+    setData(result);
+  };
+
+  fetchData();
+}, [url]);
+
+// Set up WebSocket
+useEffect(() => {
+  const socket = new WebSocket(wsUrl);
+  socket.onmessage = (event) => console.log(event.data);
+
+  return () => socket.close(); // Cleanup WebSocket
+}, [wsUrl]);
+```
+
+---
+
+### **Handle Async Code Carefully**
+
+`useEffect` does not directly support async functions, so you need to manage them properly to avoid race conditions or state updates on unmounted components.
+
+For example: Fetch user details
+
+You want to fetch user details but ensure the component doesn’t update state if unmounted.
+
+```jsx
+useEffect(() => {
+  let isMounted = true;
+
+  const fetchUser = async () => {
+    const response = await fetch(`/api/users/${userId}`);
+    const result = await response.json();
+
+    if (isMounted) setUser(result);
+  };
+
+  fetchUser();
+
+  return () => {
+    isMounted = false; // Prevent state updates
+  };
+}, [userId]);
+```
+
+---
+
+### **Avoid Infinite Loops**
+
+Updating state inside useEffect without careful management can cause infinite loops. Instead, use functional updates when updating state.
+
+For example: Auto-increment a counter
+
+You want a counter that increments every second.
+
+```jsx
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCount((prevCount) => prevCount + 1); // Functional update
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, []);
+```
+
+---
+
+### **Debounce or Throttle Expensive Operations**
+
+If user interactions (e.g., typing in a search bar) trigger expensive operations, `debounce` them to reduce frequent effect executions.
+
+For example: Debounce a search API call
+
+You want to call an API after the user stops typing for 500ms.
+
+```jsx
+useEffect(() => {
+  const handler = setTimeout(() => {
+    if (searchTerm) {
+      fetch(`/api/search?q=${searchTerm}`)
+        .then((res) => res.json())
+        .then((data) => setResults(data));
+    }
+  }, 500);
+
+  return () => clearTimeout(handler); // Cleanup the timeout
+}, [searchTerm]);
+```
+
+---
+
+### **Conditional Effects**
+
+Don’t use `useEffect` to calculate derived state. Use `useMemo` or compute it directly during rendering.
+
+For example: Double a value from props
+
+You need to show the double of a value passed from props.
+
+```jsx
+const doubledValue = useMemo(() => value * 2, [value]);
+```
+
+---
+
+### **Use Linting Tools**
+
+Enable `ESLint` with the React plugin to catch common mistakes, such as missing dependencies in `useEffect`.
+
+For example: Linting in your project
+
+Install the React plugin and enable rules for Hooks:
+
+```bash
+npm install eslint-plugin-react-hooks --save-dev
+```
+
+In your `.eslintrc` file:
+
+```bash
+{
+  "plugins": ["react-hooks"],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
+```
+
+In the next section, we’ll explore **advanced tips** for optimizing `useEffect`, including creating custom hooks and integrating with `Context`.
+
+---
+
+## **Advanced Tips for Optimizing useEffect**
+
+Now that we’ve covered the best practices, let’s take a step further with advanced techniques to make your `useEffect` usage even more powerful and efficient.
+
+### **Create Custom Hooks for Reusability**
+
+When you find yourself repeating similar `useEffect` logic across multiple components, it’s time to refactor into a custom Hook. Custom Hooks help you encapsulate logic, making it reusable and easier to maintain.
+
+For example: Fetching Data Across Components
+
+You have multiple components that fetch data from an API, and you want to centralize this logic.
+
+```jsx
+import { useState, useEffect } from 'react';
+
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(url);
+      const result = await response.json();
+      setData(result);
+    };
+
+    fetchData();
+  }, [url]);
+
+  return data;
+};
+
+// Usage in a component
+const UserList = () => {
+  const users = useFetch('/api/users');
+  return <pre>{JSON.stringify(users, null, 2)}</pre>;
+};
+```
+
+### **Combine useEffect with Context for Global State**
+
+If you’re managing global state with `Context`, you can integrate `useEffect` for side effects, such as fetching data or updating global values.
+
+For example: Managing Theme State with Context
+
+You want to persist the theme (light/dark) across sessions.
+
+```jsx
+import React, { useState, useEffect, createContext, useContext } from 'react';
+
+const ThemeContext = createContext();
+
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+const App = () => {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  return (
+    <div className={theme}>
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+};
+
+// Wrap the app with ThemeProvider
+export default () => (
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>
+);
+```
+
+---
+
+### **Optimize Performance with Batching**
+
+React automatically batches state updates to improve performance. However, using `useEffect` with multiple `setState` calls might not always batch them correctly. For intensive updates, consider combining state changes.
+
+For example: Multiple State Updates
+
+You want to update several related states efficiently.
+
+```jsx
+useEffect(() => {
+  setStateA(computeA());
+  setStateB(computeB());
+}, [dependency]); // Two separate updates might not batch
+```
+
+Instead:
+
+```jsx
+useEffect(() => {
+  setCombinedState({
+    a: computeA(),
+    b: computeB(),
+  });
+}, [dependency]); // Single update for better performance
+```
+
+---
+
+### **Avoid Overusing useEffect**
+
+Not every dynamic logic needs `useEffect`. Derived state, memoized values, and computed properties can often replace unnecessary effects.
+
+For example: Calculating a Filtered List
+
+Instead of recalculating a filtered list in `useEffect`, use `useMemo`.
+
+```jsx
+const filteredItems = useMemo(() => {
+  return items.filter((item) => item.isVisible);
+}, [items]);
+```
+
+---
+
+### **Debugging useEffect with DevTools**
+
+When useEffect doesn’t behave as expected, the React Developer Tools can help. Use the “Profiler” to analyze render timings and dependencies.
+
+For example: **Debugging Re-renders**
+
+- Open the React DevTools Profiler tab.
+- Highlight components that re-render unexpectedly and analyze their dependency arrays.
+
+Reference: [https://react.dev/reference/react/Profiler](https://react.dev/reference/react/Profiler)
+
+---
+
+## **Conclusion**
+
+The `useEffect` Hook is a cornerstone of modern React development, enabling you to manage side effects like fetching data, subscribing to events, or modifying the DOM. While its flexibility is powerful, it’s also easy to misuse, leading to bugs, performance issues, or unnecessary complexity.
+
+By applying the best practices and advanced techniques we’ve discussed:
+
+- You can avoid common pitfalls, such as infinite loops or stale dependencies.
+- Optimize your components for performance by leveraging tools like `useMemo` and proper dependency management.
+- Write clean, maintainable code by separating concerns, reusing logic with custom Hooks, and integrating `useEffect` seamlessly with the Context API.
+
+If you’re just getting started with `useEffect`, focus on understanding its basic behaviors—when it runs, how to handle dependencies, and how to clean up effects. For more experienced developers, consider diving into advanced patterns like debouncing, optimizing for performance, or debugging re-renders.
+
+With these principles in mind, you’ll not only write better code but also build more reliable and scalable React applications. Happy coding!
