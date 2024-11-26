@@ -36,7 +36,6 @@ const Pre: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
           <PiClipboardThin className={'text-white w-4 h-4 md:w-6 md:h-6'} />
         )}
       </button>
-      <button></button>
       {children}
     </pre>
   );

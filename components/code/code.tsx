@@ -1,12 +1,13 @@
 'use client';
 
 import useClipboard from '@/hooks/use-clipboard';
+import cn from '@/util/tailwind-helper';
 import { FC, PropsWithChildren, useRef } from 'react';
 import { toast } from 'sonner';
 
 const Code: FC<PropsWithChildren> = ({ children }) => {
   const ref = useRef<HTMLElement>(null);
-  const [, copyToClipboard] = useClipboard();
+  const [copied, copyToClipboard] = useClipboard();
 
   const onCopy = async () => {
     if (ref.current?.textContent) {
@@ -20,9 +21,10 @@ const Code: FC<PropsWithChildren> = ({ children }) => {
       <code
         ref={ref}
         onClick={onCopy}
-        className={
-          'font-normal text-red-700 bg-red-200 border border-red-700 px-[0.1rem] rounded hover:cursor-pointer text-xs lg:text-sm *:break-works *:whitespace-break-spaces'
-        }
+        className={cn(
+          'font-normal text-green-700 bg-green-200 border border-green-700 px-[0.1rem] rounded hover:cursor-pointer text-xs lg:text-sm *:break-works *:whitespace-break-spaces',
+          copied && 'bg-green-700 text-green-200 border-white',
+        )}
         title={'Click to copy to clipboard!'}
       >
         {children}
