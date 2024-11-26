@@ -38,7 +38,6 @@ const BlogPostLayout: FC<PropsWithChildren> = ({ children }) => {
           <article className={'col-span-12 sm:col-span-9'}>
             <div className='flex flex-col gap-2'>
               <h1 className={'font-bold text-3xl py-4'}>{frontmatter.title}</h1>
-              {/* TODO: Split this element in to the avatar element. */}
               <div className={'flex flex-row gap-2 items-center'}>
                 <Avatar
                   image={frontmatter?.authorImg}

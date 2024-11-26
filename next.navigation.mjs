@@ -5,16 +5,8 @@
  */
 export const navigators = [
   {
-    href: '/',
-    title: 'Home',
-  },
-  {
     href: '/blog',
     title: 'Blogs',
-  },
-  {
-    href: '/about',
-    title: 'About',
   },
 ];
 

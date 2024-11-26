@@ -4,42 +4,23 @@ date: '2024-10-31'
 summary: 'Welcome to my blog, where I merge my passion for software development with a deep commitment to continuous learning. As a Software Engineer driven by curiosity and the thrill of innovation, I believe that the tech world is a never-ending adventure. Every line of code, every new framework, and every solved problem is a step forward in this exhilarating journey.'
 ---
 
-{/* The pickup banner for display the an post as a banner component */}
+{/* Home banner */}
 
-<Banner />
+<HomeBanner />
+
+{/* Works */}
+
+<Works />
+
+{/* I Love */}
+
+<ILove />
+
+{/* Bio */}
+
+<Bio />
+{/* On the internet */}
+
+<Internet />
 
 <BlogLatest />
-
-{/* The category list */}
-
-<CategoryList />
-
-{/* The articles */}
-
-<Articles
-  slugs={[
-    '/blog/javascript-from-scripting-to-object-oriented-programming-language',
-    '/blog/nodejs-22-a-detailed-overview-of-new-features',
-    '/blog/how-to-deploy-express.js-to-vercel',
-  ]}
-  title={'Mastering JavaScript'}
-  summary={
-    'Discover a wide range of articles focused on JavaScript, designed to support you at every stage of your coding journey. This blog series covers essential topics, from understanding core syntax and principles to exploring modern features and best practices. Whether you’re just starting with JavaScript or looking to deepen your expertise, our posts offer clear explanations, real-world examples, and practical advice. Stay updated with the latest trends, enhance your problem-solving skills, and become more confident in using JavaScript to build dynamic, interactive web experiences.'
-  }
-/>
-
-<Articles
-  slugs={[
-    '/blog/do-not-mirror-your-props-as-a-state-in-react',
-    '/blog/how-can-we-define-a-component-in-react',
-    '/blog/understanding-the-permissions-policy-http-header',
-  ]}
-  color={'green'}
-  title={'React Mastery'}
-  image={
-    'https://fastly.picsum.photos/id/623/1080/1080.jpg?hmac=Jp3x9uWDx7K24CQ3Mi_mVMYfhpg-db5GqoSaV12s0OM'
-  }
-  summary={
-    'Explore our in-depth series on React, covering everything you need to build modern, interactive user interfaces. From setting up your first components to mastering hooks, state management, and performance optimization, these posts are crafted for developers looking to create seamless, dynamic applications. With clear examples and actionable tips, this series will guide you through React’s unique features and ecosystem, helping you become more effective and confident in building React applications.'
-  }
-/>

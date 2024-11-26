@@ -15,7 +15,7 @@ const BannerImage: FC<BannerImageProps> = ({ image, title }) => {
         src={image}
         alt={title}
         className={
-          'h-[240px] md:h-[360px] object-contain bg-slate-300 border-none'
+          'h-[240px] md:h-[360px] object-cover bg-slate-300 border-none'
         }
       />
     </div>

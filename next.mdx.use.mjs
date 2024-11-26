@@ -10,8 +10,13 @@ import CodeEditor from './components/code-editor/code-editor';
 import Figure from './components/figure/figure';
 import InFooter from './components/footer/in-footer';
 import WithQuote from './components/hoc/with-quote';
+import HomeBanner from './components/home/banner';
+import Works from './components/home/works';
+import Bio from './components/home/bio';
 import Image from './components/image/image';
 import Navbar from './components/navbar/navbar';
+import Internet from './components/home/internet';
+import ILove from './components/home/i-love';
 
 /**
  * A full list of React Components that we want to pass through to MDX.
@@ -20,7 +25,12 @@ import Navbar from './components/navbar/navbar';
 export const mdxComponents = {
   Articles: Articles,
   Banner: Banner,
+  Bio: Bio,
+  Internet: Internet,
+  ILove: ILove,
+  Works: Works,
   BannerImage: BannerImage,
+  HomeBanner: HomeBanner,
   CodeEditor: CodeEditor,
   Image: Image,
   BlogLatest: BlogLatest,
