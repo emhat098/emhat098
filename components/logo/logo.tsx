@@ -9,11 +9,9 @@ interface LogoProps extends PropsWithChildren {
 
 const Logo: FC<LogoProps> = ({ children, className }) => {
   return (
-    <>
-      <span className={cn('text-lg font-medium', className)}>
-        {children ?? 'Em Ha Tuan'}
-      </span>
-    </>
+    <span className={cn('text-lg font-medium hover:animate-pulse', className)}>
+      {children ?? 'Em Ha Tuan'}
+    </span>
   );
 };
 

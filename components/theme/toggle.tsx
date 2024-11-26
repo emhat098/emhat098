@@ -12,7 +12,10 @@ const ToggleTheme = () => {
   };
 
   return (
-    <Button onClick={toggleTheme}>
+    <Button
+      className={'bg-transparent'}
+      onClick={toggleTheme}
+    >
       {theme === 'dark' ? (
         <CiDark className={'w-4 h-4 md:w-6 md:h-6'} />
       ) : (

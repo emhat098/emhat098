@@ -54,7 +54,10 @@ const SearchDialog = memo(() => {
 
   return (
     <>
-      <Button onClick={() => ref.current?.showModal()}>
+      <Button
+        className={'bg-transparent'}
+        onClick={() => ref.current?.showModal()}
+      >
         <CiSearch className={'w-4 h-4 md:w-6 md:h-6'} />
       </Button>
       <dialog

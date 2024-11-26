@@ -11,7 +11,7 @@ const Heading: FC<HeadingProps> = ({ as, children, ...props }) => {
     <Component
       {...props}
       className={cn(
-        'font-medium my-2 border-b border-b-black dark:border-b-white w-max',
+        'font-medium my-2 border-b border-b-black dark:border-b-white w-full',
         props.className,
       )}
     >

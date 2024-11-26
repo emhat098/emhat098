@@ -7,12 +7,14 @@ const Table: FC<HTMLAttributes<HTMLTableElement>> = ({
   ...props
 }) => {
   return (
-    <table
-      {...props}
-      className={cn(styles.table, props.className)}
-    >
-      {children}
-    </table>
+    <div className={'overflow-scroll'}>
+      <table
+        {...props}
+        className={cn(styles.table, props.className)}
+      >
+        {children}
+      </table>
+    </div>
   );
 };
 

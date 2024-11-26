@@ -11,7 +11,7 @@ const Button: FC<ButtonProps> = ({ ...props }) => {
       {...props}
       type={props?.type ?? 'submit'}
       className={cn(
-        'transition-all duration-500 rounded-xl bg-white dark:bg-dark px-2 py-1 h-full inline-flex justify-center items-center',
+        'transition-all duration-500 rounded-xl bg-white px-2 py-1 h-full inline-flex justify-center items-center',
         props.className,
       )}
     >

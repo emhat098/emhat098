@@ -13,7 +13,7 @@ const Link: FC<LinkProps> = ({ children, ...props }) => {
     <NextLink
       {...props}
       className={cn(
-        'text-black hover:underline hover:text-blue-950 dark:text-dark dark:bg-dark',
+        'text-black hover:underline hover:text-blue-950 dark:text-dark',
         props.className,
       )}
     >
