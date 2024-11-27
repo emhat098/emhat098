@@ -5,6 +5,10 @@
  */
 export const navigators = [
   {
+    href: '/project',
+    title: 'Projects',
+  },
+  {
     href: '/blog',
     title: 'Blogs',
   },

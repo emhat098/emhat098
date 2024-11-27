@@ -7,12 +7,15 @@ import Logo from '@/components/logo/logo';
 import SearchDialog from '@/components/search/search';
 import dynamic from 'next/dynamic';
 import { BiLogoGithub } from 'react-icons/bi';
+import { usePathname } from 'next/navigation';
+import cn from '@/util/tailwind-helper';
 
 const ToggleTheme = dynamic(() => import('@/components/theme/toggle'), {
   ssr: false,
 });
 
 const Navbar = () => {
+  const pathname = usePathname();
   return (
     <nav
       className={
@@ -25,13 +28,22 @@ const Navbar = () => {
             href={'/'}
             className={'hover:underline'}
           >
-            <Logo className={'text-sm sm:text-base'} />
+            <Logo
+              className={cn(
+                'text-sm sm:text-base',
+                pathname === '/' && '!font-bold',
+              )}
+            />
           </Link>
           <ul className={'flex flex-row gap-4 items-center'}>
             {navigators.map((nav) => (
               <li key={nav.href}>
                 <Link
-                  className={'font-normal hover:underline'}
+                  className={cn(
+                    'font-normal hover:underline p-2',
+                    nav.href === pathname &&
+                      'transition-all ease-linear duration-300 bg-teal-500 text-white hover:bg-teal-300 hover:text-black',
+                  )}
                   href={nav.href}
                   target={nav.isExternal ? '_blank' : '_parent'}
                 >
