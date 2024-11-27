@@ -28,8 +28,8 @@ const config: Config = {
         break: 'break-word',
       },
       backgroundColor: {
-        dark: 'rgb(15 23 42)',
-        darker: 'rgb(2 6 23)',
+        dark: 'rgb(2 6 23)',
+        darker: 'rgb(0 0 0)',
       },
     },
   },

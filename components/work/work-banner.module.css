@@ -1,0 +1,11 @@
+.filter input[type='range'] {
+  @apply bg-transparent h-[2px] bg-white border border-solid border-white appearance-none;
+}
+
+.filter input[type='range']::-webkit-slider-thumb {
+  @apply border border-solid border-white h-2 w-2 rounded-lg bg-black appearance-none;
+}
+
+.banner {
+  @apply rounded-lg blur-[4px] shadow w-full h-[360px] md:h-[480px] object-cover bg-slate-300 border-none;
+}

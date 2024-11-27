@@ -5,3 +5,4 @@ export * from './server';
 export * from './navigator';
 export * from './site.config';
 export * from './site.page.config';
+export * from './work';

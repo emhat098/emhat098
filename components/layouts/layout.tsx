@@ -4,12 +4,14 @@ import { FC, PropsWithChildren } from 'react';
 import BlogsLayout from './blogs';
 import BlogPostLayout from './blog-post';
 import CategoryLayout from './category';
+import WorkLayout from './work';
 
 const layouts = {
   page: DefaultLayout,
   blogs: BlogsLayout,
   'blog-post': BlogPostLayout,
   category: CategoryLayout,
+  work: WorkLayout,
 } satisfies Record<Layouts, FC>;
 
 type LayoutProps<L = Layouts> = PropsWithChildren<{ layout: L }>;

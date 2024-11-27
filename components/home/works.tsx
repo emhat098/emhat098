@@ -1,6 +1,6 @@
 import { BiChevronRight } from 'react-icons/bi';
 import Link from '../link/link';
-import Section from './section';
+import Section from '../section/section';
 
 const Works = () => {
   return (
@@ -13,7 +13,7 @@ const Works = () => {
         </p>
         <div className={'flex flex-row justify-center mt-2'}>
           <Link
-            href='/project'
+            href='/work'
             className={
               'transition-all ease-linear duration-200 py-2 bg-teal-200 dark:bg-teal-950 hover:bg-teal-500 dark:hover:bg-teal-500 pr-2 pl-4 rounded-lg text-teal-900 font-semibold inline-flex items-center gap-1'
             }

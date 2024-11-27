@@ -5,7 +5,7 @@ import {
   PiInstagramLogoLight,
   PiLinkedinLogoLight,
 } from 'react-icons/pi';
-import Section from './section';
+import Section from '../section/section';
 import Link from '../link/link';
 
 interface LinkType {
