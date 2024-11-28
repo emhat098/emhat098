@@ -28,12 +28,12 @@ const bios: BioType[] = [
   },
   { year: '2018-2019', title: 'Self-learning' },
   { year: '2019-2020', title: 'Software Engineer at Fuijinet System.' },
-  { year: '2022', title: 'Freelancer at Miso Robotics.' },
+  { year: '2020', title: 'Software Engineer at Nashtech Vietnam.' },
   { year: '2023', title: 'Freelancer at Bazango.vn.' },
   { year: '2023', title: 'Freelancer at amoeba.site.' },
   { year: '2024', title: 'Freelancer at Ads Management Company.' },
   { year: '2024', title: 'Creating my personal blog website independently' },
-  { year: '2020 to present', title: 'Senior Software Engineer at Nashtech.' },
+  { year: 'Present', title: 'Senior Software Engineer at Nashtech.' },
 ];
 
 const Bio = () => {
