@@ -10,25 +10,27 @@ const ProjectWorks = async () => {
       <div className='grid grid-cols-2 gap-4'>
         {works &&
           works.length > 0 &&
-          works.map((work) => (
-            <Link
-              key={work.slug}
-              className={'flex flex-col gap-2 hover:no-underline'}
-              href={work.slug}
-            >
-              <Image
-                src={work.banner}
-                alt={work.title}
-                className={'h-40'}
-              />
-              <div className={'text-center text-sm font-bold line-clamp-2'}>
-                {work.title}
-              </div>
-              <div className={'text-center text-xs sm:text-sm line-clamp-2'}>
-                {work.summary}
-              </div>
-            </Link>
-          ))}
+          works
+            .sort((a, b) => b.date.getTime() - a.date.getTime())
+            .map((work) => (
+              <Link
+                key={work.slug}
+                className={'flex flex-col gap-2 hover:no-underline'}
+                href={work.slug}
+              >
+                <Image
+                  src={work.banner}
+                  alt={work.title}
+                  className={'h-40'}
+                />
+                <div className={'text-center text-sm font-bold line-clamp-2'}>
+                  {work.title}
+                </div>
+                <div className={'text-center text-xs sm:text-sm line-clamp-2'}>
+                  {work.summary}
+                </div>
+              </Link>
+            ))}
       </div>
     </Section>
   );
