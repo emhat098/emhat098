@@ -17,8 +17,6 @@ const ToggleTheme = dynamic(() => import('@/components/theme/toggle'), {
 const Navbar = () => {
   const pathname = usePathname();
 
-  console.log(pathname?.split('/')[1]);
-
   return (
     <nav
       className={

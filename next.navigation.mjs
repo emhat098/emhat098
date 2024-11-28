@@ -6,7 +6,7 @@
 export const navigators = [
   {
     href: '/work',
-    title: 'Work',
+    title: 'Works',
   },
   {
     href: '/blog',
