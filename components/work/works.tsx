@@ -21,8 +21,12 @@ const ProjectWorks = async () => {
                 alt={work.title}
                 className={'h-40'}
               />
-              <div className={'text-center text-base'}>{work.title}</div>
-              <div className={'text-center text-sm'}>{work.summary}</div>
+              <div className={'text-center text-sm font-bold line-clamp-2'}>
+                {work.title}
+              </div>
+              <div className={'text-center text-xs sm:text-sm line-clamp-2'}>
+                {work.summary}
+              </div>
             </Link>
           ))}
       </div>

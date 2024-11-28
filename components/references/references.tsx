@@ -12,7 +12,7 @@ const References: FC<ReferencesProps> = ({ data }) => {
       {data.map((refer) => (
         <div
           key={refer.title}
-          className={'flex flex-row gap-2 items-center'}
+          className={'flex flex-row gap-2 items-center w-full'}
         >
           <span
             className={
@@ -21,13 +21,15 @@ const References: FC<ReferencesProps> = ({ data }) => {
           >
             {refer.title}
           </span>
-          <div>
+          <div className={'w-max text-sm'}>
             {refer.content && <p>{refer.content}</p>}
             {refer.href && (
               <a
                 href={refer.href}
                 target={'_blank'}
-                className={'flex flex-row gap-2 text-red-400 hover:underline'}
+                className={
+                  'flex flex-row gap-2 text-red-400 hover:underline flex-wrap'
+                }
               >
                 {refer.href}
                 <GoLinkExternal className={'w-4 h-4'} />

@@ -9,11 +9,11 @@ import ImageFilterProvider, {
   ImageFilterContext,
 } from './image-filter-provider';
 
-interface ProjectBannerProps extends ImageFilterProps {
+interface WorkBannerProps extends ImageFilterProps {
   from?: string;
 }
 
-const ProjectBanner: React.FC<ProjectBannerProps> = ({ image, from }) => {
+const WorkBanner: React.FC<WorkBannerProps> = ({ image, from }) => {
   return (
     <div className='flex flex-col gap-2'>
       <div className={'relative max-h-max h-full group'}>
@@ -38,7 +38,7 @@ const ProjectBanner: React.FC<ProjectBannerProps> = ({ image, from }) => {
           >
             <div
               className={
-                'flex flex-col gap-0 sm:gap-1 backdrop-blur p-2 sm:p-4 rounded-lg bg-black/30 backdrop-saturate-200'
+                'flex flex-col gap-0 sm:gap-1 backdrop-blur p-2 sm:p-4 rounded-lg bg-black/30 backdrop-saturate-200 min-w-40'
               }
             >
               <div
@@ -102,7 +102,7 @@ interface ImageFilterProps {
 }
 
 const ImageFilter: React.FC<ImageFilterProps> = ({
-  image: { src = '/project.jpg', alt = 'Project banner' },
+  image: { src = '/me.png', alt = 'Work banner' },
 }) => {
   return (
     <ImageFilterProvider>
@@ -126,7 +126,7 @@ const Image: FC<{ src: string; alt: string }> = ({ src, alt }) => {
     <img
       src={src}
       alt={alt}
-      className={cn(styles.banner, '')}
+      className={cn(styles.banner, 'object-fill')}
       style={{
         filter: context.filter ?? '',
       }}
@@ -164,8 +164,6 @@ const FilterControl: FC<FilterConfig> = memo(({ label, max, min, name }) => {
   const { getValue, setValue } = context;
   const value = getValue(name);
 
-  console.log(`FilterControl rendered: ${name}`);
-
   return (
     <label
       key={name}
@@ -190,4 +188,4 @@ const FilterControl: FC<FilterConfig> = memo(({ label, max, min, name }) => {
 
 FilterControl.displayName = 'FilterControl';
 
-export default ProjectBanner;
+export default WorkBanner;

@@ -16,6 +16,9 @@ const ToggleTheme = dynamic(() => import('@/components/theme/toggle'), {
 
 const Navbar = () => {
   const pathname = usePathname();
+
+  console.log(pathname?.split('/')[1]);
+
   return (
     <nav
       className={
@@ -41,7 +44,7 @@ const Navbar = () => {
                 <Link
                   className={cn(
                     'font-normal hover:underline p-2',
-                    nav.href === pathname &&
+                    nav.href === '/' + pathname?.split('/')[1] &&
                       'transition-all ease-linear duration-300 bg-teal-500 text-white hover:bg-teal-300 hover:text-black',
                   )}
                   href={nav.href}

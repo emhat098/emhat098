@@ -16,7 +16,7 @@ const MinContainer: FC<MinContainerProps> = ({
   return (
     <Component
       {...props}
-      className={cn('w-[90%] sm:w-[60%] mx-auto', props.className)}
+      className={cn('w-full sm:w-[60%] mx-auto', props.className)}
     >
       {children}
     </Component>

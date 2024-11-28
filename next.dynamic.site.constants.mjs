@@ -67,5 +67,5 @@ export const PAGE_VIEWPORT = {
   ],
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 2,
+  maximumScale: 1,
 };
