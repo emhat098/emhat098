@@ -1,9 +1,9 @@
 .filter input[type='range'] {
-  @apply bg-transparent h-[2px] bg-white border border-solid border-white appearance-none;
+  @apply bg-transparent h-[4px] bg-white border border-solid border-white appearance-none;
 }
 
 .filter input[type='range']::-webkit-slider-thumb {
-  @apply border border-solid border-white h-2 w-2 rounded-lg bg-black appearance-none;
+  @apply border-none h-3 w-3 rounded-lg bg-white appearance-none;
 }
 
 .banner {

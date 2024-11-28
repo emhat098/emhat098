@@ -2,8 +2,12 @@
 'use client';
 
 import cn from '@/util/tailwind-helper';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, memo, useContext } from 'react';
 import styles from './work-banner.module.css';
+import ImageFilterProvider, {
+  FilterState,
+  ImageFilterContext,
+} from './image-filter-provider';
 
 interface ProjectBannerProps extends ImageFilterProps {
   from?: string;
@@ -56,7 +60,14 @@ const ProjectBanner: React.FC<ProjectBannerProps> = ({ image, from }) => {
   );
 };
 
-const filterConfigs = [
+interface FilterConfig {
+  label: string;
+  name: keyof FilterState;
+  min: number;
+  max: number;
+}
+
+const filterConfigs: FilterConfig[] = [
   {
     label: 'Blur',
     name: 'blur',
@@ -93,81 +104,90 @@ interface ImageFilterProps {
 const ImageFilter: React.FC<ImageFilterProps> = ({
   image: { src = '/project.jpg', alt = 'Project banner' },
 }) => {
-  const ref = useRef<HTMLImageElement>(null);
-  const [state, setState] = useState({
-    blur: 1,
-    brightness: 100,
-    contrast: 100,
-    grayscale: 0,
-    hue: 0,
-    invert: 0,
-    saturate: 0,
-  });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const { name, value } = e.target;
-    setState((prev) => ({
-      ...prev,
-      [name]: Number(value),
-    }));
-  };
-
-  useEffect(() => {
-    const imgEl = ref.current;
-    if (state && imgEl) {
-      const filter = `
-        blur(${state.blur}px)
-        brightness(${state.brightness / 100})
-        contrast(${state.contrast}%)
-        grayscale(${state.grayscale}%)
-      `;
-      imgEl.style.filter = filter;
-    }
-  }, [state]);
-
   return (
-    <div className={'relative group rounded-lg'}>
-      <img
-        src={src}
-        alt={alt}
-        className={cn(styles.banner, '')}
-        ref={ref}
-      />
-      <div
-        className={
-          'transition-all duration-300 ease-linear absolute right-2 rounded-lg bottom-2 z-[2] backdrop-blur bg-black/30 backdrop-saturate-200 opacity-0 group-hover:opacity-100 group-focus:opacity-100'
-        }
-      >
-        <div className={'flex flex-col gap-3 border rounded-lg p-4'}>
-          {filterConfigs.map((filter) => (
-            <label
-              key={filter.name}
-              htmlFor={filter.name}
-              className={cn(
-                'flex flex-col gap-1 text-xs text-white',
-                styles.filter,
-              )}
-            >
-              <span className={'font-normal'}>{filter.label}</span>
-              <input
-                type={'range'}
-                min={filter.min}
-                max={filter.max}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                value={state[filter.name]}
-                onChange={onChange}
-                name={filter.name}
-                className={'opacity-70 bg-transparent hover:cursor-pointer'}
-              />
-            </label>
-          ))}
-        </div>
+    <ImageFilterProvider>
+      <div className={'relative group rounded-lg'}>
+        <Image
+          src={src}
+          alt={alt}
+        />
+        <FilterControls />
+      </div>
+    </ImageFilterProvider>
+  );
+};
+
+const Image: FC<{ src: string; alt: string }> = ({ src, alt }) => {
+  const context = useContext(ImageFilterContext);
+  if (!context) {
+    throw new Error('Image must be used within ImageFilterProvider');
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={cn(styles.banner, '')}
+      style={{
+        filter: context.filter ?? '',
+      }}
+    />
+  );
+};
+
+const FilterControls = memo(() => {
+  return (
+    <div
+      className={
+        'transition-all duration-300 ease-linear absolute right-2 rounded-lg bottom-2 z-[2] backdrop-blur bg-black/30 backdrop-saturate-200 opacity-0 group-hover:opacity-100 group-focus:opacity-100'
+      }
+    >
+      <div className={'flex flex-col gap-3 border rounded-lg p-4'}>
+        {filterConfigs.map((filter) => (
+          <FilterControl
+            key={filter.name}
+            {...filter}
+          />
+        ))}
       </div>
     </div>
   );
-};
+});
+
+FilterControls.displayName = 'FilterControls';
+
+const FilterControl: FC<FilterConfig> = memo(({ label, max, min, name }) => {
+  const context = useContext(ImageFilterContext);
+  if (!context) {
+    throw new Error('FilterControl must be used within ImageFilterProvider');
+  }
+
+  const { getValue, setValue } = context;
+  const value = getValue(name);
+
+  console.log(`FilterControl rendered: ${name}`);
+
+  return (
+    <label
+      key={name}
+      htmlFor={name}
+      className={cn('flex flex-col gap-1 text-xs text-white', styles.filter)}
+    >
+      <span className='font-normal'>{label}</span>
+      <input
+        type='range'
+        min={min}
+        max={max}
+        value={value}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setValue(name, Number(e.target.value))
+        }
+        name={name}
+        className={cn('opacity-70 bg-transparent hover:cursor-pointer')}
+      />
+    </label>
+  );
+});
+
+FilterControl.displayName = 'FilterControl';
 
 export default ProjectBanner;
