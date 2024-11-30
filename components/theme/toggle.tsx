@@ -15,6 +15,7 @@ const ToggleTheme = () => {
     <Button
       className={'bg-transparent'}
       onClick={toggleTheme}
+      aria-label={'Theme toggle button'}
     >
       {theme === 'dark' ? (
         <CiDark className={'w-4 h-4 md:w-6 md:h-6'} />

@@ -57,6 +57,7 @@ const SearchDialog = memo(() => {
       <Button
         className={'bg-transparent'}
         onClick={() => ref.current?.showModal()}
+        aria-label={'Search blog button'}
       >
         <CiSearch className={'w-4 h-4 md:w-6 md:h-6'} />
       </Button>
