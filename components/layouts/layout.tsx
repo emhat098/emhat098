@@ -5,6 +5,7 @@ import BlogsLayout from './blogs';
 import BlogPostLayout from './blog-post';
 import CategoryLayout from './category';
 import WorkLayout from './work';
+import GoogleAnalytics from '../google/analytics';
 
 const layouts = {
   page: DefaultLayout,
@@ -19,7 +20,12 @@ type LayoutProps<L = Layouts> = PropsWithChildren<{ layout: L }>;
 const Layout: FC<LayoutProps> = ({ layout, children }) => {
   const LayoutComponent = layouts[layout] ?? DefaultLayout;
 
-  return <LayoutComponent>{children}</LayoutComponent>;
+  return (
+    <LayoutComponent>
+      {children}
+      <GoogleAnalytics />
+    </LayoutComponent>
+  );
 };
 
 export default Layout;

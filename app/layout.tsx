@@ -19,6 +19,10 @@ export default function RootLayout({
     >
       <head>
         <CodeEditorCSS />
+        <meta
+          name='google-adsense-account'
+          content='ca-pub-2083432074936499'
+        />
       </head>
       <body
         className={`transition-colors duration-500 ease-in-out antialiased ${GeistSans.variable} ${GeistMono.variable} dark:bg-dark dark:text-dark`}
