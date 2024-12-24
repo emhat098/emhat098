@@ -34,7 +34,7 @@ const TOC: FC<TOCProps> = ({ headings }) => {
     <div className={'group'}>
       <div
         className={
-          'group fixed right-4 top-20 z-10 cursor-pointer rounded border border-white bg-white px-2 py-3 shadow-sm transition-all duration-300 ease-linear hover:border-slate-300 lg:right-10'
+          'group fixed right-4 top-20 z-10 cursor-pointer rounded border border-white bg-white px-2 py-3 shadow-sm transition-all duration-300 ease-linear hover:border-slate-300 dark:bg-slate-500 lg:right-10'
         }
         onClick={() => setDisplayTOC(!displayedTOC)}
       >
@@ -44,7 +44,7 @@ const TOC: FC<TOCProps> = ({ headings }) => {
               <div
                 key={h.data.id}
                 className={
-                  'h-1 w-5 border-t border-slate-700 transition-all duration-300 ease-linear group-hover:border-slate-500'
+                  'h-1 w-5 border-t border-slate-700 transition-all duration-300 ease-linear group-hover:border-slate-500 dark:border-white dark:group-hover:border-slate-50'
                 }
               ></div>
             ))}
@@ -52,7 +52,7 @@ const TOC: FC<TOCProps> = ({ headings }) => {
       </div>
       <div
         className={cn(
-          'fixed right-16 top-20 z-10 rounded-lg border-2 border-slate-300 bg-white opacity-0 shadow-lg transition-all duration-300 ease-linear lg:right-24',
+          'fixed right-16 top-20 z-10 rounded-lg border-2 border-slate-300 bg-white opacity-0 shadow-lg transition-all duration-300 ease-linear dark:bg-slate-500 lg:right-24',
           displayedTOC && 'opacity-100',
         )}
       >
@@ -74,8 +74,9 @@ const TOC: FC<TOCProps> = ({ headings }) => {
                   >
                     <Link
                       className={cn(
-                        'font-normal text-slate-500 transition-all duration-300 ease-linear hover:text-slate-950',
-                        activeHeading === head?.data?.id && 'text-slate-950',
+                        'font-normal text-slate-500 transition-all duration-300 ease-linear hover:text-slate-950 dark:text-slate-300',
+                        activeHeading === head?.data?.id &&
+                          'font-bold text-slate-950 dark:text-white',
                       )}
                       href={`#${head?.data?.id}`}
                       onClick={() => handleOnClick(head?.data?.id)}
