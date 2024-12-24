@@ -1,21 +1,22 @@
 'use client';
 
 import type { Heading } from '@vcarl/remark-headings';
-import React, { FC, Fragment, useEffect, useMemo, useState } from 'react';
-import Link from '@/components/link/link';
+import React, { FC, useMemo, useState } from 'react';
 import cn from '@/util/tailwind-helper';
+import Link from '@/components/link/link';
+import { RiCloseLargeFill } from 'react-icons/ri';
 
 interface TOCProps {
-  items?: Record<string, React.ReactNode>;
   headings?: {
     items: Array<Heading>;
     minDepth?: number;
   };
 }
 
-const TOC: FC<TOCProps> = ({ headings, items }) => {
-  // The default depth of headings to display in the table of contents.
+const TOC: FC<TOCProps> = ({ headings }) => {
   const { minDepth = 2, items: headingItems = [] } = headings || {};
+  const [displayedTOC, setDisplayTOC] = useState(false);
+
   const [activeHeading, setActiveHeading] = useState(
     window?.location?.hash?.slice(1, window.location.hash.length) ?? '',
   );
@@ -25,83 +26,68 @@ const TOC: FC<TOCProps> = ({ headings, items }) => {
     [minDepth, headingItems],
   );
 
-  useEffect(() => {
-    const handleScroll = () => {
-      headings?.items.forEach((h) => {
-        const el = document.getElementById(h.data.id);
-        if (
-          el &&
-          el.getBoundingClientRect().top < 25 &&
-          el.getBoundingClientRect().top > 0
-        ) {
-          setActiveHeading(h.data.id);
-        }
-      });
-
-      // User is scrolling down the bottom of page.
-      // We set the active element is last items in `headings`.
-      if (
-        Math.floor(window.innerHeight + window.scrollY + 1) >=
-        document.documentElement.scrollHeight
-      ) {
-        setActiveHeading(headings?.items[headings.items.length - 1].data.id);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [headings]);
+  const handleOnClick = (id: string) => {
+    setActiveHeading(id);
+  };
 
   return (
-    <div
-      className={
-        'sticky top-0 sm:landscape:overflow-y-scroll sm:landscape:overflow-hidden sm:landscape:scrollbar-thin sm:landscape:max-h-[90vh]'
-      }
-    >
-      <div className={'flex flex-col gap-2 pl-4 p-2 border-l'}>
-        <div>
-          {items &&
-            Object.entries(items)
-              .filter(([, value]) => !!value)
-              .map(([key, value]) => (
-                <Fragment key={key}>
-                  <dt className={'font-medium py-1'}>{key}</dt>
-                  <dd className={'text-sm'}>{value}</dd>
-                </Fragment>
-              ))}
+    <div className={'group'}>
+      <div
+        className={
+          'group fixed right-4 top-20 z-10 cursor-pointer rounded border border-white bg-white px-2 py-3 shadow-sm transition-all duration-300 ease-linear hover:border-slate-300 lg:right-10'
+        }
+        onClick={() => setDisplayTOC(!displayedTOC)}
+      >
+        <div className='flex flex-col gap-1'>
+          {headingList.length > 0 &&
+            headingList.map((h) => (
+              <div
+                key={h.data.id}
+                className={
+                  'h-1 w-5 border-t border-slate-700 transition-all duration-300 ease-linear group-hover:border-slate-500'
+                }
+              ></div>
+            ))}
         </div>
-
-        {headingList.length > 0 && (
-          <div>
-            <dt className={'font-medium underline underline-offset-4 my-2'}>
-              {'Table of contents:'}
-            </dt>
+      </div>
+      <div
+        className={cn(
+          'fixed right-16 top-20 z-10 rounded-lg border-2 border-slate-300 bg-white opacity-0 shadow-lg transition-all duration-300 ease-linear lg:right-24',
+          displayedTOC && 'opacity-100',
+        )}
+      >
+        <div
+          className={'absolute right-4 top-4 cursor-pointer'}
+          onClick={() => setDisplayTOC(false)}
+        >
+          <RiCloseLargeFill className={'h-4 w-4 text-slate-500'} />
+        </div>
+        <div className={'flex flex-col gap-2 p-4'}>
+          {headingList.length > 0 && (
             <dd>
-              <ol className={'ml-2'}>
+              <dt className={'pb-1 text-sm uppercase'}>Content:</dt>
+              <ol className={'space-y-1'}>
                 {headingList.map((head) => (
                   <li
                     key={head.value}
-                    className={'text-sm'}
-                    style={{}}
+                    className={'text-xs'}
                   >
                     <Link
                       className={cn(
-                        'transition-all duration-300 ease-linear font-medium',
-                        activeHeading === head?.data?.id
-                          ? 'text-slate-950'
-                          : 'text-slate-500',
+                        'font-normal text-slate-500 transition-all duration-300 ease-linear hover:text-slate-950',
+                        activeHeading === head?.data?.id && 'text-slate-950',
                       )}
                       href={`#${head?.data?.id}`}
+                      onClick={() => handleOnClick(head?.data?.id)}
                     >
-                      {' '}
-                      - {head.value}
+                      {head.value}
                     </Link>
                   </li>
                 ))}
               </ol>
             </dd>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

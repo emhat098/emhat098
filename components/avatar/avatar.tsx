@@ -12,17 +12,17 @@ interface AvatarProps {
 
 const Avatar: FC<AvatarProps> = ({ title, image, className }) => {
   return (
-    <div className={cn('w-[40px] h-[40px]', className)}>
+    <div className={cn('h-6 w-6', className)}>
       {image ? (
         <Image
           src={image || 'https://picsum.photos/1081'}
           alt={title}
-          className={'h-full w-full object-cover rounded-full shadow'}
+          className={'h-full w-full rounded-full object-cover shadow'}
         />
       ) : (
         <div
           className={
-            'h-full w-full rounded-full shadow flex justify-center items-center flex-row'
+            'flex h-full w-full flex-row items-center justify-center rounded-full shadow'
           }
         >
           {title.charAt(0)}
